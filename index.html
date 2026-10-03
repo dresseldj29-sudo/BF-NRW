@@ -1,0 +1,4048 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feuerwehr Prüfungssystem</title>
+
+<style>
+:root{
+    --red:#d71920;
+    --red2:#ff3942;
+    --dark:#080b10;
+    --dark2:#10151d;
+    --dark3:#171e28;
+    --border:#293342;
+    --text:#f5f7fa;
+    --muted:#9ca8b7;
+    --green:#18c77b;
+    --yellow:#ffbf3f;
+    --blue:#3b82f6;
+    --danger:#ef4444;
+    --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(215,25,32,.18),transparent 35%),
+        radial-gradient(circle at 100% 30%,rgba(59,130,246,.08),transparent 30%),
+        var(--dark);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:72px;
+    background:rgba(8,11,16,.92);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    font-weight:900;
+    font-size:19px;
+}
+
+.logoIcon{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--red),#8e0b10);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    box-shadow:0 8px 25px rgba(215,25,32,.35);
+}
+
+.logoText span{
+    display:block;
+}
+
+.logoSub{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:500;
+    margin-top:2px;
+}
+
+.headerActions{
+    display:flex;
+    gap:9px;
+}
+
+/* BUTTONS */
+
+.btn{
+    border:1px solid var(--border);
+    background:var(--dark3);
+    color:white;
+    padding:11px 17px;
+    border-radius:11px;
+    transition:.18s;
+    font-weight:700;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    border-color:#465366;
+    background:#202938;
+}
+
+.btnPrimary{
+    background:linear-gradient(135deg,var(--red),#a50e14);
+    border-color:#ff4b52;
+    box-shadow:0 8px 24px rgba(215,25,32,.22);
+}
+
+.btnPrimary:hover{
+    background:linear-gradient(135deg,#ed252d,#b81017);
+}
+
+.btnGreen{
+    background:linear-gradient(135deg,#16a96b,#0d8251);
+    border-color:#27dd91;
+}
+
+.btnBlue{
+    background:linear-gradient(135deg,#2563eb,#1745aa);
+    border-color:#4e8dff;
+}
+
+.btnDanger{
+    background:#48171a;
+    border-color:#812127;
+}
+
+.btnSmall{
+    padding:7px 10px;
+    font-size:13px;
+}
+
+.btnFull{
+    width:100%;
+}
+
+/* APP */
+
+main{
+    width:min(1400px,calc(100% - 36px));
+    margin:0 auto;
+}
+
+.page{
+    padding:50px 0;
+}
+
+/* HOME */
+
+.hero{
+    min-height:calc(100vh - 72px);
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:50px;
+    align-items:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(215,25,32,.11);
+    border:1px solid rgba(215,25,32,.4);
+    color:#ff7b80;
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(42px,6vw,78px);
+    line-height:.98;
+    letter-spacing:-3px;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:var(--red2);
+}
+
+.hero p{
+    max-width:700px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.heroButtons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.heroCard{
+    background:linear-gradient(145deg,rgba(23,30,40,.96),rgba(10,14,20,.96));
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:30px;
+    box-shadow:var(--shadow);
+}
+
+.fireVisual{
+    height:420px;
+    border-radius:22px;
+    background:
+        radial-gradient(circle at 50% 40%,rgba(255,70,70,.22),transparent 28%),
+        linear-gradient(145deg,#161d28,#090c11);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.fireVisual:before{
+    content:"";
+    width:210px;
+    height:280px;
+    background:linear-gradient(135deg,#ffcb4a,#f23c21,#a80e15);
+    clip-path:polygon(50% 0,75% 30%,100% 48%,76% 100%,28% 100%,0 52%,27% 32%);
+    filter:drop-shadow(0 0 50px rgba(255,80,30,.35));
+    animation:flame 2s infinite ease-in-out;
+}
+
+@keyframes flame{
+    0%,100%{transform:scale(1) rotate(-2deg)}
+    50%{transform:scale(1.05) rotate(2deg)}
+}
+
+.statsMini{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:18px;
+}
+
+.mini{
+    background:#111720;
+    border:1px solid var(--border);
+    padding:15px;
+    border-radius:13px;
+}
+
+.mini strong{
+    display:block;
+    font-size:23px;
+}
+
+.mini span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* CARDS */
+
+.card{
+    background:rgba(16,21,29,.94);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 12px 35px rgba(0,0,0,.18);
+}
+
+.card h2{
+    margin-bottom:7px;
+}
+
+.cardDescription{
+    color:var(--muted);
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.grid{
+    display:grid;
+    gap:18px;
+}
+
+.grid2{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.grid3{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.sectionTitle{
+    margin-bottom:25px;
+}
+
+.sectionTitle h1{
+    font-size:35px;
+}
+
+.sectionTitle p{
+    color:var(--muted);
+    margin-top:7px;
+}
+
+/* FORMS */
+
+label{
+    display:block;
+    color:#dfe5ed;
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.field{
+    margin-bottom:16px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    background:#0b1017;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 13px;
+    outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--red2);
+    box-shadow:0 0 0 3px rgba(215,25,32,.1);
+}
+
+textarea{
+    resize:vertical;
+    min-height:140px;
+}
+
+/* LOGIN */
+
+.loginWrap{
+    min-height:calc(100vh - 72px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.loginCard{
+    width:min(460px,100%);
+}
+
+/* ADMIN */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:235px 1fr;
+    gap:20px;
+}
+
+.sidebar{
+    background:#0d1219;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:13px;
+    height:max-content;
+    position:sticky;
+    top:92px;
+}
+
+.sideButton{
+    width:100%;
+    background:transparent;
+    color:#aeb8c5;
+    border:0;
+    text-align:left;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:4px;
+    font-weight:700;
+}
+
+.sideButton:hover,
+.sideButton.active{
+    background:rgba(215,25,32,.13);
+    color:white;
+}
+
+.dashboardContent{
+    min-width:0;
+}
+
+.statGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
+.statCard{
+    background:#111720;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+}
+
+.statCard .number{
+    font-size:32px;
+    font-weight:900;
+    margin:5px 0;
+}
+
+.statCard .label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* TABLE */
+
+.tableWrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:13px 11px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    white-space:nowrap;
+}
+
+th{
+    color:#aeb8c5;
+    font-size:12px;
+}
+
+td{
+    font-size:14px;
+}
+
+tr:hover td{
+    background:rgba(255,255,255,.015);
+}
+
+/* TAGS */
+
+.tag{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:800;
+    border:1px solid var(--border);
+}
+
+.tagGreen{
+    color:#55e9a8;
+    background:rgba(24,199,123,.1);
+    border-color:rgba(24,199,123,.3);
+}
+
+.tagRed{
+    color:#ff767c;
+    background:rgba(239,68,68,.1);
+    border-color:rgba(239,68,68,.3);
+}
+
+.tagYellow{
+    color:#ffd66b;
+    background:rgba(255,191,63,.1);
+    border-color:rgba(255,191,63,.3);
+}
+
+.tagBlue{
+    color:#7eaeff;
+    background:rgba(59,130,246,.1);
+    border-color:rgba(59,130,246,.3);
+}
+
+/* QUESTION BUILDER */
+
+.questionEditor{
+    background:#0c1118;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:14px;
+}
+
+.questionHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.questionNumber{
+    font-weight:900;
+    color:#ff7379;
+}
+
+.answerOption{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+}
+
+.answerOption input{
+    width:auto;
+}
+
+.builderActions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+/* EXAM */
+
+.examTop{
+    position:sticky;
+    top:72px;
+    z-index:50;
+    background:rgba(8,11,16,.94);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+    margin-bottom:25px;
+}
+
+.examTopInner{
+    width:min(1200px,calc(100% - 36px));
+    margin:auto;
+    padding:13px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.progress{
+    height:8px;
+    background:#202832;
+    border-radius:99px;
+    overflow:hidden;
+    margin-top:7px;
+}
+
+.progressBar{
+    height:100%;
+    background:linear-gradient(90deg,var(--red),#ff6a4d);
+    transition:.25s;
+}
+
+.timer{
+    font-size:20px;
+    font-weight:900;
+    color:#fff;
+    padding:10px 15px;
+    background:#171e28;
+    border:1px solid var(--border);
+    border-radius:11px;
+}
+
+.timer.warning{
+    color:#ffce54;
+    border-color:#9d741f;
+}
+
+.timer.danger{
+    color:#ff646b;
+    border-color:#8f262d;
+}
+
+.examContainer{
+    width:min(900px,calc(100% - 36px));
+    margin:auto;
+    padding-bottom:60px;
+}
+
+.examQuestion{
+    background:#111720;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:18px;
+}
+
+.examQuestion h2{
+    font-size:21px;
+    line-height:1.45;
+    margin-bottom:20px;
+}
+
+.optionLabel{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px;
+    border:1px solid var(--border);
+    background:#0b1017;
+    border-radius:12px;
+    margin-bottom:9px;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.optionLabel:hover{
+    border-color:#4a5668;
+}
+
+.optionLabel.selected{
+    border-color:var(--red);
+    background:rgba(215,25,32,.08);
+}
+
+.optionLabel input{
+    width:auto;
+    margin-top:3px;
+}
+
+.examNavigation{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:20px;
+}
+
+/* RESULT */
+
+.resultHero{
+    text-align:center;
+    padding:45px 20px;
+}
+
+.resultCircle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:10px solid var(--green);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 25px;
+}
+
+.resultCircle.fail{
+    border-color:var(--red);
+}
+
+.resultPercent{
+    font-size:35px;
+    font-weight:900;
+}
+
+.resultLabel{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.resultDetails{
+    max-width:700px;
+    margin:0 auto;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:999;
+    background:#161e29;
+    border:1px solid var(--border);
+    padding:15px 18px;
+    border-radius:13px;
+    box-shadow:var(--shadow);
+    transform:translateY(130px);
+    opacity:0;
+    transition:.25s;
+    max-width:380px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.toast.success{
+    border-color:#176f4d;
+}
+
+.toast.error{
+    border-color:#79272d;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modalCard{
+    width:min(850px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#10151d;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    padding:45px 20px;
+    color:var(--muted);
+}
+
+.emptyIcon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+    .hero{
+        grid-template-columns:1fr;
+        padding:30px 0 60px;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        position:static;
+        display:flex;
+        overflow:auto;
+    }
+
+    .sideButton{
+        white-space:nowrap;
+        width:auto;
+    }
+
+    .statGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid2,
+    .grid3{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    header{
+        padding:0 14px;
+    }
+
+    .logoText{
+        display:none;
+    }
+
+    main{
+        width:min(100% - 24px,1400px);
+    }
+
+    .hero h1{
+        font-size:43px;
+        letter-spacing:-2px;
+    }
+
+    .heroCard{
+        padding:17px;
+    }
+
+    .fireVisual{
+        height:280px;
+    }
+
+    .statGrid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .headerActions .btn span{
+        display:none;
+    }
+
+    .examTopInner{
+        width:calc(100% - 24px);
+    }
+
+    .examContainer{
+        width:calc(100% - 24px);
+    }
+
+    .examQuestion{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logoIcon">🚒</div>
+        <div class="logoText">
+            <span>FEUERWEHR PRÜFUNG</span>
+            <span class="logoSub">DIGITALES AUSBILDUNGSSYSTEM</span>
+        </div>
+    </div>
+
+    <div class="headerActions">
+        <button class="btn btnSmall" onclick="showPage('home')">Startseite</button>
+        <button class="btn btnSmall btnPrimary" onclick="showPage('participant')">Prüfung starten</button>
+        <button class="btn btnSmall" onclick="showPage('login')">Ausbilder</button>
+    </div>
+</header>
+
+<main>
+
+<!-- =========================
+     STARTSEITE
+========================= -->
+
+<section id="page-home" class="page">
+
+    <div class="hero">
+
+        <div>
+            <div class="badge">🔥 NEUES FEUERWEHR-PRÜFUNGSSYSTEM</div>
+
+            <h1>
+                Ausbildung.<br>
+                Prüfung.<br>
+                <span>Feuerwehr.</span>
+            </h1>
+
+            <p>
+                Eine moderne digitale Prüfungsplattform für Feuerwehren.
+                Prüfungen erstellen, Teilnehmer prüfen, Ergebnisse auswerten
+                und Freitextantworten manuell korrigieren.
+            </p>
+
+            <div class="heroButtons">
+                <button class="btn btnPrimary" onclick="showPage('participant')">
+                    🚒 Prüfung starten
+                </button>
+
+                <button class="btn" onclick="showPage('login')">
+                    👨‍🚒 Ausbilderbereich
+                </button>
+            </div>
+        </div>
+
+        <div class="heroCard">
+            <div class="fireVisual"></div>
+
+            <div class="statsMini">
+                <div class="mini">
+                    <strong id="homeExamCount">0</strong>
+                    <span>Prüfungen</span>
+                </div>
+
+                <div class="mini">
+                    <strong id="homeResultCount">0</strong>
+                    <span>Teilnehmer</span>
+                </div>
+
+                <div class="mini">
+                    <strong>24/7</strong>
+                    <span>Verfügbar</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="grid grid3">
+
+        <div class="card">
+            <h2>📝 Prüfungen</h2>
+            <p class="cardDescription">
+                Eigene Prüfungen mit verschiedenen Fragetypen erstellen.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>🤖 Fragen-Generator</h2>
+            <p class="cardDescription">
+                Unterrichtsmaterial analysieren und daraus automatisch Fragen erstellen.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>📊 Auswertung</h2>
+            <p class="cardDescription">
+                Automatische Bewertung und manuelle Korrektur von Freitext.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TEILNEHMER ANMELDUNG
+========================= -->
+
+<section id="page-participant" class="page hidden">
+
+    <div class="sectionTitle">
+        <h1>Prüfung starten</h1>
+        <p>Gib deine Teilnehmerdaten und den Prüfungs-Code ein.</p>
+    </div>
+
+    <div class="card" style="max-width:700px;margin:auto;">
+
+        <div class="field">
+            <label>Vorname</label>
+            <input id="participantFirst" placeholder="z. B. Max">
+        </div>
+
+        <div class="field">
+            <label>Nachname</label>
+            <input id="participantLast" placeholder="z. B. Mustermann">
+        </div>
+
+        <div class="field">
+            <label>Feuerwehr</label>
+            <input id="participantFire" placeholder="z. B. Feuerwehr Musterstadt">
+        </div>
+
+        <div class="field">
+            <label>Prüfungs-Code</label>
+            <input id="participantCode"
+                   placeholder="z. B. TM1-2026"
+                   style="text-transform:uppercase">
+        </div>
+
+        <button class="btn btnPrimary btnFull" onclick="startParticipantExam()">
+            🚒 Prüfung laden
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<section id="page-login" class="page hidden">
+
+    <div class="loginWrap">
+
+        <div class="card loginCard">
+
+            <div style="text-align:center;margin-bottom:25px;">
+                <div style="font-size:48px;">👨‍🚒</div>
+                <h1>Ausbilderbereich</h1>
+                <p style="color:var(--muted);margin-top:7px;">
+                    Anmeldung für Feuerwehr-Ausbilder
+                </p>
+            </div>
+
+            <div class="field">
+                <label>E-Mail</label>
+                <input id="loginEmail" type="email"
+                       placeholder="Ausbilder@gmail.com">
+            </div>
+
+            <div class="field">
+                <label>Passwort</label>
+                <input id="loginPassword" type="password"
+                       placeholder="Passwort">
+            </div>
+
+            <button class="btn btnPrimary btnFull"
+                    onclick="loginAdmin()">
+                🔐 Anmelden
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<section id="page-admin" class="page hidden">
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <button class="sideButton active"
+                    data-tab="overview"
+                    onclick="adminTab('overview',this)">
+                📊 Übersicht
+            </button>
+
+            <button class="sideButton"
+                    data-tab="create"
+                    onclick="adminTab('create',this)">
+                ➕ Prüfung erstellen
+            </button>
+
+            <button class="sideButton"
+                    data-tab="exams"
+                    onclick="adminTab('exams',this)">
+                📝 Prüfungen
+            </button>
+
+            <button class="sideButton"
+                    data-tab="results"
+                    onclick="adminTab('results',this)">
+                👥 Ergebnisse
+            </button>
+
+            <button class="sideButton"
+                    data-tab="settings"
+                    onclick="adminTab('settings',this)">
+                ⚙️ Einstellungen
+            </button>
+
+            <div style="height:1px;background:var(--border);margin:10px 0;"></div>
+
+            <button class="sideButton" onclick="logoutAdmin()">
+                🚪 Abmelden
+            </button>
+
+        </aside>
+
+
+        <div class="dashboardContent">
+
+            <!-- OVERVIEW -->
+
+            <div id="admin-overview" class="adminTab">
+
+                <div class="sectionTitle">
+                    <h1>Ausbilder-Dashboard</h1>
+                    <p>Übersicht über dein Prüfungssystem.</p>
+                </div>
+
+                <div class="statGrid">
+
+                    <div class="statCard">
+                        <div class="label">PRÜFUNGEN</div>
+                        <div class="number" id="statExams">0</div>
+                        <span class="tag tagBlue">Gesamt</span>
+                    </div>
+
+                    <div class="statCard">
+                        <div class="label">TEILNEHMER</div>
+                        <div class="number" id="statParticipants">0</div>
+                        <span class="tag tagBlue">Ergebnisse</span>
+                    </div>
+
+                    <div class="statCard">
+                        <div class="label">BESTANDEN</div>
+                        <div class="number" id="statPassed">0</div>
+                        <span class="tag tagGreen">Erfolgreich</span>
+                    </div>
+
+                    <div class="statCard">
+                        <div class="label">DURCHSCHNITT</div>
+                        <div class="number" id="statAverage">0%</div>
+                        <span class="tag tagYellow">Alle Ergebnisse</span>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <h2>Letzte Ergebnisse</h2>
+
+                    <div id="overviewResults"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CREATE -->
+
+            <div id="admin-create" class="adminTab hidden">
+
+                <div class="sectionTitle">
+                    <h1>Neue Prüfung</h1>
+                    <p>Erstelle eine komplett neue Feuerwehrprüfung.</p>
+                </div>
+
+                <div class="grid grid2">
+
+                    <div class="card">
+
+                        <h2>Prüfungsdaten</h2>
+
+                        <div class="field">
+                            <label>Titel</label>
+                            <input id="examTitle"
+                                   placeholder="z. B. Truppmann Teil 1">
+                        </div>
+
+                        <div class="field">
+                            <label>Prüfungs-Code</label>
+                            <input id="examCode"
+                                   placeholder="z. B. TM1-2026"
+                                   style="text-transform:uppercase">
+                        </div>
+
+                        <div class="field">
+                            <label>Bestehensgrenze (%)</label>
+                            <input id="examPass"
+                                   type="number"
+                                   value="50"
+                                   min="1"
+                                   max="100">
+                        </div>
+
+                        <div class="field">
+                            <label>Prüfungsdauer (Minuten)</label>
+                            <input id="examDuration"
+                                   type="number"
+                                   value="30"
+                                   min="1"
+                                   max="300">
+                        </div>
+
+                        <div class="field">
+                            <label>Schwierigkeit</label>
+                            <select id="examDifficulty">
+                                <option value="leicht">Leicht</option>
+                                <option value="mittel" selected>Mittel</option>
+                                <option value="schwer">Schwer</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>Fragenanzahl</label>
+                            <input id="questionCount"
+                                   type="number"
+                                   value="10"
+                                   min="1"
+                                   max="100">
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h2>Unterrichtsmaterial</h2>
+
+                        <p class="cardDescription">
+                            Füge hier dein Ausbildungs-/Unterrichtsmaterial ein.
+                            Der integrierte Fragen-Generator erstellt daraus einen Fragenvorschlag.
+                        </p>
+
+                        <textarea id="trainingMaterial"
+                                  placeholder="Beispiel:
+
+Ein Atemschutzgerät dient der Versorgung des Feuerwehrangehörigen mit Atemluft.
+
+Bei einem Brandeinsatz ist die persönliche Schutzausrüstung zu tragen.
+
+Der Notruf 112 verbindet mit der zuständigen Leitstelle.
+
+Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufgaben."></textarea>
+
+                        <div class="field" style="margin-top:15px;">
+                            <label>Oder Datei laden</label>
+                            <input type="file"
+                                   id="materialFile"
+                                   accept=".txt,.md,.csv">
+                        </div>
+
+                        <button class="btn btnBlue btnFull"
+                                onclick="generateQuestions()">
+                            🤖 Fragen aus Material erstellen
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card" style="margin-top:18px;">
+
+                    <div style="display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;">
+                        <div>
+                            <h2>Fragen</h2>
+                            <p class="cardDescription" style="margin:4px 0 0;">
+                                Kontrolliere jede Frage vor dem Speichern.
+                            </p>
+                        </div>
+
+                        <button class="btn btnSmall"
+                                onclick="addQuestion()">
+                            ➕ Frage hinzufügen
+                        </button>
+                    </div>
+
+                    <div id="questionBuilder"
+                         style="margin-top:20px;"></div>
+
+                    <div class="builderActions">
+
+                        <button class="btn btnPrimary"
+                                onclick="saveExam()">
+                            💾 Prüfung veröffentlichen
+                        </button>
+
+                        <button class="btn"
+                                onclick="previewExam()">
+                            👁️ Vorschau
+                        </button>
+
+                        <button class="btn btnDanger"
+                                onclick="clearBuilder()">
+                            🗑️ Entwurf leeren
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXAMS -->
+
+            <div id="admin-exams" class="adminTab hidden">
+
+                <div class="sectionTitle">
+                    <h1>Prüfungen</h1>
+                    <p>Alle erstellten Prüfungen.</p>
+                </div>
+
+                <div class="card">
+
+                    <div class="field">
+                        <input id="examSearch"
+                               placeholder="🔎 Prüfung suchen..."
+                               oninput="renderExams()">
+                    </div>
+
+                    <div id="examList"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div id="admin-results" class="adminTab hidden">
+
+                <div class="sectionTitle">
+                    <h1>Ergebnisse</h1>
+                    <p>Alle eingegangenen Prüfungen.</p>
+                </div>
+
+                <div class="card">
+
+                    <div class="field">
+                        <input id="resultSearch"
+                               placeholder="🔎 Teilnehmer oder Prüfung suchen..."
+                               oninput="renderResults()">
+                    </div>
+
+                    <div id="resultList"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SETTINGS -->
+
+            <div id="admin-settings" class="adminTab hidden">
+
+                <div class="sectionTitle">
+                    <h1>Einstellungen</h1>
+                    <p>Informationen über dieses System.</p>
+                </div>
+
+                <div class="card">
+
+                    <h2>🔥 Feuerwehr Prüfungssystem</h2>
+
+                    <p style="color:var(--muted);line-height:1.7;margin-top:15px;">
+                        Diese Version ist komplett neu aufgebaut und benötigt
+                        keinen Server und keine Installation.
+                    </p>
+
+                    <div style="margin-top:20px;display:grid;gap:10px;">
+
+                        <div class="mini">
+                            <strong>GitHub Pages</strong>
+                            <span>Direkt im Browser verwendbar</span>
+                        </div>
+
+                        <div class="mini">
+                            <strong>LocalStorage</strong>
+                            <span>Daten werden lokal im Browser gespeichert</span>
+                        </div>
+
+                        <div class="mini">
+                            <strong>Keine Installation</strong>
+                            <span>Kein Node.js und kein Server erforderlich</span>
+                        </div>
+
+                    </div>
+
+                    <div style="margin-top:20px;padding:15px;background:#201714;border:1px solid #593b24;border-radius:12px;color:#eacb9a;">
+                        ⚠️ Hinweis: Da dies eine reine GitHub-Pages-Webseite ist,
+                        sind die gespeicherten Daten nicht automatisch zwischen
+                        verschiedenen Geräten synchronisiert.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PRÜFUNG
+========================= -->
+
+<section id="page-exam" class="hidden">
+
+    <div class="examTop">
+
+        <div class="examTopInner">
+
+            <div style="flex:1;">
+                <strong id="examRunningTitle">Prüfung</strong>
+
+                <div class="progress">
+                    <div id="examProgress"
+                         class="progressBar"
+                         style="width:0%;">
+                    </div>
+                </div>
+
+                <small id="examProgressText"
+                       style="color:var(--muted);">
+                    Frage 1
+                </small>
+            </div>
+
+            <div id="examTimer" class="timer">
+                00:00
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="examContainer">
+
+        <div id="examQuestionContainer"></div>
+
+        <div class="examNavigation">
+
+            <button class="btn"
+                    id="examPrevious"
+                    onclick="previousQuestion()">
+                ← Zurück
+            </button>
+
+            <button class="btn btnPrimary"
+                    id="examNext"
+                    onclick="nextQuestion()">
+                Weiter →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RESULTAT
+========================= -->
+
+<section id="page-result" class="page hidden">
+
+    <div class="card resultHero">
+
+        <div id="resultCircle"
+             class="resultCircle">
+
+            <div id="resultPercent"
+                 class="resultPercent">
+                0%
+            </div>
+
+            <div class="resultLabel">
+                Ergebnis
+            </div>
+
+        </div>
+
+        <h1 id="resultTitle">Prüfung abgeschlossen</h1>
+
+        <p id="resultMessage"
+           style="color:var(--muted);margin-top:10px;">
+        </p>
+
+        <div class="resultDetails"
+             style="margin-top:30px;">
+
+            <div class="grid grid3">
+
+                <div class="mini">
+                    <strong id="resultPoints">0</strong>
+                    <span>Punkte</span>
+                </div>
+
+                <div class="mini">
+                    <strong id="resultPassed">-</strong>
+                    <span>Status</span>
+                </div>
+
+                <div class="mini">
+                    <strong id="resultManual">Nein</strong>
+                    <span>Manuelle Korrektur</span>
+                </div>
+
+            </div>
+
+            <div style="margin-top:25px;">
+
+                <button class="btn btnPrimary"
+                        onclick="showPage('home')">
+                    🏠 Zur Startseite
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div id="modal"
+     class="modal hidden"
+     onclick="closeModalOutside(event)">
+
+    <div class="modalCard"
+         id="modalContent">
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+/* ============================================================
+   FEUERWEHR PRÜFUNGSSYSTEM
+   KOMPLETTER NEUSTART
+============================================================ */
+
+/* -----------------------------
+   DATENBANK
+----------------------------- */
+
+const DB = {
+    examsKey: "FEUERWEHR_NEU_EXAMS_V1",
+    resultsKey: "FEUERWEHR_NEU_RESULTS_V1",
+    sessionKey: "FEUERWEHR_NEU_ADMIN_SESSION_V1"
+};
+
+function getExams(){
+    return JSON.parse(localStorage.getItem(DB.examsKey) || "[]");
+}
+
+function saveExams(data){
+    localStorage.setItem(DB.examsKey, JSON.stringify(data));
+}
+
+function getResults(){
+    return JSON.parse(localStorage.getItem(DB.resultsKey) || "[]");
+}
+
+function saveResults(data){
+    localStorage.setItem(DB.resultsKey, JSON.stringify(data));
+}
+
+
+/* -----------------------------
+   HILFSFUNKTIONEN
+----------------------------- */
+
+function uid(prefix="ID"){
+    return prefix + "_" +
+        Date.now().toString(36) +
+        "_" +
+        Math.random().toString(36).slice(2,8);
+}
+
+function escapeHTML(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function shuffle(array){
+    const a = [...array];
+
+    for(let i=a.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+    }
+
+    return a;
+}
+
+function toast(message,type="success"){
+    const el=document.getElementById("toast");
+
+    el.textContent=message;
+    el.className="toast show " + type;
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+        el.className="toast";
+    },3500);
+}
+
+function formatDate(date){
+    return new Date(date).toLocaleString("de-DE");
+}
+
+
+/* -----------------------------
+   SEITEN
+----------------------------- */
+
+function hideAllPages(){
+    document.querySelectorAll("[id^='page-']").forEach(el=>{
+        el.classList.add("hidden");
+    });
+}
+
+function showPage(page){
+    if(page==="admin" && !isAdmin()){
+        page="login";
+    }
+
+    hideAllPages();
+
+    const target=document.getElementById("page-"+page);
+
+    if(target){
+        target.classList.remove("hidden");
+    }
+
+    if(page==="home"){
+        updateHomeStats();
+    }
+
+    if(page==="admin"){
+        updateDashboard();
+        adminTab("overview");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* -----------------------------
+   ADMIN LOGIN
+----------------------------- */
+
+function isAdmin(){
+    return localStorage.getItem(DB.sessionKey)==="true";
+}
+
+function loginAdmin(){
+
+    const email=document.getElementById("loginEmail").value.trim();
+    const password=document.getElementById("loginPassword").value;
+
+    if(
+        email.toLowerCase()==="ausbilder@gmail.com" &&
+        password==="Admin"
+    ){
+        localStorage.setItem(DB.sessionKey,"true");
+
+        document.getElementById("loginEmail").value="";
+        document.getElementById("loginPassword").value="";
+
+        toast("Ausbilder erfolgreich angemeldet.");
+
+        showPage("admin");
+
+    }else{
+
+        toast(
+            "E-Mail oder Passwort ist falsch.",
+            "error"
+        );
+
+    }
+}
+
+function logoutAdmin(){
+
+    localStorage.removeItem(DB.sessionKey);
+
+    toast("Du wurdest abgemeldet.");
+
+    showPage("home");
+}
+
+
+/* -----------------------------
+   ADMIN TABS
+----------------------------- */
+
+function adminTab(tab,button){
+
+    if(!isAdmin()){
+        showPage("login");
+        return;
+    }
+
+    document.querySelectorAll(".adminTab").forEach(el=>{
+        el.classList.add("hidden");
+    });
+
+    const target=document.getElementById("admin-"+tab);
+
+    if(target){
+        target.classList.remove("hidden");
+    }
+
+    document.querySelectorAll(".sideButton").forEach(el=>{
+        el.classList.remove("active");
+    });
+
+    if(button){
+        button.classList.add("active");
+    }else{
+        const btn=document.querySelector(
+            `.sideButton[data-tab="${tab}"]`
+        );
+
+        if(btn) btn.classList.add("active");
+    }
+
+    if(tab==="overview") updateDashboard();
+    if(tab==="exams") renderExams();
+    if(tab==="results") renderResults();
+}
+
+
+/* -----------------------------
+   HOME STATS
+----------------------------- */
+
+function updateHomeStats(){
+
+    const exams=getExams();
+    const results=getResults();
+
+    document.getElementById("homeExamCount").textContent=exams.length;
+    document.getElementById("homeResultCount").textContent=results.length;
+}
+
+
+/* -----------------------------
+   DASHBOARD
+----------------------------- */
+
+function updateDashboard(){
+
+    const exams=getExams();
+    const results=getResults();
+
+    document.getElementById("statExams").textContent=exams.length;
+    document.getElementById("statParticipants").textContent=results.length;
+
+    const passed=results.filter(r=>r.passed).length;
+
+    document.getElementById("statPassed").textContent=passed;
+
+    const average=results.length
+        ? Math.round(
+            results.reduce((sum,r)=>sum+(r.percent||0),0)
+            /results.length
+        )
+        : 0;
+
+    document.getElementById("statAverage").textContent=average+"%";
+
+    const recent=[...results]
+        .sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt))
+        .slice(0,8);
+
+    const container=document.getElementById("overviewResults");
+
+    if(!recent.length){
+
+        container.innerHTML=`
+            <div class="empty">
+                <div class="emptyIcon">📭</div>
+                Noch keine Ergebnisse vorhanden.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=`
+        <div class="tableWrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Teilnehmer</th>
+                        <th>Prüfung</th>
+                        <th>Ergebnis</th>
+                        <th>Status</th>
+                        <th>Datum</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    ${recent.map(r=>`
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    r.participant.firstName+
+                                    " "+
+                                    r.participant.lastName
+                                )}
+                            </td>
+
+                            <td>${escapeHTML(r.examTitle)}</td>
+
+                            <td>${r.percent}%</td>
+
+                            <td>
+                                ${
+                                    r.passed
+                                    ? `<span class="tag tagGreen">BESTANDEN</span>`
+                                    : `<span class="tag tagRed">NICHT BESTANDEN</span>`
+                                }
+                            </td>
+
+                            <td>${formatDate(r.submittedAt)}</td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+
+/* ============================================================
+   FRAGEN GENERATOR
+============================================================ */
+
+function normalizeText(text){
+
+    return String(text || "")
+        .replace(/\r/g,"")
+        .replace(/\t/g," ")
+        .replace(/[ ]{2,}/g," ")
+        .replace(/\n{3,}/g,"\n\n")
+        .trim();
+}
+
+function splitSentences(text){
+
+    return normalizeText(text)
+        .replace(/\n+/g," ")
+        .split(/(?<=[.!?])\s+/)
+        .map(s=>s.trim())
+        .filter(s=>s.length>=35);
+}
+
+function extractDefinitions(sentences){
+
+    const result=[];
+
+    sentences.forEach(sentence=>{
+
+        let match=sentence.match(
+            /^(.{2,70}?)\s+(?:ist|sind|bezeichnet|bedeutet|nennt man)\s+(.{10,180})[.!?]?$/i
+        );
+
+        if(match){
+
+            result.push({
+                term:match[1].trim(),
+                definition:match[2].trim(),
+                source:sentence
+            });
+
+        }
+
+    });
+
+    return result;
+}
+
+function extractNumbers(sentences){
+
+    const result=[];
+
+    sentences.forEach(sentence=>{
+
+        if(/\b\d+(?:[,.]\d+)?\s*(?:%|Minuten?|Sekunden?|Meter|m|Liter|bar|Jahre?|kg|km\/h)?\b/i.test(sentence)){
+
+            result.push(sentence);
+
+        }
+
+    });
+
+    return result;
+}
+
+function extractRules(sentences){
+
+    const keywords=[
+        "muss",
+        "müssen",
+        "darf nicht",
+        "dürfen nicht",
+        "ist zu",
+        "sind zu",
+        "immer",
+        "niemals",
+        "grundsätzlich",
+        "beachten",
+        "tragen",
+        "sicherstellen",
+        "verboten"
+    ];
+
+    return sentences.filter(sentence=>{
+        const lower=sentence.toLowerCase();
+
+        return keywords.some(word=>lower.includes(word));
+    });
+}
+
+function keywordsFromSentence(sentence){
+
+    const stopwords=new Set([
+        "der","die","das","den","dem","des",
+        "ein","eine","einer","eines","einem",
+        "und","oder","aber","auch","mit","von",
+        "für","auf","bei","ist","sind","wird",
+        "werden","sich","nicht","zur","zum",
+        "im","in","an","als","dass","durch",
+        "über","unter","nach","aus","vor"
+    ]);
+
+    return sentence
+        .replace(/[.,;:!?()[\]"]/g," ")
+        .split(/\s+/)
+        .map(w=>w.trim())
+        .filter(w=>
+            w.length>=5 &&
+            !stopwords.has(w.toLowerCase())
+        )
+        .sort((a,b)=>b.length-a.length);
+}
+
+function generateMCFromSentence(sentence,index){
+
+    const words=keywordsFromSentence(sentence);
+
+    if(words.length<2){
+        return null;
+    }
+
+    const correct=words[0];
+
+    const distractors=shuffle(
+        words.slice(1,6)
+    ).filter(w=>w.toLowerCase()!==correct.toLowerCase());
+
+    while(distractors.length<3){
+        distractors.push(
+            ["Feuerwehrfahrzeug","Einsatzleitung","Schutzausrüstung","Atemschutz"][distractors.length]
+        );
+    }
+
+    const questionText=
+        "Welche Aussage bzw. welcher Begriff passt zum folgenden Ausbildungsinhalt?";
+
+    return {
+        id:uid("Q"),
+        type:"mc",
+        text:questionText,
+        context:sentence,
+        options:shuffle([
+            correct,
+            distractors[0],
+            distractors[1],
+            distractors[2]
+        ]),
+        correct:correct,
+        points:1
+    };
+}
+
+function generateDefinitionQuestion(def,index){
+
+    const wrongPool=[
+        "Eine persönliche Einsatzmeldung",
+        "Ein Fahrzeug der Feuerwehr",
+        "Eine organisatorische Maßnahme",
+        "Eine technische Einrichtung"
+    ];
+
+    const options=shuffle([
+        def.definition,
+        ...shuffle(wrongPool).slice(0,3)
+    ]);
+
+    return {
+        id:uid("Q"),
+        type:"mc",
+        text:`Was ist „${def.term}“?`,
+        options,
+        correct:def.definition,
+        points:1
+    };
+}
+
+function generateTrueFalse(sentence,index){
+
+    const correct=Math.random()>=0.5;
+
+    let statement=sentence;
+
+    if(!correct){
+
+        const replacements=[
+            ["muss","darf"],
+            ["müssen","können"],
+            ["immer","niemals"],
+            ["nicht",""],
+            ["verboten","vorgeschrieben"]
+        ];
+
+        for(const [a,b] of replacements){
+
+            if(
+                statement.toLowerCase().includes(a)
+            ){
+
+                statement=statement.replace(
+                    new RegExp(a,"i"),
+                    b
+                );
+
+                break;
+            }
+        }
+
+    }
+
+    return {
+        id:uid("Q"),
+        type:"tf",
+        text:"Ist folgende Aussage richtig oder falsch?",
+        context:statement,
+        correct:correct,
+        points:1
+    };
+}
+
+function generateFreeText(sentence,index){
+
+    const words=keywordsFromSentence(sentence);
+
+    const keyword=words[0] || "Thema";
+
+    return {
+        id:uid("Q"),
+        type:"text",
+        text:`Erkläre den Zusammenhang bzw. die Bedeutung von „${keyword}“ anhand des Ausbildungsstoffes.`,
+        reference:sentence,
+        points:2,
+        keywords:words.slice(0,3)
+    };
+}
+
+
+/* -----------------------------
+   FRAGEN GENERIEREN
+----------------------------- */
+
+function generateQuestions(){
+
+    const material=normalizeText(
+        document.getElementById("trainingMaterial").value
+    );
+
+    const requested=parseInt(
+        document.getElementById("questionCount").value
+    ) || 10;
+
+    if(material.length<100){
+
+        toast(
+            "Bitte mindestens etwas ausführlicheres Unterrichtsmaterial eingeben.",
+            "error"
+        );
+
+        return;
+    }
+
+    const sentences=splitSentences(material);
+
+    if(sentences.length<2){
+
+        toast(
+            "Das Material enthält zu wenig verwertbare Sätze.",
+            "error"
+        );
+
+        return;
+    }
+
+    const definitions=extractDefinitions(sentences);
+    const rules=extractRules(sentences);
+    const numbers=extractNumbers(sentences);
+
+    let questions=[];
+
+    definitions.forEach((def,i)=>{
+        questions.push(
+            generateDefinitionQuestion(def,i)
+        );
+    });
+
+    rules.forEach((sentence,i)=>{
+
+        if(questions.length<requested){
+            questions.push(
+                generateTrueFalse(sentence,i)
+            );
+        }
+
+    });
+
+    numbers.forEach((sentence,i)=>{
+
+        if(questions.length<requested){
+            const q=generateMCFromSentence(sentence,i);
+
+            if(q) questions.push(q);
+        }
+
+    });
+
+    sentences.forEach((sentence,i)=>{
+
+        if(questions.length<requested){
+
+            const q=generateMCFromSentence(sentence,i);
+
+            if(q) questions.push(q);
+
+        }
+
+    });
+
+    sentences.forEach((sentence,i)=>{
+
+        if(
+            questions.length<requested &&
+            i%4===0
+        ){
+
+            questions.push(
+                generateFreeText(sentence,i)
+            );
+
+        }
+
+    });
+
+    questions=shuffle(questions);
+
+    questions=questions.slice(0,requested);
+
+    while(questions.length<requested){
+
+        const sentence=
+            sentences[questions.length % sentences.length];
+
+        questions.push(
+            generateFreeText(
+                sentence,
+                questions.length
+            )
+        );
+
+    }
+
+    window.builderQuestions=questions;
+
+    renderQuestionBuilder();
+
+    toast(
+        `${questions.length} Fragen wurden erstellt. Bitte kontrollieren!`
+    );
+}
+
+
+/* -----------------------------
+   BUILDER
+----------------------------- */
+
+window.builderQuestions=[];
+
+function addQuestion(){
+
+    window.builderQuestions.push({
+        id:uid("Q"),
+        type:"mc",
+        text:"Neue Frage",
+        options:[
+            "Antwort A",
+            "Antwort B",
+            "Antwort C",
+            "Antwort D"
+        ],
+        correct:"Antwort A",
+        points:1
+    });
+
+    renderQuestionBuilder();
+
+    setTimeout(()=>{
+        const elements=
+            document.querySelectorAll(".questionEditor");
+
+        if(elements.length){
+            elements[elements.length-1]
+                .scrollIntoView({
+                    behavior:"smooth",
+                    block:"center"
+                });
+        }
+    },50);
+}
+
+function removeQuestion(index){
+
+    if(!confirm("Diese Frage wirklich löschen?")){
+        return;
+    }
+
+    window.builderQuestions.splice(index,1);
+
+    renderQuestionBuilder();
+}
+
+function updateQuestion(index,field,value){
+
+    if(!window.builderQuestions[index]) return;
+
+    window.builderQuestions[index][field]=value;
+}
+
+function updateOption(index,optionIndex,value){
+
+    if(!window.builderQuestions[index]) return;
+
+    window.builderQuestions[index].options[optionIndex]=value;
+}
+
+function changeQuestionType(index,type){
+
+    const q=window.builderQuestions[index];
+
+    if(!q) return;
+
+    q.type=type;
+
+    if(type==="mc"){
+
+        q.options=q.options?.length===4
+            ? q.options
+            : ["Antwort A","Antwort B","Antwort C","Antwort D"];
+
+        q.correct=q.correct || q.options[0];
+
+    }
+
+    if(type==="tf"){
+        q.correct=true;
+        delete q.options;
+    }
+
+    if(type==="text"){
+        q.reference=q.reference || "";
+        q.keywords=q.keywords || [];
+        delete q.options;
+        delete q.correct;
+    }
+
+    renderQuestionBuilder();
+}
+
+function renderQuestionBuilder(){
+
+    const container=
+        document.getElementById("questionBuilder");
+
+    const questions=window.builderQuestions;
+
+    if(!questions.length){
+
+        container.innerHTML=`
+            <div class="empty">
+                <div class="emptyIcon">📝</div>
+                Noch keine Fragen vorhanden.
+                <br><br>
+                Erstelle Fragen automatisch oder füge eine Frage hinzu.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=questions.map((q,index)=>{
+
+        return `
+
+        <div class="questionEditor">
+
+            <div class="questionHeader">
+
+                <div class="questionNumber">
+                    FRAGE ${index+1}
+                </div>
+
+                <button class="btn btnDanger btnSmall"
+                        onclick="removeQuestion(${index})">
+                    🗑️ Löschen
+                </button>
+
+            </div>
+
+            <div class="grid grid2">
+
+                <div class="field">
+
+                    <label>Fragetyp</label>
+
+                    <select onchange="changeQuestionType(${index},this.value)">
+
+                        <option value="mc"
+                            ${q.type==="mc"?"selected":""}>
+                            Multiple Choice
+                        </option>
+
+                        <option value="tf"
+                            ${q.type==="tf"?"selected":""}>
+                            Richtig / Falsch
+                        </option>
+
+                        <option value="text"
+                            ${q.type==="text"?"selected":""}>
+                            Freitext
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>Punkte</label>
+
+                    <input type="number"
+                           min="1"
+                           value="${q.points||1}"
+                           onchange="updateQuestion(${index},'points',Number(this.value))">
+
+                </div>
+
+            </div>
+
+            <div class="field">
+
+                <label>Frage</label>
+
+                <textarea
+                    onchange="updateQuestion(${index},'text',this.value)"
+                >${escapeHTML(q.text)}</textarea>
+
+            </div>
+
+            ${
+                q.context
+                ? `
+                    <div class="field">
+                        <label>Ausgangsmaterial / Kontext</label>
+                        <textarea
+                            onchange="updateQuestion(${index},'context',this.value)"
+                        >${escapeHTML(q.context)}</textarea>
+                    </div>
+                `
+                :""
+            }
+
+            ${
+                q.type==="mc"
+                ? `
+
+                <label>Antwortmöglichkeiten</label>
+
+                ${q.options.map((option,i)=>`
+
+                    <div class="answerOption">
+
+                        <input
+                            type="radio"
+                            name="correct-${index}"
+                            ${q.correct===option?"checked":""}
+                            onchange="updateQuestion(${index},'correct',window.builderQuestions[${index}].options[${i}])"
+                        >
+
+                        <input
+                            value="${escapeHTML(option)}"
+                            onchange="updateOption(${index},${i},this.value)"
+                        >
+
+                    </div>
+
+                `).join("")}
+
+                <small style="color:var(--muted);display:block;margin-top:8px;">
+                    Den Kreis bei der richtigen Antwort auswählen.
+                </small>
+
+                `
+                :""
+            }
+
+            ${
+                q.type==="tf"
+                ? `
+
+                <div class="grid grid2">
+
+                    <div class="field">
+
+                        <label>Richtige Antwort</label>
+
+                        <select
+                            onchange="updateQuestion(${index},'correct',this.value==='true')"
+                        >
+
+                            <option value="true"
+                                ${q.correct===true?"selected":""}>
+                                Richtig
+                            </option>
+
+                            <option value="false"
+                                ${q.correct===false?"selected":""}>
+                                Falsch
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                `
+                :""
+            }
+
+            ${
+                q.type==="text"
+                ? `
+
+                <div class="field">
+
+                    <label>Musterlösung / Erwartete Antwort</label>
+
+                    <textarea
+                        onchange="updateQuestion(${index},'reference',this.value)"
+                        placeholder="Hier kann die erwartete Antwort eingetragen werden..."
+                    >${escapeHTML(q.reference||"")}</textarea>
+
+                </div>
+
+                `
+                :""
+            }
+
+        </div>
+
+        `;
+
+    }).join("");
+}
+
+
+/* -----------------------------
+   MATERIAL DATEI
+----------------------------- */
+
+document.getElementById("materialFile")
+.addEventListener("change",function(){
+
+    const file=this.files[0];
+
+    if(!file) return;
+
+    const reader=new FileReader();
+
+    reader.onload=function(){
+
+        document.getElementById("trainingMaterial").value=
+            reader.result;
+
+        toast("Unterrichtsmaterial wurde geladen.");
+
+    };
+
+    reader.readAsText(file);
+});
+
+
+/* -----------------------------
+   PRÜFUNG SPEICHERN
+----------------------------- */
+
+function saveExam(){
+
+    const title=
+        document.getElementById("examTitle").value.trim();
+
+    const code=
+        document.getElementById("examCode").value
+        .trim()
+        .toUpperCase();
+
+    const passPercent=
+        Number(document.getElementById("examPass").value);
+
+    const duration=
+        Number(document.getElementById("examDuration").value);
+
+    const difficulty=
+        document.getElementById("examDifficulty").value;
+
+    const material=
+        document.getElementById("trainingMaterial").value.trim();
+
+    if(!title){
+        toast("Bitte einen Prüfungstitel eingeben.","error");
+        return;
+    }
+
+    if(!code){
+        toast("Bitte einen Prüfungs-Code eingeben.","error");
+        return;
+    }
+
+    if(!window.builderQuestions.length){
+        toast("Die Prüfung benötigt mindestens eine Frage.","error");
+        return;
+    }
+
+    const exams=getExams();
+
+    if(
+        exams.some(
+            exam=>exam.code.toUpperCase()===code
+        )
+    ){
+        toast(
+            "Dieser Prüfungs-Code existiert bereits.",
+            "error"
+        );
+        return;
+    }
+
+    const exam={
+        id:uid("EXAM"),
+        title,
+        code,
+        passPercent,
+        duration,
+        difficulty,
+        material,
+        questions:JSON.parse(
+            JSON.stringify(window.builderQuestions)
+        ),
+        createdAt:new Date().toISOString(),
+        published:true
+    };
+
+    exams.push(exam);
+
+    saveExams(exams);
+
+    toast(
+        "Prüfung wurde erfolgreich veröffentlicht!"
+    );
+
+    clearBuilder(false);
+
+    adminTab("exams");
+
+}
+
+
+/* -----------------------------
+   BUILDER LEEREN
+----------------------------- */
+
+function clearBuilder(confirmIt=true){
+
+    if(
+        confirmIt &&
+        !confirm("Den gesamten aktuellen Entwurf löschen?")
+    ){
+        return;
+    }
+
+    window.builderQuestions=[];
+
+    document.getElementById("examTitle").value="";
+    document.getElementById("examCode").value="";
+    document.getElementById("examPass").value="50";
+    document.getElementById("examDuration").value="30";
+    document.getElementById("examDifficulty").value="mittel";
+    document.getElementById("questionCount").value="10";
+    document.getElementById("trainingMaterial").value="";
+    document.getElementById("materialFile").value="";
+
+    renderQuestionBuilder();
+}
+
+
+/* -----------------------------
+   VORSCHAU
+----------------------------- */
+
+function previewExam(){
+
+    if(!window.builderQuestions.length){
+
+        toast(
+            "Es gibt noch keine Fragen.",
+            "error"
+        );
+
+        return;
+    }
+
+    const title=
+        document.getElementById("examTitle").value ||
+        "Prüfungsvorschau";
+
+    document.getElementById("modalContent").innerHTML=`
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div>
+                <h2>${escapeHTML(title)}</h2>
+                <p style="color:var(--muted);margin-top:5px;">
+                    Vorschau
+                </p>
+            </div>
+
+            <button class="btn btnSmall"
+                    onclick="closeModal()">
+                ✕
+            </button>
+        </div>
+
+        <div style="margin-top:25px;">
+
+            ${window.builderQuestions.map((q,i)=>`
+
+                <div class="questionEditor">
+
+                    <div class="questionNumber">
+                        FRAGE ${i+1}
+                    </div>
+
+                    <h3 style="margin:10px 0 15px;">
+                        ${escapeHTML(q.text)}
+                    </h3>
+
+                    ${
+                        q.context
+                        ? `<p style="color:var(--muted);margin-bottom:15px;">
+                            ${escapeHTML(q.context)}
+                           </p>`
+                        :""
+                    }
+
+                    ${
+                        q.type==="mc"
+                        ? q.options.map(option=>`
+                            <div class="optionLabel">
+                                <input type="radio" disabled>
+                                <span>${escapeHTML(option)}</span>
+                            </div>
+                        `).join("")
+                        :""
+                    }
+
+                    ${
+                        q.type==="tf"
+                        ? `
+                            <div class="optionLabel">
+                                <input type="radio" disabled>
+                                <span>Richtig</span>
+                            </div>
+
+                            <div class="optionLabel">
+                                <input type="radio" disabled>
+                                <span>Falsch</span>
+                            </div>
+                        `
+                        :""
+                    }
+
+                    ${
+                        q.type==="text"
+                        ? `
+                            <textarea
+                                placeholder="Antwort des Teilnehmers..."
+                                disabled
+                            ></textarea>
+                        `
+                        :""
+                    }
+
+                </div>
+
+            `).join("")}
+
+        </div>
+    `;
+
+    document.getElementById("modal")
+        .classList.remove("hidden");
+}
+
+function closeModal(){
+    document.getElementById("modal")
+        .classList.add("hidden");
+}
+
+function closeModalOutside(event){
+
+    if(event.target.id==="modal"){
+        closeModal();
+    }
+}
+
+
+/* ============================================================
+   PRÜFUNGEN VERWALTEN
+============================================================ */
+
+function renderExams(){
+
+    const exams=getExams();
+
+    const search=
+        document.getElementById("examSearch")
+        ?.value
+        .toLowerCase()
+        .trim() || "";
+
+    const filtered=exams.filter(exam=>
+        exam.title.toLowerCase().includes(search) ||
+        exam.code.toLowerCase().includes(search)
+    );
+
+    const container=
+        document.getElementById("examList");
+
+    if(!filtered.length){
+
+        container.innerHTML=`
+            <div class="empty">
+                <div class="emptyIcon">📝</div>
+                Keine Prüfungen gefunden.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=`
+
+        <div class="tableWrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Prüfung</th>
+                        <th>Code</th>
+                        <th>Fragen</th>
+                        <th>Zeit</th>
+                        <th>Bestehen</th>
+                        <th>Erstellt</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    ${filtered.map(exam=>`
+
+                        <tr>
+
+                            <td>
+                                <strong>${escapeHTML(exam.title)}</strong>
+                            </td>
+
+                            <td>
+                                <span class="tag tagBlue">
+                                    ${escapeHTML(exam.code)}
+                                </span>
+                            </td>
+
+                            <td>${exam.questions.length}</td>
+
+                            <td>${exam.duration} Min.</td>
+
+                            <td>${exam.passPercent}%</td>
+
+                            <td>${formatDate(exam.createdAt)}</td>
+
+                            <td>
+
+                                <button class="btn btnSmall"
+                                        onclick="copyExamLink('${escapeHTML(exam.code)}')">
+                                    🔗 Link
+                                </button>
+
+                                <button class="btn btnSmall btnDanger"
+                                        onclick="deleteExam('${exam.id}')">
+                                    🗑️
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+}
+
+function deleteExam(id){
+
+    const exams=getExams();
+
+    const exam=exams.find(e=>e.id===id);
+
+    if(!exam) return;
+
+    if(
+        !confirm(
+            `Prüfung "${exam.title}" wirklich löschen?`
+        )
+    ){
+        return;
+    }
+
+    saveExams(
+        exams.filter(e=>e.id!==id)
+    );
+
+    toast("Prüfung wurde gelöscht.");
+
+    renderExams();
+    updateDashboard();
+}
+
+function copyExamLink(code){
+
+    const url=
+        location.origin+
+        location.pathname+
+        "?pruefung="+
+        encodeURIComponent(code);
+
+    navigator.clipboard.writeText(url)
+        .then(()=>{
+            toast("Teilnehmer-Link wurde kopiert.");
+        })
+        .catch(()=>{
+            prompt(
+                "Teilnehmer-Link:",
+                url
+            );
+        });
+}
+
+
+/* ============================================================
+   TEILNEHMER
+============================================================ */
+
+let runningExam=null;
+let currentQuestion=0;
+let participantAnswers=[];
+let examTimerInterval=null;
+let remainingSeconds=0;
+
+function startParticipantExam(){
+
+    const first=
+        document.getElementById("participantFirst")
+        .value.trim();
+
+    const last=
+        document.getElementById("participantLast")
+        .value.trim();
+
+    const fire=
+        document.getElementById("participantFire")
+        .value.trim();
+
+    const code=
+        document.getElementById("participantCode")
+        .value.trim()
+        .toUpperCase();
+
+    if(!first || !last || !fire || !code){
+
+        toast(
+            "Bitte alle Felder ausfüllen.",
+            "error"
+        );
+
+        return;
+    }
+
+    const exams=getExams();
+
+    const exam=
+        exams.find(
+            e=>e.code.toUpperCase()===code
+        );
+
+    if(!exam){
+
+        toast(
+            "Prüfung mit diesem Code wurde nicht gefunden.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!exam.questions.length){
+
+        toast(
+            "Diese Prüfung enthält keine Fragen.",
+            "error"
+        );
+
+        return;
+    }
+
+    runningExam={
+        exam,
+        participant:{
+            firstName:first,
+            lastName:last,
+            fireDepartment:fire
+        }
+    };
+
+    currentQuestion=0;
+
+    participantAnswers=
+        new Array(exam.questions.length)
+        .fill(null);
+
+    remainingSeconds=exam.duration*60;
+
+    document.getElementById("examRunningTitle")
+        .textContent=exam.title;
+
+    showPage("exam");
+
+    startExamTimer();
+
+    renderExamQuestion();
+}
+
+
+/* -----------------------------
+   TIMER
+----------------------------- */
+
+function startExamTimer(){
+
+    clearInterval(examTimerInterval);
+
+    updateTimer();
+
+    examTimerInterval=setInterval(()=>{
+
+        remainingSeconds--;
+
+        updateTimer();
+
+        if(remainingSeconds<=0){
+
+            clearInterval(examTimerInterval);
+
+            toast(
+                "Die Prüfungszeit ist abgelaufen."
+            );
+
+            submitExam(true);
+        }
+
+    },1000);
+}
+
+function updateTimer(){
+
+    const minutes=
+        Math.floor(remainingSeconds/60)
+        .toString()
+        .padStart(2,"0");
+
+    const seconds=
+        (remainingSeconds%60)
+        .toString()
+        .padStart(2,"0");
+
+    const timer=
+        document.getElementById("examTimer");
+
+    timer.textContent=
+        `${minutes}:${seconds}`;
+
+    timer.classList.remove(
+        "warning",
+        "danger"
+    );
+
+    if(remainingSeconds<=300){
+        timer.classList.add("warning");
+    }
+
+    if(remainingSeconds<=60){
+        timer.classList.add("danger");
+    }
+}
+
+
+/* -----------------------------
+   FRAGE RENDERN
+----------------------------- */
+
+function renderExamQuestion(){
+
+    if(!runningExam) return;
+
+    const questions=
+        runningExam.exam.questions;
+
+    const q=questions[currentQuestion];
+
+    const total=questions.length;
+
+    document.getElementById("examProgress")
+        .style.width=
+        ((currentQuestion+1)/total*100)+"%";
+
+    document.getElementById("examProgressText")
+        .textContent=
+        `Frage ${currentQuestion+1} von ${total}`;
+
+    const container=
+        document.getElementById(
+            "examQuestionContainer"
+        );
+
+    let html=`
+
+        <div class="examQuestion">
+
+            <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:15px;">
+
+                <span class="tag tagBlue">
+                    ${
+                        q.type==="mc"
+                        ? "Multiple Choice"
+                        : q.type==="tf"
+                        ? "Richtig / Falsch"
+                        : "Freitext"
+                    }
+                </span>
+
+                <span class="tag">
+                    ${q.points||1} Punkt${(q.points||1)!==1?"e":""}
+                </span>
+
+            </div>
+
+            <h2>
+                ${escapeHTML(q.text)}
+            </h2>
+
+            ${
+                q.context
+                ? `
+                    <div style="
+                        background:#0b1017;
+                        border:1px solid var(--border);
+                        border-radius:12px;
+                        padding:15px;
+                        color:#cbd4df;
+                        line-height:1.6;
+                        margin-bottom:20px;
+                    ">
+                        ${escapeHTML(q.context)}
+                    </div>
+                `
+                :""
+            }
+
+    `;
+
+    const answer=participantAnswers[currentQuestion];
+
+    if(q.type==="mc"){
+
+        html+=q.options.map(option=>`
+
+            <label class="optionLabel ${
+                answer===option ? "selected" : ""
+            }">
+
+                <input
+                    type="radio"
+                    name="examAnswer"
+                    value="${escapeHTML(option)}"
+                    ${answer===option?"checked":""}
+                    onchange="selectAnswer(this.value)"
+                >
+
+                <span>${escapeHTML(option)}</span>
+
+            </label>
+
+        `).join("");
+
+    }
+
+    if(q.type==="tf"){
+
+        html+=`
+
+            <label class="optionLabel ${
+                answer===true ? "selected" : ""
+            }">
+
+                <input
+                    type="radio"
+                    name="examAnswer"
+                    ${answer===true?"checked":""}
+                    onchange="selectAnswer(true)"
+                >
+
+                <span>Richtig</span>
+
+            </label>
+
+            <label class="optionLabel ${
+                answer===false ? "selected" : ""
+            }">
+
+                <input
+                    type="radio"
+                    name="examAnswer"
+                    ${answer===false?"checked":""}
+                    onchange="selectAnswer(false)"
+                >
+
+                <span>Falsch</span>
+
+            </label>
+
+        `;
+
+    }
+
+    if(q.type==="text"){
+
+        html+=`
+
+            <textarea
+                id="freeTextAnswer"
+                placeholder="Deine Antwort..."
+                oninput="selectAnswer(this.value)"
+                style="min-height:190px;"
+            >${escapeHTML(answer || "")}</textarea>
+
+        `;
+
+    }
+
+    html+=`
+
+        </div>
+
+    `;
+
+    container.innerHTML=html;
+
+    document.getElementById("examPrevious")
+        .disabled=currentQuestion===0;
+
+    const nextButton=
+        document.getElementById("examNext");
+
+    if(currentQuestion===total-1){
+
+        nextButton.textContent="✓ Prüfung abgeben";
+
+        nextButton.classList.add("btnGreen");
+
+    }else{
+
+        nextButton.textContent="Weiter →";
+
+        nextButton.classList.remove("btnGreen");
+
+    }
+}
+
+function selectAnswer(value){
+
+    participantAnswers[currentQuestion]=value;
+
+    renderExamQuestion();
+
+    /*
+       Bei Freitext wird der Fokus nicht erneut gesetzt.
+       Die Eingabe bleibt trotzdem gespeichert.
+    */
+}
+
+
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
+
+function previousQuestion(){
+
+    if(currentQuestion<=0) return;
+
+    currentQuestion--;
+
+    renderExamQuestion();
+}
+
+function nextQuestion(){
+
+    if(!runningExam) return;
+
+    if(currentQuestion>=runningExam.exam.questions.length-1){
+
+        submitExam(false);
+
+        return;
+    }
+
+    currentQuestion++;
+
+    renderExamQuestion();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* ============================================================
+   AUSWERTUNG
+============================================================ */
+
+function submitExam(autoSubmit=false){
+
+    if(!runningExam) return;
+
+    if(!autoSubmit){
+
+        const unanswered=
+            participantAnswers.filter(
+                a=>a===null ||
+                a===undefined ||
+                a===""
+            ).length;
+
+        if(unanswered>0){
+
+            const proceed=confirm(
+                `Es sind noch ${unanswered} Frage(n) unbeantwortet. Prüfung trotzdem abgeben?`
+            );
+
+            if(!proceed){
+                return;
+            }
+        }
+
+    }
+
+    clearInterval(examTimerInterval);
+
+    const exam=runningExam.exam;
+
+    let automaticPoints=0;
+    let manualPoints=0;
+    let maxPoints=0;
+    let needsManual=false;
+
+    const questionResults=
+        exam.questions.map((q,index)=>{
+
+            const answer=
+                participantAnswers[index];
+
+            const points=
+                Number(q.points)||1;
+
+            maxPoints+=points;
+
+            let correct=null;
+            let earned=0;
+
+            if(q.type==="mc"){
+
+                correct=
+                    answer===q.correct;
+
+                if(correct){
+                    earned=points;
+                    automaticPoints+=points;
+                }
+
+            }
+
+            if(q.type==="tf"){
+
+                correct=
+                    answer===q.correct;
+
+                if(correct){
+                    earned=points;
+                    automaticPoints+=points;
+                }
+
+            }
+
+            if(q.type==="text"){
+
+                needsManual=true;
+
+                correct=null;
+
+                earned=0;
+
+            }
+
+            return {
+                questionId:q.id,
+                question:q.text,
+                type:q.type,
+                answer,
+                correctAnswer:q.type==="text"
+                    ? q.reference || ""
+                    : q.correct,
+                points,
+                earned,
+                correct
+            };
+
+        });
+
+    /*
+       Automatische Punkte + mögliche manuelle Punkte.
+       Bis zur manuellen Korrektur wird nur die automatische
+       Punktzahl angezeigt.
+    */
+
+    const provisionalPercent=
+        maxPoints
+        ? Math.round(
+            automaticPoints/maxPoints*100
+        )
+        : 0;
+
+    const passed=
+        !needsManual &&
+        provisionalPercent>=exam.passPercent;
+
+    const result={
+
+        id:uid("RESULT"),
+
+        examId:exam.id,
+
+        examTitle:exam.title,
+
+        examCode:exam.code,
+
+        participant:{
+            ...runningExam.participant
+        },
+
+        answers:[
+            ...participantAnswers
+        ],
+
+        questionResults,
+
+        automaticPoints,
+
+        manualPoints,
+
+        maxPoints,
+
+        percent:provisionalPercent,
+
+        passed,
+
+        needsManualCorrection:needsManual,
+
+        passPercent:exam.passPercent,
+
+        submittedAt:new Date().toISOString(),
+
+        autoSubmitted:autoSubmit
+
+    };
+
+    const results=getResults();
+
+    results.push(result);
+
+    saveResults(results);
+
+    showResult(result);
+
+    runningExam=null;
+}
+
+
+/* -----------------------------
+   ERGEBNIS
+----------------------------- */
+
+function showResult(result){
+
+    showPage("result");
+
+    const circle=
+        document.getElementById("resultCircle");
+
+    circle.classList.toggle(
+        "fail",
+        !result.passed
+    );
+
+    document.getElementById("resultPercent")
+        .textContent=result.percent+"%";
+
+    document.getElementById("resultTitle")
+        .textContent=
+        result.passed
+        ? "Prüfung bestanden"
+        : result.needsManualCorrection
+            ? "Prüfung abgegeben"
+            : "Prüfung nicht bestanden";
+
+    document.getElementById("resultMessage")
+        .textContent=
+        result.needsManualCorrection
+        ? "Ein Ausbilder muss die Freitextantworten noch korrigieren."
+        : result.passed
+            ? "Herzlichen Glückwunsch! Die Prüfung wurde bestanden."
+            : "Die erforderliche Bestehensgrenze wurde nicht erreicht.";
+
+    document.getElementById("resultPoints")
+        .textContent=
+        `${result.automaticPoints}/${result.maxPoints}`;
+
+    document.getElementById("resultPassed")
+        .textContent=
+        result.passed
+        ? "BESTANDEN"
+        : result.needsManualCorrection
+            ? "OFFEN"
+            : "NICHT BESTANDEN";
+
+    document.getElementById("resultManual")
+        .textContent=
+        result.needsManualCorrection
+        ? "Ja"
+        : "Nein";
+}
+
+
+/* ============================================================
+   ERGEBNISSE AUSILDER
+============================================================ */
+
+function renderResults(){
+
+    const results=getResults();
+
+    const search=
+        document.getElementById("resultSearch")
+        ?.value
+        .toLowerCase()
+        .trim() || "";
+
+    const filtered=results.filter(result=>{
+
+        const name=
+            result.participant.firstName+
+            " "+
+            result.participant.lastName;
+
+        return(
+            name.toLowerCase().includes(search) ||
+            result.examTitle.toLowerCase().includes(search) ||
+            result.examCode.toLowerCase().includes(search) ||
+            result.participant.fireDepartment
+                .toLowerCase()
+                .includes(search)
+        );
+
+    });
+
+    const container=
+        document.getElementById("resultList");
+
+    if(!filtered.length){
+
+        container.innerHTML=`
+            <div class="empty">
+                <div class="emptyIcon">📭</div>
+                Keine Ergebnisse gefunden.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=`
+
+        <div class="tableWrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Teilnehmer</th>
+                        <th>Feuerwehr</th>
+                        <th>Prüfung</th>
+                        <th>Ergebnis</th>
+                        <th>Status</th>
+                        <th>Datum</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    ${[...filtered]
+                        .sort(
+                            (a,b)=>
+                            new Date(b.submittedAt)-
+                            new Date(a.submittedAt)
+                        )
+                        .map(result=>`
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    ${escapeHTML(
+                                        result.participant.firstName+
+                                        " "+
+                                        result.participant.lastName
+                                    )}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    result.participant.fireDepartment
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(result.examTitle)}
+                            </td>
+
+                            <td>
+                                ${result.percent}%
+                            </td>
+
+                            <td>
+
+                                ${
+                                    result.needsManualCorrection
+                                    ?
+                                    `<span class="tag tagYellow">
+                                        KORREKTUR
+                                    </span>`
+                                    :
+                                    result.passed
+                                    ?
+                                    `<span class="tag tagGreen">
+                                        BESTANDEN
+                                    </span>`
+                                    :
+                                    `<span class="tag tagRed">
+                                        NICHT BESTANDEN
+                                    </span>`
+                                }
+
+                            </td>
+
+                            <td>
+                                ${formatDate(result.submittedAt)}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="btn btnSmall"
+                                    onclick="openResult('${result.id}')">
+                                    👁️ Öffnen
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+}
+
+
+/* -----------------------------
+   ERGEBNIS ÖFFNEN
+----------------------------- */
+
+function openResult(id){
+
+    const result=
+        getResults().find(r=>r.id===id);
+
+    if(!result) return;
+
+    document.getElementById("modalContent").innerHTML=`
+
+        <div style="display:flex;justify-content:space-between;gap:10px;">
+
+            <div>
+                <h2>
+                    ${escapeHTML(
+                        result.participant.firstName+
+                        " "+
+                        result.participant.lastName
+                    )}
+                </h2>
+
+                <p style="color:var(--muted);margin-top:5px;">
+                    ${escapeHTML(result.examTitle)}
+                </p>
+            </div>
+
+            <button class="btn btnSmall"
+                    onclick="closeModal()">
+                ✕
+            </button>
+
+        </div>
+
+        <div class="grid grid3" style="margin-top:20px;">
+
+            <div class="mini">
+                <strong>${result.percent}%</strong>
+                <span>Aktuelles Ergebnis</span>
+            </div>
+
+            <div class="mini">
+                <strong>${result.automaticPoints}</strong>
+                <span>Automatische Punkte</span>
+            </div>
+
+            <div class="mini">
+                <strong>${result.maxPoints}</strong>
+                <span>Max. Punkte</span>
+            </div>
+
+        </div>
+
+        <div style="margin-top:25px;">
+
+            ${result.questionResults.map((q,index)=>`
+
+                <div class="questionEditor">
+
+                    <div style="display:flex;justify-content:space-between;gap:10px;">
+
+                        <strong>Frage ${index+1}</strong>
+
+                        ${
+                            q.type==="text"
+                            ?
+                            `<span class="tag tagYellow">
+                                Manuelle Korrektur
+                            </span>`
+                            :
+                            q.correct
+                            ?
+                            `<span class="tag tagGreen">
+                                Richtig
+                            </span>`
+                            :
+                            `<span class="tag tagRed">
+                                Falsch
+                            </span>`
+                        }
+
+                    </div>
+
+                    <h3 style="margin:12px 0;">
+                        ${escapeHTML(q.question)}
+                    </h3>
+
+                    <div style="
+                        background:#0b1017;
+                        padding:13px;
+                        border-radius:10px;
+                        margin-bottom:12px;
+                    ">
+
+                        <strong>Antwort:</strong><br>
+
+                        ${
+                            q.answer===null ||
+                            q.answer===undefined ||
+                            q.answer===""
+                            ? "<em>Keine Antwort</em>"
+                            : escapeHTML(
+                                typeof q.answer==="boolean"
+                                ? q.answer
+                                    ? "Richtig"
+                                    : "Falsch"
+                                : q.answer
+                            )
+                        }
+
+                    </div>
+
+                    ${
+                        q.type==="text"
+                        ?
+                        `
+
+                        <div class="field">
+
+                            <label>
+                                Punkte vergeben
+                            </label>
+
+                            <input
+                                type="number"
+                                min="0"
+                                max="${q.points}"
+                                value="${q.earned}"
+                                id="manual-${result.id}-${index}"
+                            >
+
+                        </div>
+
+                        <div style="
+                            color:var(--muted);
+                            font-size:13px;
+                            margin-bottom:10px;
+                        ">
+                            Musterlösung:
+                            ${escapeHTML(
+                                q.correctAnswer ||
+                                "Keine Musterlösung hinterlegt."
+                            )}
+                        </div>
+
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            `).join("")}
+
+        </div>
+
+        ${
+            result.needsManualCorrection
+            ?
+            `
+            <button class="btn btnGreen btnFull"
+                    onclick="saveManualCorrection('${result.id}')">
+                ✓ Korrektur speichern
+            </button>
+            `
+            :
+            ""
+        }
+
+    `;
+
+    document.getElementById("modal")
+        .classList.remove("hidden");
+}
+
+
+/* -----------------------------
+   MANUELLE KORREKTUR
+----------------------------- */
+
+function saveManualCorrection(id){
+
+    const results=getResults();
+
+    const result=
+        results.find(r=>r.id===id);
+
+    if(!result) return;
+
+    let manualPoints=0;
+
+    result.questionResults.forEach((q,index)=>{
+
+        if(q.type!=="text"){
+            return;
+        }
+
+        const input=
+            document.getElementById(
+                `manual-${id}-${index}`
+            );
+
+        if(!input) return;
+
+        let points=
+            Number(input.value)||0;
+
+        points=Math.max(
+            0,
+            Math.min(points,q.points)
+        );
+
+        q.earned=points;
+
+        manualPoints+=points;
+
+    });
+
+    result.manualPoints=manualPoints;
+
+    result.questionResults.forEach(q=>{
+
+        if(q.type==="mc" || q.type==="tf"){
+            // automatische Punkte bleiben bestehen
+        }
+
+    });
+
+    const totalEarned=
+        result.automaticPoints+
+        result.manualPoints;
+
+    result.percent=
+        result.maxPoints
+        ? Math.round(
+            totalEarned/result.maxPoints*100
+        )
+        : 0;
+
+    result.passed=
+        result.percent>=result.passPercent;
+
+    result.needsManualCorrection=false;
+
+    result.correctedAt=
+        new Date().toISOString();
+
+    saveResults(results);
+
+    closeModal();
+
+    toast(
+        "Manuelle Korrektur wurde gespeichert."
+    );
+
+    renderResults();
+
+    updateDashboard();
+}
+
+
+/* ============================================================
+   URL PRÜFUNGS-CODE
+============================================================ */
+
+function checkURLExamCode(){
+
+    const params=
+        new URLSearchParams(location.search);
+
+    const code=
+        params.get("pruefung");
+
+    if(!code){
+        return;
+    }
+
+    document.getElementById("participantCode")
+        .value=code.toUpperCase();
+
+    showPage("participant");
+
+    toast(
+        "Prüfungs-Code wurde automatisch übernommen."
+    );
+}
+
+
+/* ============================================================
+   ENTER-TASTE LOGIN
+============================================================ */
+
+document.getElementById("loginPassword")
+.addEventListener("keydown",function(event){
+
+    if(event.key==="Enter"){
+        loginAdmin();
+    }
+
+});
+
+
+/* ============================================================
+   INITIALISIERUNG
+============================================================ */
+
+window.addEventListener("load",()=>{
+
+    renderQuestionBuilder();
+
+    updateHomeStats();
+
+    checkURLExamCode();
+
+});
+
+
+/* ============================================================
+   VERHINDERN DES VERSEHENTLICHEN SCHLIESSENS
+   WÄHREND EINER PRÜFUNG
+============================================================ */
+
+window.addEventListener("beforeunload",function(event){
+
+    if(runningExam){
+
+        event.preventDefault();
+
+        event.returnValue="Die laufende Prüfung wird beendet.";
+
+    }
+
+});
+
+
+/* ============================================================
+   TASTATUR-HILFE
+============================================================ */
+
+document.addEventListener("keydown",function(event){
+
+    if(!runningExam) return;
+
+    if(event.key==="ArrowRight"){
+
+        if(
+            document.activeElement.tagName!=="TEXTAREA" &&
+            document.activeElement.tagName!=="INPUT"
+        ){
+            nextQuestion();
+        }
+
+    }
+
+    if(event.key==="ArrowLeft"){
+
+        if(
+            document.activeElement.tagName!=="TEXTAREA" &&
+            document.activeElement.tagName!=="INPUT"
+        ){
+            previousQuestion();
+        }
+
+    }
+
+});
+</script>
+
+</body>
+</html>
