@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feuerwehr Prüfungssystem</title>
+<title>Feuerwehr Ausbildung & Prüfung</title>
 
 <style>
 :root{
     --red:#d71920;
-    --red2:#ff3942;
-    --dark:#080b10;
-    --dark2:#10151d;
-    --dark3:#171e28;
-    --border:#293342;
+    --red2:#ff4650;
+    --dark:#070a0f;
+    --dark2:#0d1219;
+    --dark3:#141b24;
+    --dark4:#1b2430;
+    --border:#2a3543;
     --text:#f5f7fa;
-    --muted:#9ca8b7;
+    --muted:#98a5b5;
     --green:#18c77b;
-    --yellow:#ffbf3f;
-    --blue:#3b82f6;
-    --danger:#ef4444;
-    --shadow:0 20px 60px rgba(0,0,0,.35);
+    --yellow:#ffbd3f;
+    --blue:#3d86ff;
+    --orange:#ff7a36;
+    --shadow:0 20px 70px rgba(0,0,0,.38);
 }
 
 *{
@@ -33,13 +34,13 @@ html{
 }
 
 body{
-    font-family:Inter,Segoe UI,Arial,sans-serif;
-    background:
-        radial-gradient(circle at 20% 0%,rgba(215,25,32,.18),transparent 35%),
-        radial-gradient(circle at 100% 30%,rgba(59,130,246,.08),transparent 30%),
-        var(--dark);
-    color:var(--text);
     min-height:100vh;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 15% 0%,rgba(215,25,32,.18),transparent 32%),
+        radial-gradient(circle at 100% 20%,rgba(61,134,255,.09),transparent 30%),
+        var(--dark);
+    font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
 button,
@@ -57,248 +58,129 @@ button{
     display:none!important;
 }
 
-/* HEADER */
+/* =========================================================
+HEADER
+========================================================= */
 
 header{
+    height:72px;
     position:sticky;
     top:0;
     z-index:100;
-    height:72px;
-    background:rgba(8,11,16,.92);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 28px;
+    gap:20px;
+    padding:0 26px;
+    background:rgba(7,10,15,.94);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
 }
 
 .logo{
     display:flex;
     align-items:center;
-    gap:13px;
-    font-weight:900;
-    font-size:19px;
+    gap:12px;
 }
 
 .logoIcon{
-    width:43px;
-    height:43px;
+    width:44px;
+    height:44px;
     border-radius:13px;
-    background:linear-gradient(135deg,var(--red),#8e0b10);
     display:flex;
     align-items:center;
     justify-content:center;
+    background:linear-gradient(135deg,var(--red),#8f0c11);
+    box-shadow:0 8px 25px rgba(215,25,32,.32);
     font-size:23px;
-    box-shadow:0 8px 25px rgba(215,25,32,.35);
 }
 
-.logoText span{
-    display:block;
+.logoTitle{
+    font-weight:900;
+    letter-spacing:.3px;
 }
 
 .logoSub{
+    font-size:10px;
     color:var(--muted);
-    font-size:11px;
-    font-weight:500;
-    margin-top:2px;
+    margin-top:3px;
 }
 
 .headerActions{
     display:flex;
-    gap:9px;
+    gap:8px;
 }
 
-/* BUTTONS */
+/* =========================================================
+BUTTONS
+========================================================= */
 
 .btn{
     border:1px solid var(--border);
-    background:var(--dark3);
     color:white;
-    padding:11px 17px;
+    background:var(--dark3);
+    padding:11px 16px;
     border-radius:11px;
+    font-weight:800;
     transition:.18s;
-    font-weight:700;
 }
 
 .btn:hover{
     transform:translateY(-1px);
-    border-color:#465366;
-    background:#202938;
+    background:#202a37;
+    border-color:#485669;
 }
 
 .btnPrimary{
-    background:linear-gradient(135deg,var(--red),#a50e14);
-    border-color:#ff4b52;
-    box-shadow:0 8px 24px rgba(215,25,32,.22);
+    background:linear-gradient(135deg,var(--red),#a90e14);
+    border-color:#ff5057;
+    box-shadow:0 8px 25px rgba(215,25,32,.2);
 }
 
 .btnPrimary:hover{
-    background:linear-gradient(135deg,#ed252d,#b81017);
+    background:linear-gradient(135deg,#ef2b34,#bd1118);
 }
 
 .btnGreen{
-    background:linear-gradient(135deg,#16a96b,#0d8251);
-    border-color:#27dd91;
+    background:linear-gradient(135deg,#13a969,#0c7e4f);
+    border-color:#2cdb94;
 }
 
 .btnBlue{
-    background:linear-gradient(135deg,#2563eb,#1745aa);
-    border-color:#4e8dff;
+    background:linear-gradient(135deg,#2563eb,#1745ad);
+    border-color:#5793ff;
+}
+
+.btnOrange{
+    background:linear-gradient(135deg,#ea641f,#a83a0d);
+    border-color:#ff995e;
 }
 
 .btnDanger{
-    background:#48171a;
-    border-color:#812127;
+    background:#48171b;
+    border-color:#82272e;
 }
 
 .btnSmall{
     padding:7px 10px;
-    font-size:13px;
+    font-size:12px;
 }
 
 .btnFull{
     width:100%;
 }
 
-/* APP */
+/* =========================================================
+LAYOUT
+========================================================= */
 
 main{
-    width:min(1400px,calc(100% - 36px));
-    margin:0 auto;
+    width:min(1420px,calc(100% - 36px));
+    margin:auto;
 }
 
 .page{
-    padding:50px 0;
-}
-
-/* HOME */
-
-.hero{
-    min-height:calc(100vh - 72px);
-    display:grid;
-    grid-template-columns:1.2fr .8fr;
-    gap:50px;
-    align-items:center;
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    background:rgba(215,25,32,.11);
-    border:1px solid rgba(215,25,32,.4);
-    color:#ff7b80;
-    padding:8px 12px;
-    border-radius:999px;
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:20px;
-}
-
-.hero h1{
-    font-size:clamp(42px,6vw,78px);
-    line-height:.98;
-    letter-spacing:-3px;
-    margin-bottom:25px;
-}
-
-.hero h1 span{
-    color:var(--red2);
-}
-
-.hero p{
-    max-width:700px;
-    color:var(--muted);
-    font-size:18px;
-    line-height:1.7;
-    margin-bottom:30px;
-}
-
-.heroButtons{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.heroCard{
-    background:linear-gradient(145deg,rgba(23,30,40,.96),rgba(10,14,20,.96));
-    border:1px solid var(--border);
-    border-radius:28px;
-    padding:30px;
-    box-shadow:var(--shadow);
-}
-
-.fireVisual{
-    height:420px;
-    border-radius:22px;
-    background:
-        radial-gradient(circle at 50% 40%,rgba(255,70,70,.22),transparent 28%),
-        linear-gradient(145deg,#161d28,#090c11);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
-}
-
-.fireVisual:before{
-    content:"";
-    width:210px;
-    height:280px;
-    background:linear-gradient(135deg,#ffcb4a,#f23c21,#a80e15);
-    clip-path:polygon(50% 0,75% 30%,100% 48%,76% 100%,28% 100%,0 52%,27% 32%);
-    filter:drop-shadow(0 0 50px rgba(255,80,30,.35));
-    animation:flame 2s infinite ease-in-out;
-}
-
-@keyframes flame{
-    0%,100%{transform:scale(1) rotate(-2deg)}
-    50%{transform:scale(1.05) rotate(2deg)}
-}
-
-.statsMini{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-top:18px;
-}
-
-.mini{
-    background:#111720;
-    border:1px solid var(--border);
-    padding:15px;
-    border-radius:13px;
-}
-
-.mini strong{
-    display:block;
-    font-size:23px;
-}
-
-.mini span{
-    color:var(--muted);
-    font-size:11px;
-}
-
-/* CARDS */
-
-.card{
-    background:rgba(16,21,29,.94);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:22px;
-    box-shadow:0 12px 35px rgba(0,0,0,.18);
-}
-
-.card h2{
-    margin-bottom:7px;
-}
-
-.cardDescription{
-    color:var(--muted);
-    margin-bottom:20px;
-    line-height:1.5;
+    padding:45px 0;
 }
 
 .grid{
@@ -314,12 +196,24 @@ main{
     grid-template-columns:repeat(3,minmax(0,1fr));
 }
 
+.grid4{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+.card{
+    background:rgba(14,19,27,.95);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 12px 40px rgba(0,0,0,.16);
+}
+
 .sectionTitle{
     margin-bottom:25px;
 }
 
 .sectionTitle h1{
-    font-size:35px;
+    font-size:36px;
 }
 
 .sectionTitle p{
@@ -327,25 +221,157 @@ main{
     margin-top:7px;
 }
 
-/* FORMS */
-
-label{
-    display:block;
-    color:#dfe5ed;
-    font-weight:700;
-    font-size:13px;
-    margin-bottom:7px;
+.cardDescription{
+    color:var(--muted);
+    line-height:1.6;
+    margin-top:6px;
 }
+
+/* =========================================================
+HOME
+========================================================= */
+
+.hero{
+    min-height:calc(100vh - 72px);
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    align-items:center;
+    gap:45px;
+}
+
+.badge{
+    display:inline-flex;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(215,25,32,.1);
+    border:1px solid rgba(215,25,32,.4);
+    color:#ff8085;
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(42px,6vw,78px);
+    line-height:.98;
+    letter-spacing:-3px;
+}
+
+.hero h1 span{
+    color:var(--red2);
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.7;
+    max-width:720px;
+    margin:24px 0 30px;
+}
+
+.heroButtons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.heroVisual{
+    padding:20px;
+    border:1px solid var(--border);
+    background:linear-gradient(145deg,#171f2a,#090d13);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+}
+
+.visualFire{
+    height:390px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center,rgba(255,74,30,.25),transparent 32%),
+        linear-gradient(145deg,#141c27,#090c11);
+    overflow:hidden;
+}
+
+.flame{
+    width:190px;
+    height:280px;
+    background:linear-gradient(135deg,#ffd24d,#ff682b,#a40e14);
+    clip-path:polygon(
+        50% 0,
+        72% 27%,
+        66% 8%,
+        93% 46%,
+        100% 64%,
+        74% 100%,
+        26% 100%,
+        0 65%,
+        8% 45%,
+        34% 28%,
+        30% 51%
+    );
+    filter:drop-shadow(0 0 45px rgba(255,70,25,.35));
+    animation:flame 2s ease-in-out infinite;
+}
+
+@keyframes flame{
+    0%,100%{
+        transform:scale(1) rotate(-2deg);
+    }
+    50%{
+        transform:scale(1.06) rotate(2deg);
+    }
+}
+
+.homeStats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+    margin-top:15px;
+}
+
+.mini{
+    padding:15px;
+    background:#101720;
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.mini strong{
+    display:block;
+    font-size:22px;
+}
+
+.mini span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* =========================================================
+FORMS
+========================================================= */
 
 .field{
     margin-bottom:16px;
+}
+
+label{
+    display:block;
+    color:#e1e7ef;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:7px;
 }
 
 input,
 textarea,
 select{
     width:100%;
-    background:#0b1017;
+    background:#090e15;
     color:white;
     border:1px solid var(--border);
     border-radius:10px;
@@ -365,20 +391,24 @@ textarea{
     min-height:140px;
 }
 
-/* LOGIN */
+/* =========================================================
+LOGIN
+========================================================= */
 
 .loginWrap{
     min-height:calc(100vh - 72px);
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 }
 
 .loginCard{
     width:min(460px,100%);
 }
 
-/* ADMIN */
+/* =========================================================
+ADMIN
+========================================================= */
 
 .dashboard{
     display:grid;
@@ -387,35 +417,31 @@ textarea{
 }
 
 .sidebar{
-    background:#0d1219;
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:13px;
     height:max-content;
     position:sticky;
     top:92px;
+    background:#0d1219;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:12px;
 }
 
 .sideButton{
     width:100%;
-    background:transparent;
-    color:#aeb8c5;
     border:0;
-    text-align:left;
+    background:transparent;
+    color:#aab5c3;
     padding:13px;
     border-radius:10px;
+    text-align:left;
+    font-weight:800;
     margin-bottom:4px;
-    font-weight:700;
 }
 
 .sideButton:hover,
 .sideButton.active{
-    background:rgba(215,25,32,.13);
     color:white;
-}
-
-.dashboardContent{
-    min-width:0;
+    background:rgba(215,25,32,.12);
 }
 
 .statGrid{
@@ -426,24 +452,71 @@ textarea{
 }
 
 .statCard{
-    background:#111720;
+    padding:19px;
+    background:#111821;
     border:1px solid var(--border);
     border-radius:16px;
-    padding:20px;
 }
 
-.statCard .number{
+.statLabel{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+}
+
+.statNumber{
     font-size:32px;
     font-weight:900;
-    margin:5px 0;
+    margin:5px 0 10px;
 }
 
-.statCard .label{
-    color:var(--muted);
-    font-size:12px;
+/* =========================================================
+TAGS
+========================================================= */
+
+.tag{
+    display:inline-flex;
+    align-items:center;
+    padding:5px 9px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    font-size:10px;
+    font-weight:900;
 }
 
-/* TABLE */
+.tagGreen{
+    color:#53e6a5;
+    background:rgba(24,199,123,.08);
+    border-color:rgba(24,199,123,.3);
+}
+
+.tagRed{
+    color:#ff777d;
+    background:rgba(239,68,68,.08);
+    border-color:rgba(239,68,68,.3);
+}
+
+.tagYellow{
+    color:#ffd369;
+    background:rgba(255,191,63,.08);
+    border-color:rgba(255,191,63,.3);
+}
+
+.tagBlue{
+    color:#7eb1ff;
+    background:rgba(61,134,255,.08);
+    border-color:rgba(61,134,255,.3);
+}
+
+.tagOrange{
+    color:#ff9a62;
+    background:rgba(255,122,54,.08);
+    border-color:rgba(255,122,54,.3);
+}
+
+/* =========================================================
+TABLE
+========================================================= */
 
 .tableWrap{
     overflow:auto;
@@ -456,120 +529,124 @@ table{
 
 th,
 td{
-    padding:13px 11px;
-    border-bottom:1px solid var(--border);
     text-align:left;
+    padding:12px 10px;
+    border-bottom:1px solid var(--border);
     white-space:nowrap;
 }
 
 th{
-    color:#aeb8c5;
-    font-size:12px;
+    color:var(--muted);
+    font-size:11px;
 }
 
 td{
-    font-size:14px;
+    font-size:13px;
 }
 
 tr:hover td{
     background:rgba(255,255,255,.015);
 }
 
-/* TAGS */
+/* =========================================================
+PRESET EXAMS
+========================================================= */
 
-.tag{
-    display:inline-flex;
-    padding:5px 9px;
-    border-radius:999px;
-    font-size:11px;
-    font-weight:800;
-    border:1px solid var(--border);
+.presetCard{
+    position:relative;
+    overflow:hidden;
 }
 
-.tagGreen{
-    color:#55e9a8;
-    background:rgba(24,199,123,.1);
-    border-color:rgba(24,199,123,.3);
+.presetCard:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-80px;
+    top:-80px;
+    border-radius:50%;
+    background:rgba(215,25,32,.1);
 }
 
-.tagRed{
-    color:#ff767c;
-    background:rgba(239,68,68,.1);
-    border-color:rgba(239,68,68,.3);
+.presetIcon{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    background:rgba(215,25,32,.13);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    margin-bottom:15px;
 }
 
-.tagYellow{
-    color:#ffd66b;
-    background:rgba(255,191,63,.1);
-    border-color:rgba(255,191,63,.3);
+.presetMeta{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin:14px 0;
 }
 
-.tagBlue{
-    color:#7eaeff;
-    background:rgba(59,130,246,.1);
-    border-color:rgba(59,130,246,.3);
-}
-
-/* QUESTION BUILDER */
+/* =========================================================
+QUESTION BUILDER
+========================================================= */
 
 .questionEditor{
-    background:#0c1118;
+    padding:18px;
+    background:#0b1118;
     border:1px solid var(--border);
     border-radius:15px;
-    padding:18px;
-    margin-bottom:14px;
+    margin-top:14px;
 }
 
 .questionHeader{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:10px;
     margin-bottom:14px;
 }
 
 .questionNumber{
-    font-weight:900;
     color:#ff7379;
+    font-weight:900;
 }
 
-.answerOption{
+.answerRow{
     display:flex;
+    align-items:center;
     gap:8px;
     margin-top:8px;
 }
 
-.answerOption input{
+.answerRow input[type="radio"]{
     width:auto;
 }
 
-.builderActions{
-    display:flex;
-    gap:9px;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
-
-/* EXAM */
+/* =========================================================
+EXAM
+========================================================= */
 
 .examTop{
     position:sticky;
     top:72px;
     z-index:50;
-    background:rgba(8,11,16,.94);
-    backdrop-filter:blur(15px);
+    background:rgba(7,10,15,.95);
+    backdrop-filter:blur(16px);
     border-bottom:1px solid var(--border);
-    margin-bottom:25px;
 }
 
 .examTopInner{
-    width:min(1200px,calc(100% - 36px));
+    width:min(1050px,calc(100% - 30px));
     margin:auto;
-    padding:13px 0;
+    padding:12px 0;
     display:flex;
-    justify-content:space-between;
     align-items:center;
     gap:15px;
+}
+
+.examTopInfo{
+    flex:1;
 }
 
 .progress{
@@ -582,48 +659,56 @@ tr:hover td{
 
 .progressBar{
     height:100%;
-    background:linear-gradient(90deg,var(--red),#ff6a4d);
-    transition:.25s;
+    background:linear-gradient(90deg,var(--red),#ff754e);
+    transition:.2s;
 }
 
 .timer{
-    font-size:20px;
-    font-weight:900;
-    color:#fff;
-    padding:10px 15px;
-    background:#171e28;
+    padding:10px 14px;
     border:1px solid var(--border);
-    border-radius:11px;
+    background:#151d27;
+    border-radius:10px;
+    font-size:19px;
+    font-weight:900;
 }
 
 .timer.warning{
-    color:#ffce54;
-    border-color:#9d741f;
+    color:#ffd45c;
+    border-color:#876a22;
 }
 
 .timer.danger{
     color:#ff646b;
-    border-color:#8f262d;
+    border-color:#84282e;
 }
 
 .examContainer{
-    width:min(900px,calc(100% - 36px));
+    width:min(900px,calc(100% - 30px));
     margin:auto;
-    padding-bottom:60px;
+    padding:28px 0 60px;
 }
 
 .examQuestion{
-    background:#111720;
+    padding:25px;
+    background:#111821;
     border:1px solid var(--border);
     border-radius:20px;
-    padding:25px;
-    margin-bottom:18px;
 }
 
 .examQuestion h2{
-    font-size:21px;
     line-height:1.45;
-    margin-bottom:20px;
+    font-size:21px;
+    margin:18px 0;
+}
+
+.contextBox{
+    padding:14px;
+    background:#0b1017;
+    border:1px solid var(--border);
+    border-radius:11px;
+    color:#cbd5e1;
+    line-height:1.6;
+    margin-bottom:18px;
 }
 
 .optionLabel{
@@ -632,20 +717,16 @@ tr:hover td{
     gap:12px;
     padding:14px;
     border:1px solid var(--border);
-    background:#0b1017;
-    border-radius:12px;
+    background:#0a0f16;
+    border-radius:11px;
     margin-bottom:9px;
     cursor:pointer;
-    transition:.15s;
 }
 
-.optionLabel:hover{
-    border-color:#4a5668;
-}
-
+.optionLabel:hover,
 .optionLabel.selected{
     border-color:var(--red);
-    background:rgba(215,25,32,.08);
+    background:rgba(215,25,32,.07);
 }
 
 .optionLabel input{
@@ -657,26 +738,29 @@ tr:hover td{
     display:flex;
     justify-content:space-between;
     gap:10px;
-    margin-top:20px;
+    margin-top:18px;
 }
 
-/* RESULT */
+/* =========================================================
+RESULT
+========================================================= */
 
 .resultHero{
+    max-width:850px;
+    margin:60px auto;
     text-align:center;
-    padding:45px 20px;
 }
 
 .resultCircle{
-    width:150px;
-    height:150px;
+    width:155px;
+    height:155px;
     border-radius:50%;
     border:10px solid var(--green);
+    margin:0 auto 25px;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    margin:0 auto 25px;
+    flex-direction:column;
 }
 
 .resultCircle.fail{
@@ -684,52 +768,33 @@ tr:hover td{
 }
 
 .resultPercent{
-    font-size:35px;
+    font-size:36px;
     font-weight:900;
 }
 
-.resultLabel{
+.resultSmall{
     color:var(--muted);
-    font-size:12px;
+    font-size:11px;
 }
 
-.resultDetails{
-    max-width:700px;
-    margin:0 auto;
+/* =========================================================
+EMPTY
+========================================================= */
+
+.empty{
+    text-align:center;
+    color:var(--muted);
+    padding:45px 20px;
 }
 
-/* TOAST */
-
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    z-index:999;
-    background:#161e29;
-    border:1px solid var(--border);
-    padding:15px 18px;
-    border-radius:13px;
-    box-shadow:var(--shadow);
-    transform:translateY(130px);
-    opacity:0;
-    transition:.25s;
-    max-width:380px;
+.emptyIcon{
+    font-size:43px;
+    margin-bottom:10px;
 }
 
-.toast.show{
-    transform:translateY(0);
-    opacity:1;
-}
-
-.toast.success{
-    border-color:#176f4d;
-}
-
-.toast.error{
-    border-color:#79272d;
-}
-
-/* MODAL */
+/* =========================================================
+MODAL
+========================================================= */
 
 .modal{
     position:fixed;
@@ -739,38 +804,61 @@ tr:hover td{
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
+    padding:18px;
 }
 
 .modalCard{
-    width:min(850px,100%);
+    width:min(900px,100%);
     max-height:90vh;
     overflow:auto;
-    background:#10151d;
+    background:#10161f;
     border:1px solid var(--border);
     border-radius:20px;
-    padding:25px;
+    padding:24px;
 }
 
-/* EMPTY */
+/* =========================================================
+TOAST
+========================================================= */
 
-.empty{
-    text-align:center;
-    padding:45px 20px;
-    color:var(--muted);
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:999;
+    padding:15px 18px;
+    max-width:390px;
+    border-radius:12px;
+    background:#151d27;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    transform:translateY(140px);
+    opacity:0;
+    transition:.25s;
 }
 
-.emptyIcon{
-    font-size:45px;
-    margin-bottom:12px;
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
 }
 
-/* MOBILE */
+.toast.error{
+    border-color:#83282e;
+}
 
-@media(max-width:950px){
+.toast.success{
+    border-color:#19724e;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
     .hero{
         grid-template-columns:1fr;
-        padding:30px 0 60px;
+        padding:35px 0 60px;
     }
 
     .dashboard{
@@ -792,23 +880,24 @@ tr:hover td{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .grid2,
-    .grid3{
-        grid-template-columns:1fr;
+    .grid4{
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
+
     header{
-        padding:0 14px;
+        padding:0 13px;
     }
 
-    .logoText{
+    .logoTitle,
+    .logoSub{
         display:none;
     }
 
     main{
-        width:min(100% - 24px,1400px);
+        width:calc(100% - 24px);
     }
 
     .hero h1{
@@ -816,32 +905,35 @@ tr:hover td{
         letter-spacing:-2px;
     }
 
-    .heroCard{
-        padding:17px;
+    .visualFire{
+        height:280px;
     }
 
-    .fireVisual{
-        height:280px;
+    .grid2,
+    .grid3,
+    .grid4{
+        grid-template-columns:1fr;
     }
 
     .statGrid{
         grid-template-columns:1fr 1fr;
     }
 
-    .headerActions .btn span{
-        display:none;
-    }
-
-    .examTopInner{
-        width:calc(100% - 24px);
-    }
-
-    .examContainer{
-        width:calc(100% - 24px);
+    .headerActions .btn{
+        padding:8px 9px;
+        font-size:11px;
     }
 
     .examQuestion{
         padding:17px;
+    }
+
+    .examTopInner{
+        width:calc(100% - 20px);
+    }
+
+    .examContainer{
+        width:calc(100% - 20px);
     }
 }
 </style>
@@ -850,61 +942,99 @@ tr:hover td{
 <body>
 
 <header>
+
     <div class="logo">
+
         <div class="logoIcon">🚒</div>
-        <div class="logoText">
-            <span>FEUERWEHR PRÜFUNG</span>
-            <span class="logoSub">DIGITALES AUSBILDUNGSSYSTEM</span>
+
+        <div>
+            <div class="logoTitle">
+                FEUERWEHR AUSBILDUNG
+            </div>
+
+            <div class="logoSub">
+                DIGITALES PRÜFUNGS- & AUSBILDUNGSSYSTEM
+            </div>
         </div>
+
     </div>
 
     <div class="headerActions">
-        <button class="btn btnSmall" onclick="showPage('home')">Startseite</button>
-        <button class="btn btnSmall btnPrimary" onclick="showPage('participant')">Prüfung starten</button>
-        <button class="btn btnSmall" onclick="showPage('login')">Ausbilder</button>
+
+        <button class="btn btnSmall"
+                onclick="showPage('home')">
+            Start
+        </button>
+
+        <button class="btn btnSmall btnPrimary"
+                onclick="showPage('participant')">
+            Prüfung
+        </button>
+
+        <button class="btn btnSmall"
+                onclick="showPage('login')">
+            Ausbilder
+        </button>
+
     </div>
+
 </header>
+
 
 <main>
 
-<!-- =========================
-     STARTSEITE
-========================= -->
+<!-- ======================================================
+START
+====================================================== -->
 
 <section id="page-home" class="page">
 
     <div class="hero">
 
         <div>
-            <div class="badge">🔥 NEUES FEUERWEHR-PRÜFUNGSSYSTEM</div>
+
+            <div class="badge">
+                🔥 DIGITALE FEUERWEHR-AUSBILDUNG
+            </div>
 
             <h1>
                 Ausbildung.<br>
-                Prüfung.<br>
-                <span>Feuerwehr.</span>
+                Wissen.<br>
+                <span>Einsatzbereit.</span>
             </h1>
 
             <p>
-                Eine moderne digitale Prüfungsplattform für Feuerwehren.
-                Prüfungen erstellen, Teilnehmer prüfen, Ergebnisse auswerten
-                und Freitextantworten manuell korrigieren.
+                Erstelle Feuerwehrprüfungen, verwende fertige
+                Truppmann-Vorlagen oder lasse aus deinem
+                Unterrichtsmaterial automatisch einen individuellen
+                Fragenkatalog erstellen.
             </p>
 
             <div class="heroButtons">
-                <button class="btn btnPrimary" onclick="showPage('participant')">
+
+                <button class="btn btnPrimary"
+                        onclick="showPage('participant')">
                     🚒 Prüfung starten
                 </button>
 
-                <button class="btn" onclick="showPage('login')">
+                <button class="btn"
+                        onclick="showPage('login')">
                     👨‍🚒 Ausbilderbereich
                 </button>
+
             </div>
+
         </div>
 
-        <div class="heroCard">
-            <div class="fireVisual"></div>
 
-            <div class="statsMini">
+        <div class="heroVisual">
+
+            <div class="visualFire">
+                <div class="flame"></div>
+            </div>
+
+            <div class="homeStats">
+
                 <div class="mini">
                     <strong id="homeExamCount">0</strong>
                     <span>Prüfungen</span>
@@ -912,38 +1042,45 @@ tr:hover td{
 
                 <div class="mini">
                     <strong id="homeResultCount">0</strong>
-                    <span>Teilnehmer</span>
+                    <span>Ergebnisse</span>
                 </div>
 
                 <div class="mini">
-                    <strong>24/7</strong>
-                    <span>Verfügbar</span>
+                    <strong>TM1 + TM2</strong>
+                    <span>Vorlagen</span>
                 </div>
+
             </div>
+
         </div>
 
     </div>
 
+
     <div class="grid grid3">
 
         <div class="card">
-            <h2>📝 Prüfungen</h2>
+            <h2>🤖 Intelligenter Fragen-Generator</h2>
             <p class="cardDescription">
-                Eigene Prüfungen mit verschiedenen Fragetypen erstellen.
+                Erkennt Definitionen, Regeln, Zahlen, Fachbegriffe,
+                wichtige Aussagen und erzeugt daraus verschiedene
+                Fragetypen.
             </p>
         </div>
 
         <div class="card">
-            <h2>🤖 Fragen-Generator</h2>
+            <h2>🚒 Truppmann 1 & 2</h2>
             <p class="cardDescription">
-                Unterrichtsmaterial analysieren und daraus automatisch Fragen erstellen.
+                Zwei vorbereitete Ausbildungs-/Prüfungsvorlagen
+                sind direkt im System enthalten.
             </p>
         </div>
 
         <div class="card">
-            <h2>📊 Auswertung</h2>
+            <h2>📊 Komplette Auswertung</h2>
             <p class="cardDescription">
-                Automatische Bewertung und manuelle Korrektur von Freitext.
+                Automatische Bewertung, Freitextkorrektur,
+                Bestehensgrenze, Ergebnisse und Statistiken.
             </p>
         </div>
 
@@ -952,32 +1089,39 @@ tr:hover td{
 </section>
 
 
-<!-- =========================
-     TEILNEHMER ANMELDUNG
-========================= -->
+<!-- ======================================================
+TEILNEHMER
+====================================================== -->
 
 <section id="page-participant" class="page hidden">
 
     <div class="sectionTitle">
         <h1>Prüfung starten</h1>
-        <p>Gib deine Teilnehmerdaten und den Prüfungs-Code ein.</p>
+        <p>
+            Trage deine Daten und den Prüfungs-Code ein.
+        </p>
     </div>
 
-    <div class="card" style="max-width:700px;margin:auto;">
+
+    <div class="card"
+         style="max-width:720px;margin:auto;">
 
         <div class="field">
             <label>Vorname</label>
-            <input id="participantFirst" placeholder="z. B. Max">
+            <input id="participantFirst"
+                   placeholder="z. B. Max">
         </div>
 
         <div class="field">
             <label>Nachname</label>
-            <input id="participantLast" placeholder="z. B. Mustermann">
+            <input id="participantLast"
+                   placeholder="z. B. Mustermann">
         </div>
 
         <div class="field">
             <label>Feuerwehr</label>
-            <input id="participantFire" placeholder="z. B. Feuerwehr Musterstadt">
+            <input id="participantFire"
+                   placeholder="z. B. Feuerwehr Musterstadt">
         </div>
 
         <div class="field">
@@ -987,7 +1131,8 @@ tr:hover td{
                    style="text-transform:uppercase">
         </div>
 
-        <button class="btn btnPrimary btnFull" onclick="startParticipantExam()">
+        <button class="btn btnPrimary btnFull"
+                onclick="startParticipantExam()">
             🚒 Prüfung laden
         </button>
 
@@ -996,9 +1141,9 @@ tr:hover td{
 </section>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- ======================================================
+LOGIN
+====================================================== -->
 
 <section id="page-login" class="page hidden">
 
@@ -1007,23 +1152,39 @@ tr:hover td{
         <div class="card loginCard">
 
             <div style="text-align:center;margin-bottom:25px;">
-                <div style="font-size:48px;">👨‍🚒</div>
-                <h1>Ausbilderbereich</h1>
-                <p style="color:var(--muted);margin-top:7px;">
-                    Anmeldung für Feuerwehr-Ausbilder
+
+                <div style="font-size:48px;">
+                    👨‍🚒
+                </div>
+
+                <h1>
+                    Ausbilder-Login
+                </h1>
+
+                <p style="color:var(--muted);margin-top:6px;">
+                    Verwaltung der Feuerwehrprüfungen
                 </p>
+
             </div>
 
             <div class="field">
+
                 <label>E-Mail</label>
-                <input id="loginEmail" type="email"
+
+                <input id="loginEmail"
+                       type="email"
                        placeholder="Ausbilder@gmail.com">
+
             </div>
 
             <div class="field">
+
                 <label>Passwort</label>
-                <input id="loginPassword" type="password"
-                       placeholder="Passwort">
+
+                <input id="loginPassword"
+                       type="password"
+                       placeholder="Admin">
+
             </div>
 
             <button class="btn btnPrimary btnFull"
@@ -1038,9 +1199,9 @@ tr:hover td{
 </section>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ======================================================
+ADMIN
+====================================================== -->
 
 <section id="page-admin" class="page hidden">
 
@@ -1058,6 +1219,12 @@ tr:hover td{
                     data-tab="create"
                     onclick="adminTab('create',this)">
                 ➕ Prüfung erstellen
+            </button>
+
+            <button class="sideButton"
+                    data-tab="presets"
+                    onclick="adminTab('presets',this)">
+                🚒 TM1 / TM2
             </button>
 
             <button class="sideButton"
@@ -1080,7 +1247,8 @@ tr:hover td{
 
             <div style="height:1px;background:var(--border);margin:10px 0;"></div>
 
-            <button class="sideButton" onclick="logoutAdmin()">
+            <button class="sideButton"
+                    onclick="logoutAdmin()">
                 🚪 Abmelden
             </button>
 
@@ -1091,46 +1259,99 @@ tr:hover td{
 
             <!-- OVERVIEW -->
 
-            <div id="admin-overview" class="adminTab">
+            <div id="admin-overview"
+                 class="adminTab">
 
                 <div class="sectionTitle">
-                    <h1>Ausbilder-Dashboard</h1>
-                    <p>Übersicht über dein Prüfungssystem.</p>
+
+                    <h1>
+                        Ausbilder-Dashboard
+                    </h1>
+
+                    <p>
+                        Deine zentrale Prüfungsverwaltung.
+                    </p>
+
                 </div>
+
 
                 <div class="statGrid">
 
                     <div class="statCard">
-                        <div class="label">PRÜFUNGEN</div>
-                        <div class="number" id="statExams">0</div>
-                        <span class="tag tagBlue">Gesamt</span>
+                        <div class="statLabel">
+                            PRÜFUNGEN
+                        </div>
+
+                        <div class="statNumber"
+                             id="statExams">
+                            0
+                        </div>
+
+                        <span class="tag tagBlue">
+                            Gesamt
+                        </span>
                     </div>
 
-                    <div class="statCard">
-                        <div class="label">TEILNEHMER</div>
-                        <div class="number" id="statParticipants">0</div>
-                        <span class="tag tagBlue">Ergebnisse</span>
-                    </div>
 
                     <div class="statCard">
-                        <div class="label">BESTANDEN</div>
-                        <div class="number" id="statPassed">0</div>
-                        <span class="tag tagGreen">Erfolgreich</span>
+                        <div class="statLabel">
+                            TEILNEHMER
+                        </div>
+
+                        <div class="statNumber"
+                             id="statParticipants">
+                            0
+                        </div>
+
+                        <span class="tag tagBlue">
+                            Ergebnisse
+                        </span>
                     </div>
 
+
                     <div class="statCard">
-                        <div class="label">DURCHSCHNITT</div>
-                        <div class="number" id="statAverage">0%</div>
-                        <span class="tag tagYellow">Alle Ergebnisse</span>
+                        <div class="statLabel">
+                            BESTANDEN
+                        </div>
+
+                        <div class="statNumber"
+                             id="statPassed">
+                            0
+                        </div>
+
+                        <span class="tag tagGreen">
+                            Erfolgreich
+                        </span>
+                    </div>
+
+
+                    <div class="statCard">
+                        <div class="statLabel">
+                            DURCHSCHNITT
+                        </div>
+
+                        <div class="statNumber"
+                             id="statAverage">
+                            0%
+                        </div>
+
+                        <span class="tag tagYellow">
+                            Alle Ergebnisse
+                        </span>
                     </div>
 
                 </div>
 
+
                 <div class="card">
 
-                    <h2>Letzte Ergebnisse</h2>
+                    <h2>
+                        Letzte Ergebnisse
+                    </h2>
 
-                    <div id="overviewResults"></div>
+                    <div id="overviewResults"
+                         style="margin-top:18px;">
+                    </div>
 
                 </div>
 
@@ -1139,34 +1360,86 @@ tr:hover td{
 
             <!-- CREATE -->
 
-            <div id="admin-create" class="adminTab hidden">
+            <div id="admin-create"
+                 class="adminTab hidden">
 
                 <div class="sectionTitle">
-                    <h1>Neue Prüfung</h1>
-                    <p>Erstelle eine komplett neue Feuerwehrprüfung.</p>
+
+                    <h1>
+                        Neue Prüfung erstellen
+                    </h1>
+
+                    <p>
+                        Eigene Prüfung mit intelligentem Fragen-Generator.
+                    </p>
+
                 </div>
+
+
+                <div class="card"
+                     style="margin-bottom:18px;">
+
+                    <h2>
+                        ⚡ Schnellstart
+                    </h2>
+
+                    <p class="cardDescription">
+                        Du kannst direkt eine vorbereitete Prüfung
+                        als Grundlage laden.
+                    </p>
+
+                    <div class="grid grid2"
+                         style="margin-top:16px;">
+
+                        <button class="btn btnPrimary"
+                                onclick="loadPresetIntoBuilder('tm1')">
+                            🚒 Truppmann 1 laden
+                        </button>
+
+                        <button class="btn btnOrange"
+                                onclick="loadPresetIntoBuilder('tm2')">
+                            🚒 Truppmann 2 laden
+                        </button>
+
+                    </div>
+
+                </div>
+
 
                 <div class="grid grid2">
 
                     <div class="card">
 
-                        <h2>Prüfungsdaten</h2>
+                        <h2>
+                            Prüfungsdaten
+                        </h2>
 
                         <div class="field">
-                            <label>Titel</label>
+                            <label>
+                                Titel
+                            </label>
+
                             <input id="examTitle"
                                    placeholder="z. B. Truppmann Teil 1">
                         </div>
 
+
                         <div class="field">
-                            <label>Prüfungs-Code</label>
+                            <label>
+                                Prüfungs-Code
+                            </label>
+
                             <input id="examCode"
                                    placeholder="z. B. TM1-2026"
                                    style="text-transform:uppercase">
                         </div>
 
+
                         <div class="field">
-                            <label>Bestehensgrenze (%)</label>
+                            <label>
+                                Bestehensgrenze (%)
+                            </label>
+
                             <input id="examPass"
                                    type="number"
                                    value="50"
@@ -1174,8 +1447,12 @@ tr:hover td{
                                    max="100">
                         </div>
 
+
                         <div class="field">
-                            <label>Prüfungsdauer (Minuten)</label>
+                            <label>
+                                Dauer (Minuten)
+                            </label>
+
                             <input id="examDuration"
                                    type="number"
                                    value="30"
@@ -1183,20 +1460,40 @@ tr:hover td{
                                    max="300">
                         </div>
 
-                        <div class="field">
-                            <label>Schwierigkeit</label>
-                            <select id="examDifficulty">
-                                <option value="leicht">Leicht</option>
-                                <option value="mittel" selected>Mittel</option>
-                                <option value="schwer">Schwer</option>
-                            </select>
-                        </div>
 
                         <div class="field">
-                            <label>Fragenanzahl</label>
+                            <label>
+                                Schwierigkeit
+                            </label>
+
+                            <select id="examDifficulty">
+
+                                <option value="leicht">
+                                    Leicht
+                                </option>
+
+                                <option value="mittel"
+                                        selected>
+                                    Mittel
+                                </option>
+
+                                <option value="schwer">
+                                    Schwer
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+                            <label>
+                                Fragenanzahl
+                            </label>
+
                             <input id="questionCount"
                                    type="number"
-                                   value="10"
+                                   value="15"
                                    min="1"
                                    max="100">
                         </div>
@@ -1206,34 +1503,37 @@ tr:hover td{
 
                     <div class="card">
 
-                        <h2>Unterrichtsmaterial</h2>
+                        <h2>
+                            🤖 Intelligenter Fragen-Generator
+                        </h2>
 
                         <p class="cardDescription">
-                            Füge hier dein Ausbildungs-/Unterrichtsmaterial ein.
-                            Der integrierte Fragen-Generator erstellt daraus einen Fragenvorschlag.
+                            Je ausführlicher dein Material,
+                            desto besser kann der Generator
+                            Fragen daraus erstellen.
                         </p>
 
                         <textarea id="trainingMaterial"
-                                  placeholder="Beispiel:
+                                  placeholder="Unterrichtsmaterial hier einfügen..."></textarea>
 
-Ein Atemschutzgerät dient der Versorgung des Feuerwehrangehörigen mit Atemluft.
 
-Bei einem Brandeinsatz ist die persönliche Schutzausrüstung zu tragen.
+                        <div class="field"
+                             style="margin-top:15px;">
 
-Der Notruf 112 verbindet mit der zuständigen Leitstelle.
+                            <label>
+                                Unterrichtsdatei
+                            </label>
 
-Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufgaben."></textarea>
-
-                        <div class="field" style="margin-top:15px;">
-                            <label>Oder Datei laden</label>
-                            <input type="file"
-                                   id="materialFile"
+                            <input id="materialFile"
+                                   type="file"
                                    accept=".txt,.md,.csv">
+
                         </div>
+
 
                         <button class="btn btnBlue btnFull"
                                 onclick="generateQuestions()">
-                            🤖 Fragen aus Material erstellen
+                            🤖 Intelligente Fragen erstellen
                         </button>
 
                     </div>
@@ -1241,26 +1541,47 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
                 </div>
 
 
-                <div class="card" style="margin-top:18px;">
+                <div class="card"
+                     style="margin-top:18px;">
 
-                    <div style="display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;">
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        gap:15px;
+                        flex-wrap:wrap;
+                    ">
+
                         <div>
-                            <h2>Fragen</h2>
-                            <p class="cardDescription" style="margin:4px 0 0;">
-                                Kontrolliere jede Frage vor dem Speichern.
+
+                            <h2>
+                                Fragenkatalog
+                            </h2>
+
+                            <p class="cardDescription">
+                                Kontrolliere und bearbeite die Fragen.
                             </p>
+
                         </div>
 
                         <button class="btn btnSmall"
                                 onclick="addQuestion()">
-                            ➕ Frage hinzufügen
+                            ➕ Frage
                         </button>
+
                     </div>
 
-                    <div id="questionBuilder"
-                         style="margin-top:20px;"></div>
 
-                    <div class="builderActions">
+                    <div id="questionBuilder">
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        gap:9px;
+                        flex-wrap:wrap;
+                        margin-top:18px;
+                    ">
 
                         <button class="btn btnPrimary"
                                 onclick="saveExam()">
@@ -1274,8 +1595,131 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 
                         <button class="btn btnDanger"
                                 onclick="clearBuilder()">
-                            🗑️ Entwurf leeren
+                            🗑️ Entwurf löschen
                         </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRESETS -->
+
+            <div id="admin-presets"
+                 class="adminTab hidden">
+
+                <div class="sectionTitle">
+
+                    <h1>
+                        🚒 Truppmann-Vorlagen
+                    </h1>
+
+                    <p>
+                        Vorgefertigte Ausbildungsfragen für TM1 und TM2.
+                    </p>
+
+                </div>
+
+
+                <div class="grid grid2">
+
+                    <div class="card presetCard">
+
+                        <div class="presetIcon">
+                            🔥
+                        </div>
+
+                        <h2>
+                            Truppmann Teil 1
+                        </h2>
+
+                        <p class="cardDescription">
+                            Grundausbildung mit Themen wie
+                            Feuerwehrgrundlagen, Erste Hilfe,
+                            Rechtsgrundlagen, Fahrzeuge,
+                            Geräte und Grundtätigkeiten.
+                        </p>
+
+                        <div class="presetMeta">
+
+                            <span class="tag tagRed">
+                                TM1
+                            </span>
+
+                            <span class="tag tagBlue">
+                                Grundausbildung
+                            </span>
+
+                            <span class="tag tagYellow">
+                                70+ Stunden
+                            </span>
+
+                        </div>
+
+                        <div class="grid grid2">
+
+                            <button class="btn btnPrimary"
+                                    onclick="loadPresetIntoBuilder('tm1')">
+                                ✏️ Bearbeiten
+                            </button>
+
+                            <button class="btn"
+                                    onclick="previewPreset('tm1')">
+                                👁️ Vorschau
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card presetCard">
+
+                        <div class="presetIcon">
+                            🚒
+                        </div>
+
+                        <h2>
+                            Truppmann Teil 2
+                        </h2>
+
+                        <p class="cardDescription">
+                            Vertiefung mit Gefahren der Einsatzstelle,
+                            Retten, Selbstretten, Sichern,
+                            Erste Hilfe und Einsatznachsorge.
+                        </p>
+
+                        <div class="presetMeta">
+
+                            <span class="tag tagOrange">
+                                TM2
+                            </span>
+
+                            <span class="tag tagBlue">
+                                Vertiefung
+                            </span>
+
+                            <span class="tag tagYellow">
+                                80+ Stunden
+                            </span>
+
+                        </div>
+
+                        <div class="grid grid2">
+
+                            <button class="btn btnOrange"
+                                    onclick="loadPresetIntoBuilder('tm2')">
+                                ✏️ Bearbeiten
+                            </button>
+
+                            <button class="btn"
+                                    onclick="previewPreset('tm2')">
+                                👁️ Vorschau
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -1286,22 +1730,34 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 
             <!-- EXAMS -->
 
-            <div id="admin-exams" class="adminTab hidden">
+            <div id="admin-exams"
+                 class="adminTab hidden">
 
                 <div class="sectionTitle">
-                    <h1>Prüfungen</h1>
-                    <p>Alle erstellten Prüfungen.</p>
+
+                    <h1>
+                        Prüfungen
+                    </h1>
+
+                    <p>
+                        Alle veröffentlichten Prüfungen.
+                    </p>
+
                 </div>
+
 
                 <div class="card">
 
                     <div class="field">
+
                         <input id="examSearch"
                                placeholder="🔎 Prüfung suchen..."
                                oninput="renderExams()">
+
                     </div>
 
-                    <div id="examList"></div>
+                    <div id="examList">
+                    </div>
 
                 </div>
 
@@ -1310,22 +1766,34 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 
             <!-- RESULTS -->
 
-            <div id="admin-results" class="adminTab hidden">
+            <div id="admin-results"
+                 class="adminTab hidden">
 
                 <div class="sectionTitle">
-                    <h1>Ergebnisse</h1>
-                    <p>Alle eingegangenen Prüfungen.</p>
+
+                    <h1>
+                        Ergebnisse
+                    </h1>
+
+                    <p>
+                        Eingereichte Prüfungen und Korrekturen.
+                    </p>
+
                 </div>
+
 
                 <div class="card">
 
                     <div class="field">
+
                         <input id="resultSearch"
-                               placeholder="🔎 Teilnehmer oder Prüfung suchen..."
+                               placeholder="🔎 Teilnehmer, Feuerwehr oder Prüfung..."
                                oninput="renderResults()">
+
                     </div>
 
-                    <div id="resultList"></div>
+                    <div id="resultList">
+                    </div>
 
                 </div>
 
@@ -1334,45 +1802,67 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 
             <!-- SETTINGS -->
 
-            <div id="admin-settings" class="adminTab hidden">
+            <div id="admin-settings"
+                 class="adminTab hidden">
 
                 <div class="sectionTitle">
-                    <h1>Einstellungen</h1>
-                    <p>Informationen über dieses System.</p>
+
+                    <h1>
+                        Einstellungen
+                    </h1>
+
+                    <p>
+                        Informationen über diese Version.
+                    </p>
+
                 </div>
+
 
                 <div class="card">
 
-                    <h2>🔥 Feuerwehr Prüfungssystem</h2>
+                    <h2>
+                        Feuerwehr Ausbildungssystem
+                    </h2>
 
-                    <p style="color:var(--muted);line-height:1.7;margin-top:15px;">
-                        Diese Version ist komplett neu aufgebaut und benötigt
-                        keinen Server und keine Installation.
-                    </p>
-
-                    <div style="margin-top:20px;display:grid;gap:10px;">
+                    <div class="grid grid3"
+                         style="margin-top:18px;">
 
                         <div class="mini">
                             <strong>GitHub Pages</strong>
-                            <span>Direkt im Browser verwendbar</span>
+                            <span>
+                                Keine Installation erforderlich
+                            </span>
                         </div>
 
                         <div class="mini">
-                            <strong>LocalStorage</strong>
-                            <span>Daten werden lokal im Browser gespeichert</span>
+                            <strong>Lokale Daten</strong>
+                            <span>
+                                Speicherung im Browser
+                            </span>
                         </div>
 
                         <div class="mini">
-                            <strong>Keine Installation</strong>
-                            <span>Kein Node.js und kein Server erforderlich</span>
+                            <strong>TM1 + TM2</strong>
+                            <span>
+                                Direkt als Vorlagen verfügbar
+                            </span>
                         </div>
 
                     </div>
 
-                    <div style="margin-top:20px;padding:15px;background:#201714;border:1px solid #593b24;border-radius:12px;color:#eacb9a;">
-                        ⚠️ Hinweis: Da dies eine reine GitHub-Pages-Webseite ist,
-                        sind die gespeicherten Daten nicht automatisch zwischen
-                        verschiedenen Geräten synchronisiert.
+                    <div style="
+                        margin-top:20px;
+                        padding:15px;
+                        border-radius:12px;
+                        background:#201714;
+                        border:1px solid #5c3c24;
+                        color:#eacb9a;
+                        line-height:1.6;
+                    ">
+                        ⚠️ Diese GitHub-Pages-Version besitzt
+                        keine zentrale Online-Datenbank.
+                        Prüfungen und Ergebnisse werden deshalb
+                        im Browser gespeichert.
                     </div>
 
                 </div>
@@ -1386,33 +1876,42 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 </section>
 
 
-<!-- =========================
-     PRÜFUNG
-========================= -->
+<!-- ======================================================
+LAUFENDE PRÜFUNG
+====================================================== -->
 
-<section id="page-exam" class="hidden">
+<section id="page-exam"
+         class="hidden">
 
     <div class="examTop">
 
         <div class="examTopInner">
 
-            <div style="flex:1;">
-                <strong id="examRunningTitle">Prüfung</strong>
+            <div class="examTopInfo">
+
+                <strong id="examRunningTitle">
+                    Prüfung
+                </strong>
 
                 <div class="progress">
+
                     <div id="examProgress"
                          class="progressBar"
                          style="width:0%;">
                     </div>
+
                 </div>
 
                 <small id="examProgressText"
                        style="color:var(--muted);">
                     Frage 1
                 </small>
+
             </div>
 
-            <div id="examTimer" class="timer">
+
+            <div id="examTimer"
+                 class="timer">
                 00:00
             </div>
 
@@ -1420,20 +1919,23 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 
     </div>
 
+
     <div class="examContainer">
 
-        <div id="examQuestionContainer"></div>
+        <div id="examQuestionContainer">
+        </div>
+
 
         <div class="examNavigation">
 
-            <button class="btn"
-                    id="examPrevious"
+            <button id="examPrevious"
+                    class="btn"
                     onclick="previousQuestion()">
                 ← Zurück
             </button>
 
-            <button class="btn btnPrimary"
-                    id="examNext"
+            <button id="examNext"
+                    class="btn btnPrimary"
                     onclick="nextQuestion()">
                 Weiter →
             </button>
@@ -1445,11 +1947,12 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 </section>
 
 
-<!-- =========================
-     RESULTAT
-========================= -->
+<!-- ======================================================
+ERGEBNIS
+====================================================== -->
 
-<section id="page-result" class="page hidden">
+<section id="page-result"
+         class="page hidden">
 
     <div class="card resultHero">
 
@@ -1461,50 +1964,67 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
                 0%
             </div>
 
-            <div class="resultLabel">
+            <div class="resultSmall">
                 Ergebnis
             </div>
 
         </div>
 
-        <h1 id="resultTitle">Prüfung abgeschlossen</h1>
+
+        <h1 id="resultTitle">
+            Prüfung abgeschlossen
+        </h1>
 
         <p id="resultMessage"
-           style="color:var(--muted);margin-top:10px;">
+           style="
+               color:var(--muted);
+               margin-top:10px;
+               line-height:1.6;
+           ">
         </p>
 
-        <div class="resultDetails"
-             style="margin-top:30px;">
 
-            <div class="grid grid3">
+        <div class="grid grid3"
+             style="margin-top:28px;">
 
-                <div class="mini">
-                    <strong id="resultPoints">0</strong>
-                    <span>Punkte</span>
-                </div>
+            <div class="mini">
+                <strong id="resultPoints">
+                    0
+                </strong>
 
-                <div class="mini">
-                    <strong id="resultPassed">-</strong>
-                    <span>Status</span>
-                </div>
-
-                <div class="mini">
-                    <strong id="resultManual">Nein</strong>
-                    <span>Manuelle Korrektur</span>
-                </div>
-
+                <span>
+                    Punkte
+                </span>
             </div>
 
-            <div style="margin-top:25px;">
+            <div class="mini">
+                <strong id="resultPassed">
+                    -
+                </strong>
 
-                <button class="btn btnPrimary"
-                        onclick="showPage('home')">
-                    🏠 Zur Startseite
-                </button>
+                <span>
+                    Status
+                </span>
+            </div>
 
+            <div class="mini">
+                <strong id="resultManual">
+                    Nein
+                </strong>
+
+                <span>
+                    Manuelle Korrektur
+                </span>
             </div>
 
         </div>
+
+
+        <button class="btn btnPrimary"
+                style="margin-top:25px;"
+                onclick="showPage('home')">
+            🏠 Zur Startseite
+        </button>
 
     </div>
 
@@ -1513,9 +2033,7 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 </main>
 
 
-<!-- =========================
-     MODAL
-========================= -->
+<!-- MODAL -->
 
 <div id="modal"
      class="modal hidden"
@@ -1528,55 +2046,69 @@ Die Feuerwehr hat Menschenrettung und Brandbekämpfung als wichtige Einsatzaufga
 </div>
 
 
-<div id="toast" class="toast"></div>
+<div id="toast"
+     class="toast">
+</div>
 
 
 <script>
 /* ============================================================
-   FEUERWEHR PRÜFUNGSSYSTEM
-   KOMPLETTER NEUSTART
+   FEUERWEHR AUSBILDUNGSSYSTEM
+   KOMPLETTER NEUAUFBAU
 ============================================================ */
 
-/* -----------------------------
-   DATENBANK
------------------------------ */
-
-const DB = {
-    examsKey: "FEUERWEHR_NEU_EXAMS_V1",
-    resultsKey: "FEUERWEHR_NEU_RESULTS_V1",
-    sessionKey: "FEUERWEHR_NEU_ADMIN_SESSION_V1"
+const DB={
+    exams:"FW_NEUSYSTEM_EXAMS_V2",
+    results:"FW_NEUSYSTEM_RESULTS_V2",
+    session:"FW_NEUSYSTEM_ADMIN_V2"
 };
 
+
+/* ============================================================
+   LOCAL STORAGE
+============================================================ */
+
 function getExams(){
-    return JSON.parse(localStorage.getItem(DB.examsKey) || "[]");
+    return JSON.parse(
+        localStorage.getItem(DB.exams)||"[]"
+    );
 }
 
 function saveExams(data){
-    localStorage.setItem(DB.examsKey, JSON.stringify(data));
+    localStorage.setItem(
+        DB.exams,
+        JSON.stringify(data)
+    );
 }
 
 function getResults(){
-    return JSON.parse(localStorage.getItem(DB.resultsKey) || "[]");
+    return JSON.parse(
+        localStorage.getItem(DB.results)||"[]"
+    );
 }
 
 function saveResults(data){
-    localStorage.setItem(DB.resultsKey, JSON.stringify(data));
+    localStorage.setItem(
+        DB.results,
+        JSON.stringify(data)
+    );
 }
 
 
-/* -----------------------------
+/* ============================================================
    HILFSFUNKTIONEN
------------------------------ */
+============================================================ */
 
 function uid(prefix="ID"){
-    return prefix + "_" +
-        Date.now().toString(36) +
-        "_" +
+    return prefix+
+        "_"+
+        Date.now().toString(36)+
+        "_"+
         Math.random().toString(36).slice(2,8);
 }
 
 function escapeHTML(value){
-    return String(value ?? "")
+    return String(value??"")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1585,23 +2117,33 @@ function escapeHTML(value){
 }
 
 function shuffle(array){
-    const a = [...array];
+    const a=[...array];
 
     for(let i=a.length-1;i>0;i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [a[i],a[j]]=[a[j],a[i]];
+        const j=Math.floor(
+            Math.random()*(i+1)
+        );
+
+        [a[i],a[j]]=
+        [a[j],a[i]];
     }
 
     return a;
 }
 
 function toast(message,type="success"){
-    const el=document.getElementById("toast");
+
+    const el=
+        document.getElementById("toast");
 
     el.textContent=message;
-    el.className="toast show " + type;
 
-    clearTimeout(window.toastTimer);
+    el.className=
+        "toast show "+type;
+
+    clearTimeout(
+        window.toastTimer
+    );
 
     window.toastTimer=setTimeout(()=>{
         el.className="toast";
@@ -1609,31 +2151,42 @@ function toast(message,type="success"){
 }
 
 function formatDate(date){
-    return new Date(date).toLocaleString("de-DE");
+    return new Date(date)
+        .toLocaleString("de-DE");
 }
 
 
-/* -----------------------------
-   SEITEN
------------------------------ */
+/* ============================================================
+   NAVIGATION
+============================================================ */
 
 function hideAllPages(){
-    document.querySelectorAll("[id^='page-']").forEach(el=>{
-        el.classList.add("hidden");
-    });
+
+    document
+        .querySelectorAll("[id^='page-']")
+        .forEach(el=>{
+            el.classList.add("hidden");
+        });
 }
 
 function showPage(page){
-    if(page==="admin" && !isAdmin()){
+
+    if(
+        page==="admin" &&
+        !isAdmin()
+    ){
         page="login";
     }
 
     hideAllPages();
 
-    const target=document.getElementById("page-"+page);
+    const el=
+        document.getElementById(
+            "page-"+page
+        );
 
-    if(target){
-        target.classList.remove("hidden");
+    if(el){
+        el.classList.remove("hidden");
     }
 
     if(page==="home"){
@@ -1652,29 +2205,43 @@ function showPage(page){
 }
 
 
-/* -----------------------------
-   ADMIN LOGIN
------------------------------ */
+/* ============================================================
+   LOGIN
+============================================================ */
 
 function isAdmin(){
-    return localStorage.getItem(DB.sessionKey)==="true";
+
+    return localStorage.getItem(
+        DB.session
+    )==="true";
+
 }
 
 function loginAdmin(){
 
-    const email=document.getElementById("loginEmail").value.trim();
-    const password=document.getElementById("loginPassword").value;
+    const email=
+        document.getElementById(
+            "loginEmail"
+        ).value.trim();
+
+    const password=
+        document.getElementById(
+            "loginPassword"
+        ).value;
 
     if(
         email.toLowerCase()==="ausbilder@gmail.com" &&
         password==="Admin"
     ){
-        localStorage.setItem(DB.sessionKey,"true");
 
-        document.getElementById("loginEmail").value="";
-        document.getElementById("loginPassword").value="";
+        localStorage.setItem(
+            DB.session,
+            "true"
+        );
 
-        toast("Ausbilder erfolgreich angemeldet.");
+        toast(
+            "Ausbilder erfolgreich angemeldet."
+        );
 
         showPage("admin");
 
@@ -1690,17 +2257,19 @@ function loginAdmin(){
 
 function logoutAdmin(){
 
-    localStorage.removeItem(DB.sessionKey);
+    localStorage.removeItem(
+        DB.session
+    );
 
-    toast("Du wurdest abgemeldet.");
+    toast("Abgemeldet.");
 
     showPage("home");
 }
 
 
-/* -----------------------------
+/* ============================================================
    ADMIN TABS
------------------------------ */
+============================================================ */
 
 function adminTab(tab,button){
 
@@ -1709,87 +2278,133 @@ function adminTab(tab,button){
         return;
     }
 
-    document.querySelectorAll(".adminTab").forEach(el=>{
-        el.classList.add("hidden");
-    });
+    document
+        .querySelectorAll(".adminTab")
+        .forEach(el=>{
+            el.classList.add("hidden");
+        });
 
-    const target=document.getElementById("admin-"+tab);
+    const target=
+        document.getElementById(
+            "admin-"+tab
+        );
 
     if(target){
         target.classList.remove("hidden");
     }
 
-    document.querySelectorAll(".sideButton").forEach(el=>{
-        el.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".sideButton")
+        .forEach(el=>{
+            el.classList.remove("active");
+        });
 
     if(button){
         button.classList.add("active");
     }else{
-        const btn=document.querySelector(
-            `.sideButton[data-tab="${tab}"]`
-        );
 
-        if(btn) btn.classList.add("active");
+        const btn=
+            document.querySelector(
+                `.sideButton[data-tab="${tab}"]`
+            );
+
+        if(btn){
+            btn.classList.add("active");
+        }
+
     }
 
-    if(tab==="overview") updateDashboard();
-    if(tab==="exams") renderExams();
-    if(tab==="results") renderResults();
+    if(tab==="overview"){
+        updateDashboard();
+    }
+
+    if(tab==="exams"){
+        renderExams();
+    }
+
+    if(tab==="results"){
+        renderResults();
+    }
+
 }
 
 
-/* -----------------------------
-   HOME STATS
------------------------------ */
+/* ============================================================
+   DASHBOARD
+============================================================ */
 
 function updateHomeStats(){
 
     const exams=getExams();
     const results=getResults();
 
-    document.getElementById("homeExamCount").textContent=exams.length;
-    document.getElementById("homeResultCount").textContent=results.length;
+    document.getElementById(
+        "homeExamCount"
+    ).textContent=exams.length;
+
+    document.getElementById(
+        "homeResultCount"
+    ).textContent=results.length;
 }
-
-
-/* -----------------------------
-   DASHBOARD
------------------------------ */
 
 function updateDashboard(){
 
     const exams=getExams();
     const results=getResults();
 
-    document.getElementById("statExams").textContent=exams.length;
-    document.getElementById("statParticipants").textContent=results.length;
+    document.getElementById(
+        "statExams"
+    ).textContent=exams.length;
 
-    const passed=results.filter(r=>r.passed).length;
+    document.getElementById(
+        "statParticipants"
+    ).textContent=results.length;
 
-    document.getElementById("statPassed").textContent=passed;
+    const passed=
+        results.filter(r=>r.passed)
+        .length;
 
-    const average=results.length
-        ? Math.round(
-            results.reduce((sum,r)=>sum+(r.percent||0),0)
-            /results.length
+    document.getElementById(
+        "statPassed"
+    ).textContent=passed;
+
+    const average=
+        results.length
+        ?
+        Math.round(
+            results.reduce(
+                (sum,r)=>
+                    sum+(r.percent||0),
+                0
+            )/results.length
         )
-        : 0;
+        :0;
 
-    document.getElementById("statAverage").textContent=average+"%";
+    document.getElementById(
+        "statAverage"
+    ).textContent=
+        average+"%";
 
-    const recent=[...results]
-        .sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt))
+    const recent=
+        [...results]
+        .sort(
+            (a,b)=>
+                new Date(b.submittedAt)-
+                new Date(a.submittedAt)
+        )
         .slice(0,8);
 
-    const container=document.getElementById("overviewResults");
+    const container=
+        document.getElementById(
+            "overviewResults"
+        );
 
     if(!recent.length){
 
         container.innerHTML=`
             <div class="empty">
                 <div class="emptyIcon">📭</div>
-                Noch keine Ergebnisse vorhanden.
+                Noch keine Ergebnisse.
             </div>
         `;
 
@@ -1797,9 +2412,13 @@ function updateDashboard(){
     }
 
     container.innerHTML=`
+
         <div class="tableWrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Teilnehmer</th>
                         <th>Prüfung</th>
@@ -1807,6 +2426,7 @@ function updateDashboard(){
                         <th>Status</th>
                         <th>Datum</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -1823,456 +2443,548 @@ function updateDashboard(){
                                 )}
                             </td>
 
-                            <td>${escapeHTML(r.examTitle)}</td>
-
-                            <td>${r.percent}%</td>
-
                             <td>
-                                ${
-                                    r.passed
-                                    ? `<span class="tag tagGreen">BESTANDEN</span>`
-                                    : `<span class="tag tagRed">NICHT BESTANDEN</span>`
-                                }
+                                ${escapeHTML(
+                                    r.examTitle
+                                )}
                             </td>
 
-                            <td>${formatDate(r.submittedAt)}</td>
+                            <td>
+                                ${r.percent}%
+                            </td>
+
+                            <td>
+
+                                ${
+                                    r.needsManualCorrection
+                                    ?
+                                    `<span class="tag tagYellow">
+                                        KORREKTUR
+                                    </span>`
+                                    :
+                                    r.passed
+                                    ?
+                                    `<span class="tag tagGreen">
+                                        BESTANDEN
+                                    </span>`
+                                    :
+                                    `<span class="tag tagRed">
+                                        NICHT BESTANDEN
+                                    </span>`
+                                }
+
+                            </td>
+
+                            <td>
+                                ${formatDate(
+                                    r.submittedAt
+                                )}
+                            </td>
 
                         </tr>
 
                     `).join("")}
 
                 </tbody>
+
             </table>
+
         </div>
+
     `;
 }
 
 
 /* ============================================================
-   FRAGEN GENERATOR
+   VORGEFERTIGTE TRUPPMANN-DATEN
 ============================================================ */
 
-function normalizeText(text){
+/*
+   Diese Inhalte sind als Ausbildungs-Vorlagen gedacht.
+   Der Ausbilder kann jede Frage verändern.
+*/
 
-    return String(text || "")
-        .replace(/\r/g,"")
-        .replace(/\t/g," ")
-        .replace(/[ ]{2,}/g," ")
-        .replace(/\n{3,}/g,"\n\n")
-        .trim();
+const PRESETS={
+
+tm1:{
+    title:"Truppmann Teil 1 – Feuerwehrgrundausbildung",
+    code:"TM1",
+    passPercent:50,
+    duration:45,
+    difficulty:"mittel",
+
+    material:`
+Truppmann Teil 1 vermittelt grundlegende Tätigkeiten im Lösch- und Hilfeleistungseinsatz unter Anleitung.
+
+Zu den Grundlagen der Feuerwehr gehören Organisation, Aufgaben und Verhalten im Feuerwehrdienst.
+
+Die persönliche Schutzausrüstung dient dem Schutz der Einsatzkräfte.
+
+Bei Einsätzen müssen Gefahren an der Einsatzstelle erkannt und berücksichtigt werden.
+
+Erste Hilfe gehört zu den grundlegenden Ausbildungsinhalten.
+
+Feuerwehrangehörige müssen ihre Aufgaben sicher und entsprechend der Ausbildung durchführen.
+
+Feuerwehrfahrzeuge führen unterschiedliche Geräte für Brandbekämpfung und technische Hilfeleistung mit.
+
+Feuerlöschgeräte müssen bestimmungsgemäß eingesetzt werden.
+
+Der Notruf 112 ist der europaweite Notruf für Feuerwehr und Rettungsdienst.
+
+Im Einsatz ist die Kommunikation innerhalb der Einheit besonders wichtig.
+
+Menschenrettung hat bei einem Einsatz eine hohe Priorität.
+
+Einsatzkräfte müssen auf ihre eigene Sicherheit achten.
+
+Geräte müssen vor und nach Einsätzen entsprechend den örtlichen Vorgaben kontrolliert und gepflegt werden.
+
+Grundtätigkeiten des Lösch- und Hilfeleistungseinsatzes müssen praktisch geübt werden.
+
+Die Truppmannausbildung Teil 1 bildet die Grundlage für die weitere Feuerwehrtätigkeit.
+`,
+
+questions:[
+
+{
+type:"mc",
+text:"Welches grundlegende Ziel hat die Truppmannausbildung Teil 1?",
+options:[
+"Grundlegende Tätigkeiten im Lösch- und Hilfeleistungseinsatz unter Anleitung durchführen zu können.",
+"Nur Feuerwehrfahrzeuge fahren zu können.",
+"Nur Verwaltungsaufgaben übernehmen zu können.",
+"Nur Funkgespräche führen zu können."
+],
+correct:"Grundlegende Tätigkeiten im Lösch- und Hilfeleistungseinsatz unter Anleitung durchführen zu können.",
+points:1
+},
+
+{
+type:"mc",
+text:"Welche Notrufnummer wird für Feuerwehr und Rettungsdienst verwendet?",
+options:[
+"110",
+"112",
+"116117",
+"115"
+],
+correct:"112",
+points:1
+},
+
+{
+type:"tf",
+text:"Die persönliche Schutzausrüstung dient unter anderem dem Schutz der Einsatzkräfte.",
+correct:true,
+points:1
+},
+
+{
+type:"tf",
+text:"Gefahren an einer Einsatzstelle müssen von Feuerwehrangehörigen nicht berücksichtigt werden.",
+correct:false,
+points:1
+},
+
+{
+type:"mc",
+text:"Warum ist die Kommunikation innerhalb einer Feuerwehr-Einheit wichtig?",
+options:[
+"Sie unterstützt die sichere Zusammenarbeit.",
+"Sie ersetzt jede Einsatzleitung.",
+"Sie ist nur für Verwaltungsaufgaben erforderlich.",
+"Sie wird ausschließlich nach dem Einsatz benötigt."
+],
+correct:"Sie unterstützt die sichere Zusammenarbeit.",
+points:1
+},
+
+{
+type:"text",
+text:"Warum ist die eigene Sicherheit der Einsatzkräfte im Feuerwehrdienst wichtig?",
+reference:"Die Einsatzkraft soll Gefahren erkennen, die persönliche Schutzausrüstung verwenden und die eigene Sicherheit bei der Durchführung von Aufgaben berücksichtigen.",
+points:2
+},
+
+{
+type:"mc",
+text:"Was gehört zu den grundlegenden Ausbildungsinhalten der Truppmannausbildung?",
+options:[
+"Erste Hilfe",
+"Nur Fahrzeugpflege",
+"Nur Büroarbeit",
+"Nur Öffentlichkeitsarbeit"
+],
+correct:"Erste Hilfe",
+points:1
+},
+
+{
+type:"tf",
+text:"Feuerwehrfahrzeuge können unterschiedliche Geräte für Brandbekämpfung und technische Hilfeleistung mitführen.",
+correct:true,
+points:1
+},
+
+{
+type:"text",
+text:"Welche Bedeutung hat die Menschenrettung im Feuerwehreinsatz?",
+reference:"Die Rettung von Menschen ist eine zentrale Aufgabe im Einsatz und muss bei der Einsatzbewertung berücksichtigt werden.",
+points:2
+},
+
+{
+type:"mc",
+text:"Was sollte mit Feuerwehrgeräten nach örtlichen Vorgaben geschehen?",
+options:[
+"Sie sollen kontrolliert und gepflegt werden.",
+"Sie sollen grundsätzlich ungeprüft eingelagert werden.",
+"Sie dürfen nach jedem Einsatz weggeworfen werden.",
+"Sie werden nur einmal im Jahr betrachtet."
+],
+correct:"Sie sollen kontrolliert und gepflegt werden.",
+points:1
+},
+
+{
+type:"tf",
+text:"Grundtätigkeiten des Lösch- und Hilfeleistungseinsatzes sollen auch praktisch geübt werden.",
+correct:true,
+points:1
+},
+
+{
+type:"mc",
+text:"Was ist eine wichtige Voraussetzung für sichere Feuerwehrarbeit?",
+options:[
+"Aufgaben entsprechend der Ausbildung und sicher durchführen.",
+"Aufgaben ohne Auftrag beliebig verändern.",
+"Schutzausrüstung vermeiden.",
+"Gefahren ignorieren."
+],
+correct:"Aufgaben entsprechend der Ausbildung und sicher durchführen.",
+points:1
+},
+
+{
+type:"text",
+text:"Welche Rolle spielt Erste Hilfe in der Feuerwehrgrundausbildung?",
+reference:"Erste Hilfe gehört zu den grundlegenden Ausbildungsinhalten und unterstützt die Versorgung verletzter oder erkrankter Personen bis zur weiteren medizinischen Versorgung.",
+points:2
+},
+
+{
+type:"tf",
+text:"Die Truppmannausbildung Teil 1 bildet eine Grundlage für die weitere Feuerwehrtätigkeit.",
+correct:true,
+points:1
 }
 
-function splitSentences(text){
+]},
 
-    return normalizeText(text)
-        .replace(/\n+/g," ")
-        .split(/(?<=[.!?])\s+/)
-        .map(s=>s.trim())
-        .filter(s=>s.length>=35);
+tm2:{
+
+    title:"Truppmann Teil 2 – Vertiefung",
+    code:"TM2",
+    passPercent:50,
+    duration:45,
+    difficulty:"mittel",
+
+    material:`
+Die Truppmannausbildung Teil 2 dient der selbstständigen Wahrnehmung der Truppmannfunktion im Lösch- und Hilfeleistungseinsatz.
+
+Teil 2 vermittelt außerdem standortbezogene Kenntnisse.
+
+Zu den Ausbildungsinhalten gehören Erste Hilfe im Feuerwehrdienst sowie Rechte und Pflichten der Feuerwehrangehörigen.
+
+Unfallversicherungswesen ist Bestandteil der Ausbildung.
+
+Gefahren der Einsatzstelle müssen erkannt und beurteilt werden.
+
+Retten, Selbstretten und Sichern gehören zu den wichtigen Grundtätigkeiten.
+
+Einsatzkräfte müssen ihre eigenen Grenzen und Gefährdungen berücksichtigen.
+
+Stressbewältigung und Einsatznachsorge sind Bestandteile einer nachhaltigen Einsatzvorbereitung und Einsatznachbereitung.
+
+Praktische Tätigkeiten müssen entsprechend der örtlichen Ausbildung sicher durchgeführt werden.
+
+Die Zusammenarbeit innerhalb der Feuerwehr ist für einen sicheren Einsatz wesentlich.
+
+Standortbezogene Kenntnisse ergänzen die allgemeinen Feuerwehrgrundlagen.
+
+Die Einsatzstelle muss fortlaufend beobachtet werden, weil sich Gefahren verändern können.
+
+Bei Rettungsmaßnahmen ist die eigene Sicherheit weiterhin zu beachten.
+
+Die Truppmannausbildung Teil 2 vertieft die Kenntnisse aus Teil 1.
+`,
+
+questions:[
+
+{
+type:"mc",
+text:"Was ist ein wesentliches Ziel der Truppmannausbildung Teil 2?",
+options:[
+"Die selbstständige Wahrnehmung der Truppmannfunktion im Lösch- und Hilfeleistungseinsatz.",
+"Nur das Fahren von Feuerwehrfahrzeugen.",
+"Nur Verwaltungsaufgaben.",
+"Nur das Erstellen von Einsatzberichten."
+],
+correct:"Die selbstständige Wahrnehmung der Truppmannfunktion im Lösch- und Hilfeleistungseinsatz.",
+points:1
+},
+
+{
+type:"mc",
+text:"Welche Kenntnisse werden in Teil 2 zusätzlich vermittelt?",
+options:[
+"Standortbezogene Kenntnisse.",
+"Nur private Kenntnisse.",
+"Nur Fahrzeugdaten.",
+"Nur Funkrufnamen."
+],
+correct:"Standortbezogene Kenntnisse.",
+points:1
+},
+
+{
+type:"tf",
+text:"Gefahren der Einsatzstelle müssen erkannt und beurteilt werden.",
+correct:true,
+points:1
+},
+
+{
+type:"tf",
+text:"Bei Rettungsmaßnahmen spielt die eigene Sicherheit keine Rolle.",
+correct:false,
+points:1
+},
+
+{
+type:"mc",
+text:"Welche Grundtätigkeiten gehören ausdrücklich zu den Ausbildungsinhalten?",
+options:[
+"Retten, Selbstretten und Sichern.",
+"Nur Fahrzeugwäsche.",
+"Nur Verwaltungsarbeit.",
+"Nur Kartenlesen."
+],
+correct:"Retten, Selbstretten und Sichern.",
+points:1
+},
+
+{
+type:"text",
+text:"Warum muss eine Einsatzstelle fortlaufend beobachtet werden?",
+reference:"Gefahren können sich verändern oder neu entstehen. Deshalb muss die Einsatzstelle fortlaufend beobachtet und die eigene Sicherheit berücksichtigt werden.",
+points:2
+},
+
+{
+type:"mc",
+text:"Was gehört neben den Feuerwehrtätigkeiten zur Ausbildung in Teil 2?",
+options:[
+"Stressbewältigung und Einsatznachsorge.",
+"Nur Fahrzeugpflege.",
+"Nur Öffentlichkeitsarbeit.",
+"Nur Dienstplanerstellung."
+],
+correct:"Stressbewältigung und Einsatznachsorge.",
+points:1
+},
+
+{
+type:"tf",
+text:"Unfallversicherungswesen gehört zu den genannten Ausbildungsinhalten.",
+correct:true,
+points:1
+},
+
+{
+type:"mc",
+text:"Warum sind standortbezogene Kenntnisse wichtig?",
+options:[
+"Sie ergänzen die allgemeinen Feuerwehrgrundlagen um örtliche Besonderheiten.",
+"Sie ersetzen alle Feuerwehrdienstvorschriften.",
+"Sie sind nur für die Verwaltung notwendig.",
+"Sie haben keinen Einfluss auf den Einsatz."
+],
+correct:"Sie ergänzen die allgemeinen Feuerwehrgrundlagen um örtliche Besonderheiten.",
+points:1
+},
+
+{
+type:"text",
+text:"Was versteht man im Feuerwehrdienst unter Selbstrettung?",
+reference:"Selbstrettung beschreibt Maßnahmen, mit denen sich eine Einsatzkraft aus einer eigenen Gefahrenlage sicher zurückzieht bzw. rettet.",
+points:2
+},
+
+{
+type:"tf",
+text:"Teil 2 baut auf den Kenntnissen aus Teil 1 auf.",
+correct:true,
+points:1
+},
+
+{
+type:"mc",
+text:"Warum müssen Einsatzkräfte ihre eigenen Grenzen berücksichtigen?",
+options:[
+"Um Eigengefährdung zu vermeiden und Aufgaben sicher durchführen zu können.",
+"Um Einsatzaufträge grundsätzlich abzulehnen.",
+"Um andere Einsatzkräfte nicht unterstützen zu müssen.",
+"Nur um Zeit zu sparen."
+],
+correct:"Um Eigengefährdung zu vermeiden und Aufgaben sicher durchführen zu können.",
+points:1
+},
+
+{
+type:"text",
+text:"Warum sind Stressbewältigung und Einsatznachsorge wichtige Bestandteile?",
+reference:"Sie unterstützen den Umgang mit belastenden Einsatzsituationen und helfen bei einer nachhaltigen Einsatznachbereitung.",
+points:2
+},
+
+{
+type:"tf",
+text:"Die Zusammenarbeit innerhalb der Feuerwehr ist für einen sicheren Einsatz wesentlich.",
+correct:true,
+points:1
 }
 
-function extractDefinitions(sentences){
+]}
 
-    const result=[];
+};
 
-    sentences.forEach(sentence=>{
 
-        let match=sentence.match(
-            /^(.{2,70}?)\s+(?:ist|sind|bezeichnet|bedeutet|nennt man)\s+(.{10,180})[.!?]?$/i
-        );
-
-        if(match){
-
-            result.push({
-                term:match[1].trim(),
-                definition:match[2].trim(),
-                source:sentence
-            });
-
-        }
-
-    });
-
-    return result;
-}
-
-function extractNumbers(sentences){
-
-    const result=[];
-
-    sentences.forEach(sentence=>{
-
-        if(/\b\d+(?:[,.]\d+)?\s*(?:%|Minuten?|Sekunden?|Meter|m|Liter|bar|Jahre?|kg|km\/h)?\b/i.test(sentence)){
-
-            result.push(sentence);
-
-        }
-
-    });
-
-    return result;
-}
-
-function extractRules(sentences){
-
-    const keywords=[
-        "muss",
-        "müssen",
-        "darf nicht",
-        "dürfen nicht",
-        "ist zu",
-        "sind zu",
-        "immer",
-        "niemals",
-        "grundsätzlich",
-        "beachten",
-        "tragen",
-        "sicherstellen",
-        "verboten"
-    ];
-
-    return sentences.filter(sentence=>{
-        const lower=sentence.toLowerCase();
-
-        return keywords.some(word=>lower.includes(word));
-    });
-}
-
-function keywordsFromSentence(sentence){
-
-    const stopwords=new Set([
-        "der","die","das","den","dem","des",
-        "ein","eine","einer","eines","einem",
-        "und","oder","aber","auch","mit","von",
-        "für","auf","bei","ist","sind","wird",
-        "werden","sich","nicht","zur","zum",
-        "im","in","an","als","dass","durch",
-        "über","unter","nach","aus","vor"
-    ]);
-
-    return sentence
-        .replace(/[.,;:!?()[\]"]/g," ")
-        .split(/\s+/)
-        .map(w=>w.trim())
-        .filter(w=>
-            w.length>=5 &&
-            !stopwords.has(w.toLowerCase())
-        )
-        .sort((a,b)=>b.length-a.length);
-}
-
-function generateMCFromSentence(sentence,index){
-
-    const words=keywordsFromSentence(sentence);
-
-    if(words.length<2){
-        return null;
-    }
-
-    const correct=words[0];
-
-    const distractors=shuffle(
-        words.slice(1,6)
-    ).filter(w=>w.toLowerCase()!==correct.toLowerCase());
-
-    while(distractors.length<3){
-        distractors.push(
-            ["Feuerwehrfahrzeug","Einsatzleitung","Schutzausrüstung","Atemschutz"][distractors.length]
-        );
-    }
-
-    const questionText=
-        "Welche Aussage bzw. welcher Begriff passt zum folgenden Ausbildungsinhalt?";
-
-    return {
-        id:uid("Q"),
-        type:"mc",
-        text:questionText,
-        context:sentence,
-        options:shuffle([
-            correct,
-            distractors[0],
-            distractors[1],
-            distractors[2]
-        ]),
-        correct:correct,
-        points:1
-    };
-}
-
-function generateDefinitionQuestion(def,index){
-
-    const wrongPool=[
-        "Eine persönliche Einsatzmeldung",
-        "Ein Fahrzeug der Feuerwehr",
-        "Eine organisatorische Maßnahme",
-        "Eine technische Einrichtung"
-    ];
-
-    const options=shuffle([
-        def.definition,
-        ...shuffle(wrongPool).slice(0,3)
-    ]);
-
-    return {
-        id:uid("Q"),
-        type:"mc",
-        text:`Was ist „${def.term}“?`,
-        options,
-        correct:def.definition,
-        points:1
-    };
-}
-
-function generateTrueFalse(sentence,index){
-
-    const correct=Math.random()>=0.5;
-
-    let statement=sentence;
-
-    if(!correct){
-
-        const replacements=[
-            ["muss","darf"],
-            ["müssen","können"],
-            ["immer","niemals"],
-            ["nicht",""],
-            ["verboten","vorgeschrieben"]
-        ];
-
-        for(const [a,b] of replacements){
-
-            if(
-                statement.toLowerCase().includes(a)
-            ){
-
-                statement=statement.replace(
-                    new RegExp(a,"i"),
-                    b
-                );
-
-                break;
-            }
-        }
-
-    }
-
-    return {
-        id:uid("Q"),
-        type:"tf",
-        text:"Ist folgende Aussage richtig oder falsch?",
-        context:statement,
-        correct:correct,
-        points:1
-    };
-}
-
-function generateFreeText(sentence,index){
-
-    const words=keywordsFromSentence(sentence);
-
-    const keyword=words[0] || "Thema";
-
-    return {
-        id:uid("Q"),
-        type:"text",
-        text:`Erkläre den Zusammenhang bzw. die Bedeutung von „${keyword}“ anhand des Ausbildungsstoffes.`,
-        reference:sentence,
-        points:2,
-        keywords:words.slice(0,3)
-    };
-}
-
-
-/* -----------------------------
-   FRAGEN GENERIEREN
------------------------------ */
-
-function generateQuestions(){
-
-    const material=normalizeText(
-        document.getElementById("trainingMaterial").value
-    );
-
-    const requested=parseInt(
-        document.getElementById("questionCount").value
-    ) || 10;
-
-    if(material.length<100){
-
-        toast(
-            "Bitte mindestens etwas ausführlicheres Unterrichtsmaterial eingeben.",
-            "error"
-        );
-
-        return;
-    }
-
-    const sentences=splitSentences(material);
-
-    if(sentences.length<2){
-
-        toast(
-            "Das Material enthält zu wenig verwertbare Sätze.",
-            "error"
-        );
-
-        return;
-    }
-
-    const definitions=extractDefinitions(sentences);
-    const rules=extractRules(sentences);
-    const numbers=extractNumbers(sentences);
-
-    let questions=[];
-
-    definitions.forEach((def,i)=>{
-        questions.push(
-            generateDefinitionQuestion(def,i)
-        );
-    });
-
-    rules.forEach((sentence,i)=>{
-
-        if(questions.length<requested){
-            questions.push(
-                generateTrueFalse(sentence,i)
-            );
-        }
-
-    });
-
-    numbers.forEach((sentence,i)=>{
-
-        if(questions.length<requested){
-            const q=generateMCFromSentence(sentence,i);
-
-            if(q) questions.push(q);
-        }
-
-    });
-
-    sentences.forEach((sentence,i)=>{
-
-        if(questions.length<requested){
-
-            const q=generateMCFromSentence(sentence,i);
-
-            if(q) questions.push(q);
-
-        }
-
-    });
-
-    sentences.forEach((sentence,i)=>{
-
-        if(
-            questions.length<requested &&
-            i%4===0
-        ){
-
-            questions.push(
-                generateFreeText(sentence,i)
-            );
-
-        }
-
-    });
-
-    questions=shuffle(questions);
-
-    questions=questions.slice(0,requested);
-
-    while(questions.length<requested){
-
-        const sentence=
-            sentences[questions.length % sentences.length];
-
-        questions.push(
-            generateFreeText(
-                sentence,
-                questions.length
-            )
-        );
-
-    }
-
-    window.builderQuestions=questions;
-
-    renderQuestionBuilder();
-
-    toast(
-        `${questions.length} Fragen wurden erstellt. Bitte kontrollieren!`
-    );
-}
-
-
-/* -----------------------------
+/* ============================================================
    BUILDER
------------------------------ */
+============================================================ */
 
 window.builderQuestions=[];
 
+function normalizeQuestion(q){
+
+    const result={
+        id:q.id||uid("Q"),
+        type:q.type||"mc",
+        text:q.text||"Neue Frage",
+        points:Number(q.points)||1
+    };
+
+    if(result.type==="mc"){
+
+        result.options=
+            q.options?.length
+            ? [...q.options]
+            : [
+                "Antwort A",
+                "Antwort B",
+                "Antwort C",
+                "Antwort D"
+            ];
+
+        result.correct=
+            q.correct ??
+            result.options[0];
+    }
+
+    if(result.type==="tf"){
+        result.correct=
+            q.correct===false
+            ? false
+            : true;
+    }
+
+    if(result.type==="text"){
+        result.reference=
+            q.reference||"";
+    }
+
+    if(q.context){
+        result.context=q.context;
+    }
+
+    return result;
+}
+
 function addQuestion(){
 
-    window.builderQuestions.push({
-        id:uid("Q"),
-        type:"mc",
-        text:"Neue Frage",
-        options:[
-            "Antwort A",
-            "Antwort B",
-            "Antwort C",
-            "Antwort D"
-        ],
-        correct:"Antwort A",
-        points:1
-    });
+    window.builderQuestions.push(
+        normalizeQuestion({
+            type:"mc",
+            text:"Neue Frage",
+            options:[
+                "Antwort A",
+                "Antwort B",
+                "Antwort C",
+                "Antwort D"
+            ],
+            correct:"Antwort A",
+            points:1
+        })
+    );
 
     renderQuestionBuilder();
-
-    setTimeout(()=>{
-        const elements=
-            document.querySelectorAll(".questionEditor");
-
-        if(elements.length){
-            elements[elements.length-1]
-                .scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-        }
-    },50);
 }
 
 function removeQuestion(index){
 
-    if(!confirm("Diese Frage wirklich löschen?")){
+    if(
+        !confirm(
+            "Diese Frage wirklich löschen?"
+        )
+    ){
         return;
     }
 
-    window.builderQuestions.splice(index,1);
+    window.builderQuestions
+        .splice(index,1);
 
     renderQuestionBuilder();
 }
 
-function updateQuestion(index,field,value){
+function updateQuestion(
+    index,
+    field,
+    value
+){
 
-    if(!window.builderQuestions[index]) return;
+    if(
+        !window.builderQuestions[index]
+    ){
+        return;
+    }
 
     window.builderQuestions[index][field]=value;
 }
 
-function updateOption(index,optionIndex,value){
+function updateOption(
+    index,
+    optionIndex,
+    value
+){
 
-    if(!window.builderQuestions[index]) return;
+    const q=
+        window.builderQuestions[index];
 
-    window.builderQuestions[index].options[optionIndex]=value;
+    if(!q) return;
+
+    q.options[optionIndex]=value;
 }
 
-function changeQuestionType(index,type){
+function changeQuestionType(
+    index,
+    type
+){
 
-    const q=window.builderQuestions[index];
+    const q=
+        window.builderQuestions[index];
 
     if(!q) return;
 
@@ -2280,24 +2992,38 @@ function changeQuestionType(index,type){
 
     if(type==="mc"){
 
-        q.options=q.options?.length===4
+        q.options=
+            q.options?.length===4
             ? q.options
-            : ["Antwort A","Antwort B","Antwort C","Antwort D"];
+            : [
+                "Antwort A",
+                "Antwort B",
+                "Antwort C",
+                "Antwort D"
+            ];
 
-        q.correct=q.correct || q.options[0];
+        q.correct=
+            q.correct ??
+            q.options[0];
 
     }
 
     if(type==="tf"){
+
         q.correct=true;
+
         delete q.options;
+
     }
 
     if(type==="text"){
-        q.reference=q.reference || "";
-        q.keywords=q.keywords || [];
+
+        q.reference=
+            q.reference||"";
+
         delete q.options;
         delete q.correct;
+
     }
 
     renderQuestionBuilder();
@@ -2306,27 +3032,30 @@ function changeQuestionType(index,type){
 function renderQuestionBuilder(){
 
     const container=
-        document.getElementById("questionBuilder");
+        document.getElementById(
+            "questionBuilder"
+        );
 
-    const questions=window.builderQuestions;
+    const questions=
+        window.builderQuestions;
 
     if(!questions.length){
 
         container.innerHTML=`
             <div class="empty">
                 <div class="emptyIcon">📝</div>
-                Noch keine Fragen vorhanden.
-                <br><br>
-                Erstelle Fragen automatisch oder füge eine Frage hinzu.
+                Noch keine Fragen.
+                <br>
+                Lade TM1/TM2 oder erstelle Fragen
+                mit dem Generator.
             </div>
         `;
 
         return;
     }
 
-    container.innerHTML=questions.map((q,index)=>{
-
-        return `
+    container.innerHTML=
+        questions.map((q,index)=>`
 
         <div class="questionEditor">
 
@@ -2336,20 +3065,25 @@ function renderQuestionBuilder(){
                     FRAGE ${index+1}
                 </div>
 
-                <button class="btn btnDanger btnSmall"
-                        onclick="removeQuestion(${index})">
+                <button
+                    class="btn btnDanger btnSmall"
+                    onclick="removeQuestion(${index})">
                     🗑️ Löschen
                 </button>
 
             </div>
 
+
             <div class="grid grid2">
 
                 <div class="field">
 
-                    <label>Fragetyp</label>
+                    <label>
+                        Fragetyp
+                    </label>
 
-                    <select onchange="changeQuestionType(${index},this.value)">
+                    <select
+                        onchange="changeQuestionType(${index},this.value)">
 
                         <option value="mc"
                             ${q.type==="mc"?"selected":""}>
@@ -2370,69 +3104,124 @@ function renderQuestionBuilder(){
 
                 </div>
 
+
                 <div class="field">
 
-                    <label>Punkte</label>
+                    <label>
+                        Punkte
+                    </label>
 
-                    <input type="number"
-                           min="1"
-                           value="${q.points||1}"
-                           onchange="updateQuestion(${index},'points',Number(this.value))">
+                    <input
+                        type="number"
+                        min="1"
+                        value="${q.points||1}"
+                        onchange="
+                            updateQuestion(
+                                ${index},
+                                'points',
+                                Number(this.value)
+                            )
+                        ">
 
                 </div>
 
             </div>
 
+
             <div class="field">
 
-                <label>Frage</label>
+                <label>
+                    Frage
+                </label>
 
                 <textarea
-                    onchange="updateQuestion(${index},'text',this.value)"
-                >${escapeHTML(q.text)}</textarea>
+                    onchange="
+                        updateQuestion(
+                            ${index},
+                            'text',
+                            this.value
+                        )
+                    ">${escapeHTML(q.text)}</textarea>
 
             </div>
 
+
             ${
                 q.context
-                ? `
-                    <div class="field">
-                        <label>Ausgangsmaterial / Kontext</label>
-                        <textarea
-                            onchange="updateQuestion(${index},'context',this.value)"
-                        >${escapeHTML(q.context)}</textarea>
-                    </div>
+                ?
+                `
+                <div class="field">
+
+                    <label>
+                        Kontext / Ausbildungsstoff
+                    </label>
+
+                    <textarea
+                        onchange="
+                            updateQuestion(
+                                ${index},
+                                'context',
+                                this.value
+                            )
+                        ">${escapeHTML(q.context)}</textarea>
+
+                </div>
                 `
                 :""
             }
 
+
             ${
                 q.type==="mc"
-                ? `
+                ?
+                `
 
-                <label>Antwortmöglichkeiten</label>
+                <label>
+                    Antwortmöglichkeiten
+                </label>
 
-                ${q.options.map((option,i)=>`
+                ${
+                    q.options.map(
+                        (option,i)=>`
 
-                    <div class="answerOption">
+                        <div class="answerRow">
 
-                        <input
-                            type="radio"
-                            name="correct-${index}"
-                            ${q.correct===option?"checked":""}
-                            onchange="updateQuestion(${index},'correct',window.builderQuestions[${index}].options[${i}])"
-                        >
+                            <input
+                                type="radio"
+                                name="correct-${index}"
+                                ${
+                                    q.correct===option
+                                    ?"checked"
+                                    :""
+                                }
+                                onchange="
+                                    updateQuestion(
+                                        ${index},
+                                        'correct',
+                                        window.builderQuestions[${index}].options[${i}]
+                                    )
+                                ">
 
-                        <input
-                            value="${escapeHTML(option)}"
-                            onchange="updateOption(${index},${i},this.value)"
-                        >
+                            <input
+                                value="${escapeHTML(option)}"
+                                onchange="
+                                    updateOption(
+                                        ${index},
+                                        ${i},
+                                        this.value
+                                    )
+                                ">
 
-                    </div>
+                        </div>
 
-                `).join("")}
+                    `).join("")
+                }
 
-                <small style="color:var(--muted);display:block;margin-top:8px;">
+                <small style="
+                    color:var(--muted);
+                    display:block;
+                    margin-top:7px;
+                ">
                     Den Kreis bei der richtigen Antwort auswählen.
                 </small>
 
@@ -2440,33 +3229,38 @@ function renderQuestionBuilder(){
                 :""
             }
 
+
             ${
                 q.type==="tf"
-                ? `
+                ?
+                `
 
-                <div class="grid grid2">
+                <div class="field">
 
-                    <div class="field">
+                    <label>
+                        Richtige Antwort
+                    </label>
 
-                        <label>Richtige Antwort</label>
+                    <select
+                        onchange="
+                            updateQuestion(
+                                ${index},
+                                'correct',
+                                this.value==='true'
+                            )
+                        ">
 
-                        <select
-                            onchange="updateQuestion(${index},'correct',this.value==='true')"
-                        >
+                        <option value="true"
+                            ${q.correct===true?"selected":""}>
+                            Richtig
+                        </option>
 
-                            <option value="true"
-                                ${q.correct===true?"selected":""}>
-                                Richtig
-                            </option>
+                        <option value="false"
+                            ${q.correct===false?"selected":""}>
+                            Falsch
+                        </option>
 
-                            <option value="false"
-                                ${q.correct===false?"selected":""}>
-                                Falsch
-                            </option>
-
-                        </select>
-
-                    </div>
+                    </select>
 
                 </div>
 
@@ -2474,18 +3268,27 @@ function renderQuestionBuilder(){
                 :""
             }
 
+
             ${
                 q.type==="text"
-                ? `
+                ?
+                `
 
                 <div class="field">
 
-                    <label>Musterlösung / Erwartete Antwort</label>
+                    <label>
+                        Musterlösung
+                    </label>
 
                     <textarea
-                        onchange="updateQuestion(${index},'reference',this.value)"
-                        placeholder="Hier kann die erwartete Antwort eingetragen werden..."
-                    >${escapeHTML(q.reference||"")}</textarea>
+                        placeholder="Erwartete Antwort..."
+                        onchange="
+                            updateQuestion(
+                                ${index},
+                                'reference',
+                                this.value
+                            )
+                        ">${escapeHTML(q.reference||"")}</textarea>
 
                 </div>
 
@@ -2495,76 +3298,934 @@ function renderQuestionBuilder(){
 
         </div>
 
-        `;
-
-    }).join("");
+    `).join("");
 }
 
 
-/* -----------------------------
-   MATERIAL DATEI
------------------------------ */
+/* ============================================================
+   PRESETS
+============================================================ */
 
-document.getElementById("materialFile")
-.addEventListener("change",function(){
+function loadPresetIntoBuilder(type){
 
-    const file=this.files[0];
+    const preset=
+        PRESETS[type];
 
-    if(!file) return;
+    if(!preset){
+        return;
+    }
 
-    const reader=new FileReader();
+    window.builderQuestions=
+        preset.questions.map(
+            q=>normalizeQuestion(q)
+        );
 
-    reader.onload=function(){
+    document.getElementById(
+        "examTitle"
+    ).value=preset.title;
 
-        document.getElementById("trainingMaterial").value=
-            reader.result;
+    document.getElementById(
+        "examCode"
+    ).value=
+        preset.code+
+        "-"+
+        new Date().getFullYear();
 
-        toast("Unterrichtsmaterial wurde geladen.");
+    document.getElementById(
+        "examPass"
+    ).value=preset.passPercent;
 
-    };
+    document.getElementById(
+        "examDuration"
+    ).value=preset.duration;
 
-    reader.readAsText(file);
-});
+    document.getElementById(
+        "examDifficulty"
+    ).value=preset.difficulty;
+
+    document.getElementById(
+        "questionCount"
+    ).value=
+        preset.questions.length;
+
+    document.getElementById(
+        "trainingMaterial"
+    ).value=preset.material;
+
+    renderQuestionBuilder();
+
+    adminTab("create");
+
+    toast(
+        `${type==="tm1"?"Truppmann 1":"Truppmann 2"} wurde geladen.`
+    );
+}
+
+function previewPreset(type){
+
+    const preset=
+        PRESETS[type];
+
+    if(!preset) return;
+
+    document.getElementById(
+        "modalContent"
+    ).innerHTML=`
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+        ">
+
+            <div>
+
+                <h2>
+                    ${escapeHTML(preset.title)}
+                </h2>
+
+                <p style="
+                    color:var(--muted);
+                    margin-top:5px;
+                ">
+                    Vorgefertigte Vorlage
+                </p>
+
+            </div>
+
+            <button
+                class="btn btnSmall"
+                onclick="closeModal()">
+                ✕
+            </button>
+
+        </div>
 
 
-/* -----------------------------
+        <div style="
+            margin-top:20px;
+        ">
+
+            ${preset.questions.map(
+                (q,i)=>`
+
+                <div class="questionEditor">
+
+                    <div class="questionNumber">
+                        FRAGE ${i+1}
+                    </div>
+
+                    <h3 style="margin:10px 0;">
+                        ${escapeHTML(q.text)}
+                    </h3>
+
+                    ${
+                        q.type==="mc"
+                        ?
+                        q.options.map(
+                            o=>`
+                            <div class="optionLabel">
+                                <span>
+                                    ${escapeHTML(o)}
+                                </span>
+                            </div>
+                            `
+                        ).join("")
+                        :""
+                    }
+
+                    ${
+                        q.type==="tf"
+                        ?
+                        `
+                        <div class="optionLabel">
+                            Richtig / Falsch
+                        </div>
+                        `
+                        :""
+                    }
+
+                    ${
+                        q.type==="text"
+                        ?
+                        `
+                        <textarea
+                            disabled
+                            placeholder="Freitextantwort">
+                        </textarea>
+                        `
+                        :""
+                    }
+
+                </div>
+
+            `
+            ).join("")}
+
+        </div>
+    `;
+
+    document.getElementById(
+        "modal"
+    ).classList.remove("hidden");
+}
+
+
+/* ============================================================
+   INTELLIGENTER FRAGEN-GENERATOR
+============================================================ */
+
+function normalizeText(text){
+
+    return String(text||"")
+        .replace(/\r/g,"")
+        .replace(/\t/g," ")
+        .replace(/[ ]{2,}/g," ")
+        .replace(/\n{3,}/g,"\n\n")
+        .trim();
+}
+
+function splitSentences(text){
+
+    return normalizeText(text)
+        .replace(/\n+/g," ")
+        .split(/(?<=[.!?])\s+/)
+        .map(s=>s.trim())
+        .filter(
+            s=>s.length>=30
+        );
+}
+
+const STOPWORDS=new Set([
+
+"der","die","das","den","dem","des",
+"ein","eine","einer","eines","einem",
+"einen","und","oder","aber","auch",
+"mit","von","für","auf","bei","ist",
+"sind","wird","werden","sich","nicht",
+"zur","zum","im","in","an","als",
+"dass","durch","über","unter","nach",
+"aus","vor","bei","wie","kann",
+"können","muss","müssen","darf",
+"dürfen","einer","einem","einen"
+
+]);
+
+function extractKeywords(sentence){
+
+    return sentence
+        .replace(/[.,;:!?()[\]"/]/g," ")
+        .split(/\s+/)
+        .map(w=>w.trim())
+        .filter(w=>
+            w.length>=5 &&
+            !STOPWORDS.has(
+                w.toLowerCase()
+            )
+        )
+        .sort(
+            (a,b)=>
+                b.length-a.length
+        );
+}
+
+function extractDefinitions(sentences){
+
+    const list=[];
+
+    sentences.forEach(sentence=>{
+
+        const match=
+            sentence.match(
+                /^(.{2,70}?)\s+(?:ist|sind|bezeichnet|bedeutet|nennt man)\s+(.{10,220})[.!?]?$/i
+            );
+
+        if(match){
+
+            list.push({
+                term:match[1].trim(),
+                definition:match[2].trim(),
+                source:sentence
+            });
+
+        }
+
+    });
+
+    return list;
+}
+
+function extractRules(sentences){
+
+    const words=[
+        "muss",
+        "müssen",
+        "darf nicht",
+        "dürfen nicht",
+        "ist zu",
+        "sind zu",
+        "immer",
+        "niemals",
+        "verboten",
+        "beachten",
+        "tragen",
+        "sicher",
+        "sicherheit",
+        "gefahr"
+    ];
+
+    return sentences.filter(
+        sentence=>{
+            const lower=
+                sentence.toLowerCase();
+
+            return words.some(
+                word=>lower.includes(word)
+            );
+        }
+    );
+}
+
+function extractNumbers(sentences){
+
+    return sentences.filter(
+        sentence=>
+            /\b\d+(?:[,.]\d+)?\s*(?:%|m|meter|bar|liter|sekunden?|minuten?|stunden?|jahre?|kg|km\/h)?\b/i
+            .test(sentence)
+    );
+}
+
+function extractQuestionConcepts(sentences){
+
+    const concepts=[];
+
+    sentences.forEach(sentence=>{
+
+        const words=
+            extractKeywords(sentence);
+
+        if(words.length){
+
+            concepts.push({
+                sentence,
+                keyword:words[0],
+                keywords:words.slice(0,5)
+            });
+
+        }
+
+    });
+
+    return concepts;
+}
+
+function makeMCQuestion(sentence,index){
+
+    const words=
+        extractKeywords(sentence);
+
+    if(words.length<2){
+        return null;
+    }
+
+    const correct=
+        words[0];
+
+    const wrong=
+        shuffle(
+            words.slice(1)
+        )
+        .filter(
+            w=>
+                w.toLowerCase() !==
+                correct.toLowerCase()
+        )
+        .slice(0,3);
+
+    const generic=[
+        "Atemschutz",
+        "Einsatzleitung",
+        "Feuerwehrfahrzeug",
+        "Schutzausrüstung",
+        "Einsatzstelle",
+        "Löschwasser"
+    ];
+
+    while(wrong.length<3){
+
+        const candidate=
+            generic[
+                wrong.length %
+                generic.length
+            ];
+
+        if(
+            !wrong.includes(candidate) &&
+            candidate!==correct
+        ){
+            wrong.push(candidate);
+        }else{
+            break;
+        }
+    }
+
+    return normalizeQuestion({
+
+        type:"mc",
+
+        text:
+            `Welcher Begriff ist für die folgende Aussage besonders relevant?`,
+
+        context:sentence,
+
+        options:shuffle([
+            correct,
+            ...wrong
+        ]),
+
+        correct,
+
+        points:1
+
+    });
+}
+
+function makeDefinitionQuestion(def){
+
+    const genericWrong=[
+        "Eine organisatorische Maßnahme",
+        "Ein Feuerwehrfahrzeug",
+        "Eine persönliche Schutzausrüstung",
+        "Eine Einsatzmeldung",
+        "Ein Löschverfahren"
+    ];
+
+    const wrong=
+        shuffle(genericWrong)
+        .slice(0,3);
+
+    return normalizeQuestion({
+
+        type:"mc",
+
+        text:
+            `Was beschreibt „${def.term}“?`,
+
+        options:shuffle([
+            def.definition,
+            ...wrong
+        ]),
+
+        correct:def.definition,
+
+        points:1
+
+    });
+}
+
+function makeRuleQuestion(sentence){
+
+    return normalizeQuestion({
+
+        type:"tf",
+
+        text:
+            "Ist die folgende Aussage fachlich richtig?",
+
+        context:sentence,
+
+        correct:true,
+
+        points:1
+
+    });
+}
+
+function makeNumberQuestion(sentence){
+
+    const match=
+        sentence.match(
+            /\b\d+(?:[,.]\d+)?\s*(?:%|m|meter|bar|liter|sekunden?|minuten?|stunden?|jahre?|kg|km\/h)?\b/i
+        );
+
+    if(!match){
+        return null;
+    }
+
+    const correct=
+        match[0];
+
+    const number=
+        parseFloat(
+            correct.replace(",",".")
+        );
+
+    if(Number.isNaN(number)){
+        return null;
+    }
+
+    const unit=
+        correct.replace(
+            String(number).replace(".",","),
+            ""
+        ).trim();
+
+    const wrongNumbers=[
+        Math.max(1,number-1),
+        number+1,
+        number+5
+    ];
+
+    return normalizeQuestion({
+
+        type:"mc",
+
+        text:
+            "Welche Angabe entspricht dem Ausbildungsstoff?",
+
+        context:sentence,
+
+        options:shuffle([
+            correct,
+            wrongNumbers[0]+(unit?" "+unit:""),
+            wrongNumbers[1]+(unit?" "+unit:""),
+            wrongNumbers[2]+(unit?" "+unit:"")
+        ]),
+
+        correct,
+
+        points:1
+
+    });
+}
+
+function makeFreeTextQuestion(concept){
+
+    return normalizeQuestion({
+
+        type:"text",
+
+        text:
+            `Erkläre die Bedeutung von „${concept.keyword}“ im Zusammenhang mit dem Ausbildungsstoff.`,
+
+        context:concept.sentence,
+
+        reference:concept.sentence,
+
+        points:2
+
+    });
+}
+
+
+/* ============================================================
+   FRAGEN ERSTELLEN
+============================================================ */
+
+function generateQuestions(){
+
+    const material=
+        normalizeText(
+            document.getElementById(
+                "trainingMaterial"
+            ).value
+        );
+
+    const count=
+        Math.max(
+            1,
+            Math.min(
+                100,
+                Number(
+                    document.getElementById(
+                        "questionCount"
+                    ).value
+                )||15
+            )
+        );
+
+    const difficulty=
+        document.getElementById(
+            "examDifficulty"
+        ).value;
+
+    if(material.length<120){
+
+        toast(
+            "Bitte mehr Unterrichtsmaterial eingeben.",
+            "error"
+        );
+
+        return;
+    }
+
+    const sentences=
+        splitSentences(material);
+
+    if(sentences.length<3){
+
+        toast(
+            "Das Material enthält zu wenige verwertbare Aussagen.",
+            "error"
+        );
+
+        return;
+    }
+
+    const definitions=
+        extractDefinitions(
+            sentences
+        );
+
+    const rules=
+        extractRules(
+            sentences
+        );
+
+    const numbers=
+        extractNumbers(
+            sentences
+        );
+
+    const concepts=
+        extractQuestionConcepts(
+            sentences
+        );
+
+    let questions=[];
+
+    /*
+       Priorität 1:
+       Definitionen
+    */
+
+    definitions.forEach(def=>{
+
+        if(
+            questions.length<count
+        ){
+
+            questions.push(
+                makeDefinitionQuestion(def)
+            );
+
+        }
+
+    });
+
+
+    /*
+       Priorität 2:
+       Zahlen
+    */
+
+    shuffle(numbers).forEach(sentence=>{
+
+        if(
+            questions.length<count
+        ){
+
+            const q=
+                makeNumberQuestion(sentence);
+
+            if(q){
+                questions.push(q);
+            }
+
+        }
+
+    });
+
+
+    /*
+       Priorität 3:
+       Regeln
+    */
+
+    shuffle(rules).forEach(sentence=>{
+
+        if(
+            questions.length<count
+        ){
+
+            questions.push(
+                makeRuleQuestion(sentence)
+            );
+
+        }
+
+    });
+
+
+    /*
+       Priorität 4:
+       Fachbegriffe / Aussagen
+    */
+
+    shuffle(sentences).forEach(sentence=>{
+
+        if(
+            questions.length<count
+        ){
+
+            const q=
+                makeMCQuestion(
+                    sentence,
+                    questions.length
+                );
+
+            if(q){
+                questions.push(q);
+            }
+
+        }
+
+    });
+
+
+    /*
+       Bei mittlerer/schwerer Prüfung
+       zusätzliche Freitextfragen
+    */
+
+    const textTarget=
+        difficulty==="schwer"
+        ? Math.ceil(count*.25)
+        : difficulty==="mittel"
+        ? Math.ceil(count*.15)
+        : Math.ceil(count*.1);
+
+    let textCount=0;
+
+    shuffle(concepts).forEach(concept=>{
+
+        if(
+            questions.length<count &&
+            textCount<textTarget
+        ){
+
+            questions.push(
+                makeFreeTextQuestion(
+                    concept
+                )
+            );
+
+            textCount++;
+
+        }
+
+    });
+
+
+    /*
+       Falls noch Fragen fehlen
+    */
+
+    let safety=0;
+
+    while(
+        questions.length<count &&
+        safety<500
+    ){
+
+        safety++;
+
+        const sentence=
+            sentences[
+                safety %
+                sentences.length
+            ];
+
+        const q=
+            makeMCQuestion(
+                sentence,
+                safety
+            );
+
+        if(q){
+            questions.push(q);
+        }
+
+    }
+
+
+    /*
+       Keine doppelten Fragen
+    */
+
+    const unique=[];
+    const seen=new Set();
+
+    questions.forEach(q=>{
+
+        const key=
+            q.text+
+            "|" +
+            (q.context||"");
+
+        if(!seen.has(key)){
+
+            seen.add(key);
+            unique.push(q);
+
+        }
+
+    });
+
+
+    questions=
+        shuffle(unique)
+        .slice(0,count);
+
+
+    /*
+       Falls durch Duplikate weniger entstanden sind:
+       mit Freitext ergänzen
+    */
+
+    let index=0;
+
+    while(
+        questions.length<count &&
+        index<sentences.length
+    ){
+
+        questions.push(
+            makeFreeTextQuestion({
+                keyword:
+                    extractKeywords(
+                        sentences[index]
+                    )[0] ||
+                    "Ausbildungsinhalt",
+
+                sentence:
+                    sentences[index]
+            })
+        );
+
+        index++;
+
+    }
+
+
+    window.builderQuestions=
+        questions.map(normalizeQuestion);
+
+    renderQuestionBuilder();
+
+    toast(
+        `${window.builderQuestions.length} intelligente Fragen wurden erstellt.`
+    );
+}
+
+
+/* ============================================================
+   DATEI
+============================================================ */
+
+document.getElementById(
+    "materialFile"
+).addEventListener(
+    "change",
+    function(){
+
+        const file=this.files[0];
+
+        if(!file){
+            return;
+        }
+
+        const reader=
+            new FileReader();
+
+        reader.onload=()=>{
+            document.getElementById(
+                "trainingMaterial"
+            ).value=
+                reader.result;
+
+            toast(
+                "Unterrichtsmaterial geladen."
+            );
+        };
+
+        reader.readAsText(file);
+    }
+);
+
+
+/* ============================================================
    PRÜFUNG SPEICHERN
------------------------------ */
+============================================================ */
 
 function saveExam(){
 
     const title=
-        document.getElementById("examTitle").value.trim();
+        document.getElementById(
+            "examTitle"
+        ).value.trim();
 
     const code=
-        document.getElementById("examCode").value
+        document.getElementById(
+            "examCode"
+        ).value
         .trim()
         .toUpperCase();
 
     const passPercent=
-        Number(document.getElementById("examPass").value);
+        Number(
+            document.getElementById(
+                "examPass"
+            ).value
+        );
 
     const duration=
-        Number(document.getElementById("examDuration").value);
+        Number(
+            document.getElementById(
+                "examDuration"
+            ).value
+        );
 
     const difficulty=
-        document.getElementById("examDifficulty").value;
+        document.getElementById(
+            "examDifficulty"
+        ).value;
 
     const material=
-        document.getElementById("trainingMaterial").value.trim();
+        document.getElementById(
+            "trainingMaterial"
+        ).value.trim();
+
 
     if(!title){
-        toast("Bitte einen Prüfungstitel eingeben.","error");
+
+        toast(
+            "Bitte einen Titel eingeben.",
+            "error"
+        );
+
         return;
     }
 
     if(!code){
-        toast("Bitte einen Prüfungs-Code eingeben.","error");
+
+        toast(
+            "Bitte einen Prüfungs-Code eingeben.",
+            "error"
+        );
+
         return;
     }
 
-    if(!window.builderQuestions.length){
-        toast("Die Prüfung benötigt mindestens eine Frage.","error");
+    if(
+        !window.builderQuestions.length
+    ){
+
+        toast(
+            "Die Prüfung benötigt Fragen.",
+            "error"
+        );
+
         return;
     }
 
@@ -2572,29 +4233,48 @@ function saveExam(){
 
     if(
         exams.some(
-            exam=>exam.code.toUpperCase()===code
+            e=>
+                e.code.toUpperCase()===
+                code
         )
     ){
+
         toast(
             "Dieser Prüfungs-Code existiert bereits.",
             "error"
         );
+
         return;
     }
 
     const exam={
+
         id:uid("EXAM"),
+
         title,
+
         code,
+
         passPercent,
+
         duration,
+
         difficulty,
+
         material,
-        questions:JSON.parse(
-            JSON.stringify(window.builderQuestions)
-        ),
-        createdAt:new Date().toISOString(),
+
+        questions:
+            JSON.parse(
+                JSON.stringify(
+                    window.builderQuestions
+                )
+            ),
+
+        createdAt:
+            new Date().toISOString(),
+
         published:true
+
     };
 
     exams.push(exam);
@@ -2602,54 +4282,78 @@ function saveExam(){
     saveExams(exams);
 
     toast(
-        "Prüfung wurde erfolgreich veröffentlicht!"
+        "Prüfung veröffentlicht!"
     );
 
     clearBuilder(false);
 
     adminTab("exams");
-
 }
 
 
-/* -----------------------------
+/* ============================================================
    BUILDER LEEREN
------------------------------ */
+============================================================ */
 
 function clearBuilder(confirmIt=true){
 
     if(
         confirmIt &&
-        !confirm("Den gesamten aktuellen Entwurf löschen?")
+        !confirm(
+            "Den Entwurf wirklich löschen?"
+        )
     ){
         return;
     }
 
     window.builderQuestions=[];
 
-    document.getElementById("examTitle").value="";
-    document.getElementById("examCode").value="";
-    document.getElementById("examPass").value="50";
-    document.getElementById("examDuration").value="30";
-    document.getElementById("examDifficulty").value="mittel";
-    document.getElementById("questionCount").value="10";
-    document.getElementById("trainingMaterial").value="";
-    document.getElementById("materialFile").value="";
+    document.getElementById(
+        "examTitle"
+    ).value="";
+
+    document.getElementById(
+        "examCode"
+    ).value="";
+
+    document.getElementById(
+        "examPass"
+    ).value="50";
+
+    document.getElementById(
+        "examDuration"
+    ).value="30";
+
+    document.getElementById(
+        "examDifficulty"
+    ).value="mittel";
+
+    document.getElementById(
+        "questionCount"
+    ).value="15";
+
+    document.getElementById(
+        "trainingMaterial"
+    ).value="";
+
+    document.getElementById(
+        "materialFile"
+    ).value="";
 
     renderQuestionBuilder();
 }
 
 
-/* -----------------------------
+/* ============================================================
    VORSCHAU
------------------------------ */
+============================================================ */
 
 function previewExam(){
 
     if(!window.builderQuestions.length){
 
         toast(
-            "Es gibt noch keine Fragen.",
+            "Keine Fragen vorhanden.",
             "error"
         );
 
@@ -2657,28 +4361,47 @@ function previewExam(){
     }
 
     const title=
-        document.getElementById("examTitle").value ||
+        document.getElementById(
+            "examTitle"
+        ).value ||
         "Prüfungsvorschau";
 
-    document.getElementById("modalContent").innerHTML=`
+    document.getElementById(
+        "modalContent"
+    ).innerHTML=`
 
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+        ">
+
             <div>
-                <h2>${escapeHTML(title)}</h2>
-                <p style="color:var(--muted);margin-top:5px;">
-                    Vorschau
+                <h2>
+                    ${escapeHTML(title)}
+                </h2>
+
+                <p style="
+                    color:var(--muted);
+                    margin-top:5px;
+                ">
+                    Prüfungsvorschau
                 </p>
             </div>
 
-            <button class="btn btnSmall"
-                    onclick="closeModal()">
+            <button
+                class="btn btnSmall"
+                onclick="closeModal()">
                 ✕
             </button>
+
         </div>
 
-        <div style="margin-top:25px;">
 
-            ${window.builderQuestions.map((q,i)=>`
+        <div style="margin-top:20px;">
+
+            ${window.builderQuestions.map(
+                (q,i)=>`
 
                 <div class="questionEditor">
 
@@ -2692,76 +4415,77 @@ function previewExam(){
 
                     ${
                         q.context
-                        ? `<p style="color:var(--muted);margin-bottom:15px;">
+                        ?
+                        `
+                        <div class="contextBox">
                             ${escapeHTML(q.context)}
-                           </p>`
+                        </div>
+                        `
                         :""
                     }
 
                     ${
                         q.type==="mc"
-                        ? q.options.map(option=>`
+                        ?
+                        q.options.map(
+                            o=>`
                             <div class="optionLabel">
                                 <input type="radio" disabled>
-                                <span>${escapeHTML(option)}</span>
+                                <span>
+                                    ${escapeHTML(o)}
+                                </span>
                             </div>
-                        `).join("")
+                            `
+                        ).join("")
                         :""
                     }
 
                     ${
                         q.type==="tf"
-                        ? `
-                            <div class="optionLabel">
-                                <input type="radio" disabled>
-                                <span>Richtig</span>
-                            </div>
+                        ?
+                        `
+                        <div class="optionLabel">
+                            <input type="radio" disabled>
+                            <span>Richtig</span>
+                        </div>
 
-                            <div class="optionLabel">
-                                <input type="radio" disabled>
-                                <span>Falsch</span>
-                            </div>
+                        <div class="optionLabel">
+                            <input type="radio" disabled>
+                            <span>Falsch</span>
+                        </div>
                         `
                         :""
                     }
 
                     ${
                         q.type==="text"
-                        ? `
-                            <textarea
-                                placeholder="Antwort des Teilnehmers..."
-                                disabled
-                            ></textarea>
+                        ?
+                        `
+                        <textarea
+                            disabled
+                            placeholder="Antwort des Teilnehmers">
+                        </textarea>
                         `
                         :""
                     }
 
                 </div>
 
-            `).join("")}
+            `
+            ).join("")}
 
         </div>
+
     `;
 
-    document.getElementById("modal")
-        .classList.remove("hidden");
-}
-
-function closeModal(){
-    document.getElementById("modal")
-        .classList.add("hidden");
-}
-
-function closeModalOutside(event){
-
-    if(event.target.id==="modal"){
-        closeModal();
-    }
+    document.getElementById(
+        "modal"
+    ).classList.remove("hidden");
 }
 
 
 /* ============================================================
-   PRÜFUNGEN VERWALTEN
+   PRÜFUNGEN LISTE
 ============================================================ */
 
 function renderExams(){
@@ -2769,18 +4493,25 @@ function renderExams(){
     const exams=getExams();
 
     const search=
-        document.getElementById("examSearch")
-        ?.value
+        document.getElementById(
+            "examSearch"
+        )?.value
         .toLowerCase()
-        .trim() || "";
+        .trim()||"";
 
-    const filtered=exams.filter(exam=>
-        exam.title.toLowerCase().includes(search) ||
-        exam.code.toLowerCase().includes(search)
-    );
+    const filtered=
+        exams.filter(
+            e=>
+                e.title.toLowerCase()
+                    .includes(search)||
+                e.code.toLowerCase()
+                    .includes(search)
+        );
 
     const container=
-        document.getElementById("examList");
+        document.getElementById(
+            "examList"
+        );
 
     if(!filtered.length){
 
@@ -2801,6 +4532,7 @@ function renderExams(){
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Prüfung</th>
                         <th>Code</th>
@@ -2808,43 +4540,64 @@ function renderExams(){
                         <th>Zeit</th>
                         <th>Bestehen</th>
                         <th>Erstellt</th>
-                        <th>Aktionen</th>
+                        <th>Aktion</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
 
-                    ${filtered.map(exam=>`
+                    ${filtered.map(e=>`
 
                         <tr>
 
                             <td>
-                                <strong>${escapeHTML(exam.title)}</strong>
+                                <strong>
+                                    ${escapeHTML(e.title)}
+                                </strong>
                             </td>
 
                             <td>
                                 <span class="tag tagBlue">
-                                    ${escapeHTML(exam.code)}
+                                    ${escapeHTML(e.code)}
                                 </span>
                             </td>
 
-                            <td>${exam.questions.length}</td>
+                            <td>
+                                ${e.questions.length}
+                            </td>
 
-                            <td>${exam.duration} Min.</td>
+                            <td>
+                                ${e.duration} Min.
+                            </td>
 
-                            <td>${exam.passPercent}%</td>
+                            <td>
+                                ${e.passPercent}%
+                            </td>
 
-                            <td>${formatDate(exam.createdAt)}</td>
+                            <td>
+                                ${formatDate(e.createdAt)}
+                            </td>
 
                             <td>
 
-                                <button class="btn btnSmall"
-                                        onclick="copyExamLink('${escapeHTML(exam.code)}')">
+                                <button
+                                    class="btn btnSmall"
+                                    onclick="
+                                        copyExamLink(
+                                            '${e.code}'
+                                        )
+                                    ">
                                     🔗 Link
                                 </button>
 
-                                <button class="btn btnSmall btnDanger"
-                                        onclick="deleteExam('${exam.id}')">
+                                <button
+                                    class="btn btnSmall btnDanger"
+                                    onclick="
+                                        deleteExam(
+                                            '${e.id}'
+                                        )
+                                    ">
                                     🗑️
                                 </button>
 
@@ -2867,9 +4620,14 @@ function deleteExam(id){
 
     const exams=getExams();
 
-    const exam=exams.find(e=>e.id===id);
+    const exam=
+        exams.find(
+            e=>e.id===id
+        );
 
-    if(!exam) return;
+    if(!exam){
+        return;
+    }
 
     if(
         !confirm(
@@ -2880,10 +4638,14 @@ function deleteExam(id){
     }
 
     saveExams(
-        exams.filter(e=>e.id!==id)
+        exams.filter(
+            e=>e.id!==id
+        )
     );
 
-    toast("Prüfung wurde gelöscht.");
+    toast(
+        "Prüfung gelöscht."
+    );
 
     renderExams();
     updateDashboard();
@@ -2897,21 +4659,32 @@ function copyExamLink(code){
         "?pruefung="+
         encodeURIComponent(code);
 
-    navigator.clipboard.writeText(url)
-        .then(()=>{
-            toast("Teilnehmer-Link wurde kopiert.");
-        })
-        .catch(()=>{
-            prompt(
-                "Teilnehmer-Link:",
-                url
+    if(
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ){
+
+        navigator.clipboard.writeText(
+            url
+        ).then(()=>{
+            toast(
+                "Teilnehmer-Link kopiert."
             );
         });
+
+    }else{
+
+        prompt(
+            "Teilnehmer-Link:",
+            url
+        );
+
+    }
 }
 
 
 /* ============================================================
-   TEILNEHMER
+   TEILNEHMER PRÜFUNG
 ============================================================ */
 
 let runningExam=null;
@@ -2923,23 +4696,33 @@ let remainingSeconds=0;
 function startParticipantExam(){
 
     const first=
-        document.getElementById("participantFirst")
-        .value.trim();
+        document.getElementById(
+            "participantFirst"
+        ).value.trim();
 
     const last=
-        document.getElementById("participantLast")
-        .value.trim();
+        document.getElementById(
+            "participantLast"
+        ).value.trim();
 
     const fire=
-        document.getElementById("participantFire")
-        .value.trim();
+        document.getElementById(
+            "participantFire"
+        ).value.trim();
 
     const code=
-        document.getElementById("participantCode")
-        .value.trim()
+        document.getElementById(
+            "participantCode"
+        ).value
+        .trim()
         .toUpperCase();
 
-    if(!first || !last || !fire || !code){
+    if(
+        !first||
+        !last||
+        !fire||
+        !code
+    ){
 
         toast(
             "Bitte alle Felder ausfüllen.",
@@ -2949,17 +4732,17 @@ function startParticipantExam(){
         return;
     }
 
-    const exams=getExams();
-
     const exam=
-        exams.find(
-            e=>e.code.toUpperCase()===code
+        getExams().find(
+            e=>
+                e.code.toUpperCase()===
+                code
         );
 
     if(!exam){
 
         toast(
-            "Prüfung mit diesem Code wurde nicht gefunden.",
+            "Prüfung nicht gefunden.",
             "error"
         );
 
@@ -2978,23 +4761,29 @@ function startParticipantExam(){
 
     runningExam={
         exam,
+
         participant:{
             firstName:first,
             lastName:last,
             fireDepartment:fire
         }
+
     };
 
     currentQuestion=0;
 
     participantAnswers=
-        new Array(exam.questions.length)
-        .fill(null);
+        new Array(
+            exam.questions.length
+        ).fill(null);
 
-    remainingSeconds=exam.duration*60;
+    remainingSeconds=
+        exam.duration*60;
 
-    document.getElementById("examRunningTitle")
-        .textContent=exam.title;
+    document.getElementById(
+        "examRunningTitle"
+    ).textContent=
+        exam.title;
 
     showPage("exam");
 
@@ -3004,90 +4793,118 @@ function startParticipantExam(){
 }
 
 
-/* -----------------------------
+/* ============================================================
    TIMER
------------------------------ */
+============================================================ */
 
 function startExamTimer(){
 
-    clearInterval(examTimerInterval);
+    clearInterval(
+        examTimerInterval
+    );
 
     updateTimer();
 
-    examTimerInterval=setInterval(()=>{
+    examTimerInterval=
+        setInterval(()=>{
 
-        remainingSeconds--;
+            remainingSeconds--;
 
-        updateTimer();
+            updateTimer();
 
-        if(remainingSeconds<=0){
+            if(
+                remainingSeconds<=0
+            ){
 
-            clearInterval(examTimerInterval);
+                clearInterval(
+                    examTimerInterval
+                );
 
-            toast(
-                "Die Prüfungszeit ist abgelaufen."
-            );
+                submitExam(true);
 
-            submitExam(true);
-        }
+            }
 
-    },1000);
+        },1000);
 }
 
 function updateTimer(){
 
     const minutes=
-        Math.floor(remainingSeconds/60)
+        Math.floor(
+            remainingSeconds/60
+        )
         .toString()
         .padStart(2,"0");
 
     const seconds=
-        (remainingSeconds%60)
+        (
+            remainingSeconds%60
+        )
         .toString()
         .padStart(2,"0");
 
     const timer=
-        document.getElementById("examTimer");
+        document.getElementById(
+            "examTimer"
+        );
 
     timer.textContent=
-        `${minutes}:${seconds}`;
+        minutes+":"+seconds;
 
     timer.classList.remove(
         "warning",
         "danger"
     );
 
-    if(remainingSeconds<=300){
-        timer.classList.add("warning");
+    if(
+        remainingSeconds<=300
+    ){
+        timer.classList.add(
+            "warning"
+        );
     }
 
-    if(remainingSeconds<=60){
-        timer.classList.add("danger");
+    if(
+        remainingSeconds<=60
+    ){
+        timer.classList.add(
+            "danger"
+        );
     }
 }
 
 
-/* -----------------------------
-   FRAGE RENDERN
------------------------------ */
+/* ============================================================
+   FRAGE ANZEIGEN
+============================================================ */
 
 function renderExamQuestion(){
 
-    if(!runningExam) return;
+    if(!runningExam){
+        return;
+    }
 
     const questions=
         runningExam.exam.questions;
 
-    const q=questions[currentQuestion];
+    const q=
+        questions[currentQuestion];
 
-    const total=questions.length;
+    const total=
+        questions.length;
 
-    document.getElementById("examProgress")
-        .style.width=
-        ((currentQuestion+1)/total*100)+"%";
+    document.getElementById(
+        "examProgress"
+    ).style.width=
+        (
+            (currentQuestion+1)/
+            total*
+            100
+        )+"%";
 
-    document.getElementById("examProgressText")
-        .textContent=
+    document.getElementById(
+        "examProgressText"
+    ).textContent=
         `Frage ${currentQuestion+1} von ${total}`;
 
     const container=
@@ -3095,27 +4912,43 @@ function renderExamQuestion(){
             "examQuestionContainer"
         );
 
+    const answer=
+        participantAnswers[
+            currentQuestion
+        ];
+
     let html=`
 
         <div class="examQuestion">
 
-            <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:15px;">
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                gap:10px;
+                flex-wrap:wrap;
+            ">
 
                 <span class="tag tagBlue">
+
                     ${
                         q.type==="mc"
-                        ? "Multiple Choice"
-                        : q.type==="tf"
-                        ? "Richtig / Falsch"
-                        : "Freitext"
+                        ?"Multiple Choice"
+                        :
+                        q.type==="tf"
+                        ?"Richtig / Falsch"
+                        :
+                        "Freitext"
                     }
+
                 </span>
 
                 <span class="tag">
-                    ${q.points||1} Punkt${(q.points||1)!==1?"e":""}
+                    ${q.points||1}
+                    Punkt${(q.points||1)!==1?"e":""}
                 </span>
 
             </div>
+
 
             <h2>
                 ${escapeHTML(q.text)}
@@ -3123,87 +4956,122 @@ function renderExamQuestion(){
 
             ${
                 q.context
-                ? `
-                    <div style="
-                        background:#0b1017;
-                        border:1px solid var(--border);
-                        border-radius:12px;
-                        padding:15px;
-                        color:#cbd4df;
-                        line-height:1.6;
-                        margin-bottom:20px;
-                    ">
-                        ${escapeHTML(q.context)}
-                    </div>
+                ?
+                `
+                <div class="contextBox">
+                    ${escapeHTML(q.context)}
+                </div>
                 `
                 :""
             }
 
     `;
 
-    const answer=participantAnswers[currentQuestion];
 
     if(q.type==="mc"){
 
-        html+=q.options.map(option=>`
+        html+=
+            q.options.map(
+                option=>`
 
-            <label class="optionLabel ${
-                answer===option ? "selected" : ""
-            }">
+                <label class="
+                    optionLabel
+                    ${
+                        answer===option
+                        ?"selected"
+                        :""
+                    }
+                ">
 
-                <input
-                    type="radio"
-                    name="examAnswer"
-                    value="${escapeHTML(option)}"
-                    ${answer===option?"checked":""}
-                    onchange="selectAnswer(this.value)"
-                >
+                    <input
+                        type="radio"
+                        name="examAnswer"
+                        ${
+                            answer===option
+                            ?"checked"
+                            :""
+                        }
+                        onchange="
+                            selectAnswer(
+                                this.value
+                            )
+                        ">
 
-                <span>${escapeHTML(option)}</span>
+                    <span>
+                        ${escapeHTML(option)}
+                    </span>
 
-            </label>
+                </label>
 
-        `).join("");
+            `
+            ).join("");
 
     }
+
 
     if(q.type==="tf"){
 
         html+=`
 
-            <label class="optionLabel ${
-                answer===true ? "selected" : ""
-            }">
+            <label class="
+                optionLabel
+                ${
+                    answer===true
+                    ?"selected"
+                    :""
+                }
+            ">
 
                 <input
                     type="radio"
                     name="examAnswer"
-                    ${answer===true?"checked":""}
-                    onchange="selectAnswer(true)"
-                >
+                    ${
+                        answer===true
+                        ?"checked"
+                        :""
+                    }
+                    onchange="
+                        selectAnswer(true)
+                    ">
 
-                <span>Richtig</span>
+                <span>
+                    Richtig
+                </span>
 
             </label>
 
-            <label class="optionLabel ${
-                answer===false ? "selected" : ""
-            }">
+
+            <label class="
+                optionLabel
+                ${
+                    answer===false
+                    ?"selected"
+                    :""
+                }
+            ">
 
                 <input
                     type="radio"
                     name="examAnswer"
-                    ${answer===false?"checked":""}
-                    onchange="selectAnswer(false)"
-                >
+                    ${
+                        answer===false
+                        ?"checked"
+                        :""
+                    }
+                    onchange="
+                        selectAnswer(false)
+                    ">
 
-                <span>Falsch</span>
+                <span>
+                    Falsch
+                </span>
 
             </label>
 
         `;
 
     }
+
 
     if(q.type==="text"){
 
@@ -3212,13 +5080,19 @@ function renderExamQuestion(){
             <textarea
                 id="freeTextAnswer"
                 placeholder="Deine Antwort..."
-                oninput="selectAnswer(this.value)"
-                style="min-height:190px;"
-            >${escapeHTML(answer || "")}</textarea>
+                oninput="
+                    participantAnswers[
+                        currentQuestion
+                    ]=this.value
+                "
+            >${escapeHTML(
+                answer||""
+            )}</textarea>
 
         `;
 
     }
+
 
     html+=`
 
@@ -3228,47 +5102,61 @@ function renderExamQuestion(){
 
     container.innerHTML=html;
 
-    document.getElementById("examPrevious")
-        .disabled=currentQuestion===0;
+    document.getElementById(
+        "examPrevious"
+    ).disabled=
+        currentQuestion===0;
 
-    const nextButton=
-        document.getElementById("examNext");
+    const next=
+        document.getElementById(
+            "examNext"
+        );
 
-    if(currentQuestion===total-1){
+    if(
+        currentQuestion===
+        total-1
+    ){
 
-        nextButton.textContent="✓ Prüfung abgeben";
+        next.textContent=
+            "✓ Prüfung abgeben";
 
-        nextButton.classList.add("btnGreen");
+        next.classList.add(
+            "btnGreen"
+        );
 
     }else{
 
-        nextButton.textContent="Weiter →";
+        next.textContent=
+            "Weiter →";
 
-        nextButton.classList.remove("btnGreen");
+        next.classList.remove(
+            "btnGreen"
+        );
 
     }
 }
 
 function selectAnswer(value){
 
-    participantAnswers[currentQuestion]=value;
+    participantAnswers[
+        currentQuestion
+    ]=value;
 
     renderExamQuestion();
-
-    /*
-       Bei Freitext wird der Fokus nicht erneut gesetzt.
-       Die Eingabe bleibt trotzdem gespeichert.
-    */
 }
 
 
-/* -----------------------------
-   NAVIGATION
------------------------------ */
+/* ============================================================
+   NAVIGATION PRÜFUNG
+============================================================ */
 
 function previousQuestion(){
 
-    if(currentQuestion<=0) return;
+    if(
+        currentQuestion<=0
+    ){
+        return;
+    }
 
     currentQuestion--;
 
@@ -3277,9 +5165,14 @@ function previousQuestion(){
 
 function nextQuestion(){
 
-    if(!runningExam) return;
+    if(!runningExam){
+        return;
+    }
 
-    if(currentQuestion>=runningExam.exam.questions.length-1){
+    if(
+        currentQuestion>=
+        runningExam.exam.questions.length-1
+    ){
 
         submitExam(false);
 
@@ -3298,123 +5191,132 @@ function nextQuestion(){
 
 
 /* ============================================================
-   AUSWERTUNG
+   PRÜFUNG AUSWERTEN
 ============================================================ */
 
 function submitExam(autoSubmit=false){
 
-    if(!runningExam) return;
+    if(!runningExam){
+        return;
+    }
 
     if(!autoSubmit){
 
         const unanswered=
             participantAnswers.filter(
-                a=>a===null ||
-                a===undefined ||
-                a===""
+                a=>
+                    a===null||
+                    a===undefined||
+                    a===""
             ).length;
 
         if(unanswered>0){
 
-            const proceed=confirm(
-                `Es sind noch ${unanswered} Frage(n) unbeantwortet. Prüfung trotzdem abgeben?`
-            );
-
-            if(!proceed){
+            if(
+                !confirm(
+                    `Es sind noch ${unanswered} Frage(n) unbeantwortet. Trotzdem abgeben?`
+                )
+            ){
                 return;
             }
+
         }
 
     }
 
-    clearInterval(examTimerInterval);
+    clearInterval(
+        examTimerInterval
+    );
 
-    const exam=runningExam.exam;
+    const exam=
+        runningExam.exam;
 
     let automaticPoints=0;
-    let manualPoints=0;
     let maxPoints=0;
     let needsManual=false;
 
     const questionResults=
-        exam.questions.map((q,index)=>{
+        exam.questions.map(
+            (q,index)=>{
 
-            const answer=
-                participantAnswers[index];
+                const answer=
+                    participantAnswers[index];
 
-            const points=
-                Number(q.points)||1;
+                const points=
+                    Number(q.points)||1;
 
-            maxPoints+=points;
+                maxPoints+=points;
 
-            let correct=null;
-            let earned=0;
+                let correct=null;
+                let earned=0;
 
-            if(q.type==="mc"){
+                if(
+                    q.type==="mc"||
+                    q.type==="tf"
+                ){
 
-                correct=
-                    answer===q.correct;
+                    correct=
+                        answer===q.correct;
 
-                if(correct){
-                    earned=points;
-                    automaticPoints+=points;
+                    if(correct){
+
+                        earned=points;
+
+                        automaticPoints+=points;
+
+                    }
+
                 }
 
-            }
+                if(
+                    q.type==="text"
+                ){
 
-            if(q.type==="tf"){
+                    needsManual=true;
 
-                correct=
-                    answer===q.correct;
-
-                if(correct){
-                    earned=points;
-                    automaticPoints+=points;
                 }
 
+                return {
+
+                    questionId:q.id,
+
+                    question:q.text,
+
+                    type:q.type,
+
+                    answer,
+
+                    correctAnswer:
+                        q.type==="text"
+                        ?q.reference||""
+                        :q.correct,
+
+                    points,
+
+                    earned,
+
+                    correct
+
+                };
+
             }
+        );
 
-            if(q.type==="text"){
 
-                needsManual=true;
-
-                correct=null;
-
-                earned=0;
-
-            }
-
-            return {
-                questionId:q.id,
-                question:q.text,
-                type:q.type,
-                answer,
-                correctAnswer:q.type==="text"
-                    ? q.reference || ""
-                    : q.correct,
-                points,
-                earned,
-                correct
-            };
-
-        });
-
-    /*
-       Automatische Punkte + mögliche manuelle Punkte.
-       Bis zur manuellen Korrektur wird nur die automatische
-       Punktzahl angezeigt.
-    */
-
-    const provisionalPercent=
+    const percent=
         maxPoints
-        ? Math.round(
-            automaticPoints/maxPoints*100
+        ?
+        Math.round(
+            automaticPoints/
+            maxPoints*
+            100
         )
-        : 0;
+        :0;
 
     const passed=
         !needsManual &&
-        provisionalPercent>=exam.passPercent;
+        percent>=exam.passPercent;
+
 
     const result={
 
@@ -3430,33 +5332,34 @@ function submitExam(autoSubmit=false){
             ...runningExam.participant
         },
 
-        answers:[
-            ...participantAnswers
-        ],
-
         questionResults,
 
         automaticPoints,
 
-        manualPoints,
+        manualPoints:0,
 
         maxPoints,
 
-        percent:provisionalPercent,
+        percent,
 
         passed,
 
-        needsManualCorrection:needsManual,
+        needsManualCorrection:
+            needsManual,
 
-        passPercent:exam.passPercent,
+        passPercent:
+            exam.passPercent,
 
-        submittedAt:new Date().toISOString(),
+        submittedAt:
+            new Date().toISOString(),
 
-        autoSubmitted:autoSubmit
+        autoSubmitted:
+            autoSubmit
 
     };
 
-    const results=getResults();
+    const results=
+        getResults();
 
     results.push(result);
 
@@ -3468,58 +5371,81 @@ function submitExam(autoSubmit=false){
 }
 
 
-/* -----------------------------
+/* ============================================================
    ERGEBNIS
------------------------------ */
+============================================================ */
 
 function showResult(result){
 
     showPage("result");
 
     const circle=
-        document.getElementById("resultCircle");
+        document.getElementById(
+            "resultCircle"
+        );
 
     circle.classList.toggle(
         "fail",
         !result.passed
     );
 
-    document.getElementById("resultPercent")
-        .textContent=result.percent+"%";
+    document.getElementById(
+        "resultPercent"
+    ).textContent=
+        result.percent+"%";
 
-    document.getElementById("resultTitle")
-        .textContent=
-        result.passed
-        ? "Prüfung bestanden"
-        : result.needsManualCorrection
-            ? "Prüfung abgegeben"
-            : "Prüfung nicht bestanden";
-
-    document.getElementById("resultMessage")
-        .textContent=
+    document.getElementById(
+        "resultTitle"
+    ).textContent=
         result.needsManualCorrection
-        ? "Ein Ausbilder muss die Freitextantworten noch korrigieren."
-        : result.passed
-            ? "Herzlichen Glückwunsch! Die Prüfung wurde bestanden."
-            : "Die erforderliche Bestehensgrenze wurde nicht erreicht.";
+        ?
+        "Prüfung abgegeben"
+        :
+        result.passed
+        ?
+        "Prüfung bestanden"
+        :
+        "Prüfung nicht bestanden";
 
-    document.getElementById("resultPoints")
-        .textContent=
+    document.getElementById(
+        "resultMessage"
+    ).textContent=
+        result.needsManualCorrection
+        ?
+        "Ein Ausbilder muss noch die Freitextantworten korrigieren."
+        :
+        result.passed
+        ?
+        "Die Bestehensgrenze wurde erreicht."
+        :
+        "Die Bestehensgrenze wurde nicht erreicht.";
+
+    document.getElementById(
+        "resultPoints"
+    ).textContent=
         `${result.automaticPoints}/${result.maxPoints}`;
 
-    document.getElementById("resultPassed")
-        .textContent=
+    document.getElementById(
+        "resultPassed"
+    ).textContent=
         result.passed
-        ? "BESTANDEN"
-        : result.needsManualCorrection
-            ? "OFFEN"
-            : "NICHT BESTANDEN";
-
-    document.getElementById("resultManual")
-        .textContent=
+        ?
+        "BESTANDEN"
+        :
         result.needsManualCorrection
-        ? "Ja"
-        : "Nein";
+        ?
+        "OFFEN"
+        :
+        "NICHT BESTANDEN";
+
+    document.getElementById(
+        "resultManual"
+    ).textContent=
+        result.needsManualCorrection
+        ?
+        "Ja"
+        :
+        "Nein";
 }
 
 
@@ -3529,34 +5455,42 @@ function showResult(result){
 
 function renderResults(){
 
-    const results=getResults();
+    const results=
+        getResults();
 
     const search=
-        document.getElementById("resultSearch")
-        ?.value
+        document.getElementById(
+            "resultSearch"
+        )?.value
         .toLowerCase()
-        .trim() || "";
+        .trim()||"";
 
-    const filtered=results.filter(result=>{
+    const filtered=
+        results.filter(r=>{
 
-        const name=
-            result.participant.firstName+
-            " "+
-            result.participant.lastName;
+            const name=
+                r.participant.firstName+
+                " "+
+                r.participant.lastName;
 
-        return(
-            name.toLowerCase().includes(search) ||
-            result.examTitle.toLowerCase().includes(search) ||
-            result.examCode.toLowerCase().includes(search) ||
-            result.participant.fireDepartment
-                .toLowerCase()
-                .includes(search)
-        );
+            return(
+                name.toLowerCase()
+                    .includes(search)||
+                r.examTitle.toLowerCase()
+                    .includes(search)||
+                r.examCode.toLowerCase()
+                    .includes(search)||
+                r.participant.fireDepartment
+                    .toLowerCase()
+                    .includes(search)
+            );
 
-    });
+        });
 
     const container=
-        document.getElementById("resultList");
+        document.getElementById(
+            "resultList"
+        );
 
     if(!filtered.length){
 
@@ -3577,6 +5511,7 @@ function renderResults(){
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Teilnehmer</th>
                         <th>Feuerwehr</th>
@@ -3586,6 +5521,7 @@ function renderResults(){
                         <th>Datum</th>
                         <th></th>
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -3593,47 +5529,53 @@ function renderResults(){
                     ${[...filtered]
                         .sort(
                             (a,b)=>
-                            new Date(b.submittedAt)-
-                            new Date(a.submittedAt)
+                                new Date(
+                                    b.submittedAt
+                                )-
+                                new Date(
+                                    a.submittedAt
+                                )
                         )
-                        .map(result=>`
+                        .map(r=>`
 
                         <tr>
 
                             <td>
                                 <strong>
                                     ${escapeHTML(
-                                        result.participant.firstName+
+                                        r.participant.firstName+
                                         " "+
-                                        result.participant.lastName
+                                        r.participant.lastName
                                     )}
                                 </strong>
                             </td>
 
                             <td>
                                 ${escapeHTML(
-                                    result.participant.fireDepartment
+                                    r.participant.fireDepartment
                                 )}
                             </td>
 
                             <td>
-                                ${escapeHTML(result.examTitle)}
+                                ${escapeHTML(
+                                    r.examTitle
+                                )}
                             </td>
 
                             <td>
-                                ${result.percent}%
+                                ${r.percent}%
                             </td>
 
                             <td>
 
                                 ${
-                                    result.needsManualCorrection
+                                    r.needsManualCorrection
                                     ?
                                     `<span class="tag tagYellow">
                                         KORREKTUR
                                     </span>`
                                     :
-                                    result.passed
+                                    r.passed
                                     ?
                                     `<span class="tag tagGreen">
                                         BESTANDEN
@@ -3647,14 +5589,20 @@ function renderResults(){
                             </td>
 
                             <td>
-                                ${formatDate(result.submittedAt)}
+                                ${formatDate(
+                                    r.submittedAt
+                                )}
                             </td>
 
                             <td>
 
                                 <button
                                     class="btn btnSmall"
-                                    onclick="openResult('${result.id}')">
+                                    onclick="
+                                        openResult(
+                                            '${r.id}'
+                                        )
+                                    ">
                                     👁️ Öffnen
                                 </button>
 
@@ -3674,22 +5622,33 @@ function renderResults(){
 }
 
 
-/* -----------------------------
+/* ============================================================
    ERGEBNIS ÖFFNEN
------------------------------ */
+============================================================ */
 
 function openResult(id){
 
     const result=
-        getResults().find(r=>r.id===id);
+        getResults().find(
+            r=>r.id===id
+        );
 
-    if(!result) return;
+    if(!result){
+        return;
+    }
 
-    document.getElementById("modalContent").innerHTML=`
+    document.getElementById(
+        "modalContent"
+    ).innerHTML=`
 
-        <div style="display:flex;justify-content:space-between;gap:10px;">
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+        ">
 
             <div>
+
                 <h2>
                     ${escapeHTML(
                         result.participant.firstName+
@@ -3698,52 +5657,84 @@ function openResult(id){
                     )}
                 </h2>
 
-                <p style="color:var(--muted);margin-top:5px;">
-                    ${escapeHTML(result.examTitle)}
+                <p style="
+                    color:var(--muted);
+                    margin-top:5px;
+                ">
+                    ${escapeHTML(
+                        result.examTitle
+                    )}
                 </p>
+
             </div>
 
-            <button class="btn btnSmall"
-                    onclick="closeModal()">
+            <button
+                class="btn btnSmall"
+                onclick="closeModal()">
                 ✕
             </button>
 
         </div>
 
-        <div class="grid grid3" style="margin-top:20px;">
+
+        <div class="grid grid3"
+             style="margin-top:20px;">
 
             <div class="mini">
-                <strong>${result.percent}%</strong>
-                <span>Aktuelles Ergebnis</span>
+                <strong>
+                    ${result.percent}%
+                </strong>
+
+                <span>
+                    Ergebnis
+                </span>
             </div>
 
             <div class="mini">
-                <strong>${result.automaticPoints}</strong>
-                <span>Automatische Punkte</span>
+                <strong>
+                    ${result.automaticPoints}
+                </strong>
+
+                <span>
+                    Automatische Punkte
+                </span>
             </div>
 
             <div class="mini">
-                <strong>${result.maxPoints}</strong>
-                <span>Max. Punkte</span>
+                <strong>
+                    ${result.maxPoints}
+                </strong>
+
+                <span>
+                    Maximal
+                </span>
             </div>
 
         </div>
 
-        <div style="margin-top:25px;">
 
-            ${result.questionResults.map((q,index)=>`
+        <div style="margin-top:22px;">
+
+            ${result.questionResults.map(
+                (q,index)=>`
 
                 <div class="questionEditor">
 
-                    <div style="display:flex;justify-content:space-between;gap:10px;">
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:10px;
+                    ">
 
-                        <strong>Frage ${index+1}</strong>
+                        <strong>
+                            Frage ${index+1}
+                        </strong>
 
                         ${
                             q.type==="text"
                             ?
                             `<span class="tag tagYellow">
-                                Manuelle Korrektur
+                                Korrektur
                             </span>`
                             :
                             q.correct
@@ -3759,34 +5750,48 @@ function openResult(id){
 
                     </div>
 
+
                     <h3 style="margin:12px 0;">
-                        ${escapeHTML(q.question)}
+                        ${escapeHTML(
+                            q.question
+                        )}
                     </h3>
 
+
                     <div style="
-                        background:#0b1017;
                         padding:13px;
+                        background:#090e15;
+                        border:1px solid var(--border);
                         border-radius:10px;
                         margin-bottom:12px;
                     ">
 
-                        <strong>Antwort:</strong><br>
+                        <strong>
+                            Antwort:
+                        </strong>
+
+                        <br>
 
                         ${
-                            q.answer===null ||
-                            q.answer===undefined ||
+                            q.answer===null||
+                            q.answer===undefined||
                             q.answer===""
-                            ? "<em>Keine Antwort</em>"
-                            : escapeHTML(
+                            ?
+                            "<em>Keine Antwort</em>"
+                            :
+                            escapeHTML(
                                 typeof q.answer==="boolean"
-                                ? q.answer
-                                    ? "Richtig"
-                                    : "Falsch"
-                                : q.answer
+                                ?
+                                q.answer
+                                ?"Richtig"
+                                :"Falsch"
+                                :
+                                q.answer
                             )
                         }
 
                     </div>
+
 
                     ${
                         q.type==="text"
@@ -3797,33 +5802,37 @@ function openResult(id){
 
                             <label>
                                 Punkte vergeben
+                                (max. ${q.points})
                             </label>
 
                             <input
+                                id="manual-${result.id}-${index}"
                                 type="number"
                                 min="0"
                                 max="${q.points}"
-                                value="${q.earned}"
-                                id="manual-${result.id}-${index}"
-                            >
+                                value="${q.earned||0}">
 
                         </div>
+
 
                         <div style="
                             color:var(--muted);
-                            font-size:13px;
-                            margin-bottom:10px;
+                            font-size:12px;
+                            line-height:1.6;
                         ">
+
                             Musterlösung:
+                            <br>
+
                             ${escapeHTML(
-                                q.correctAnswer ||
+                                q.correctAnswer||
                                 "Keine Musterlösung hinterlegt."
                             )}
+
                         </div>
 
                         `
-                        :
-                        ""
+                        :""
                     }
 
                 </div>
@@ -3832,93 +5841,114 @@ function openResult(id){
 
         </div>
 
+
         ${
             result.needsManualCorrection
             ?
             `
-            <button class="btn btnGreen btnFull"
-                    onclick="saveManualCorrection('${result.id}')">
+            <button
+                class="btn btnGreen btnFull"
+                onclick="
+                    saveManualCorrection(
+                        '${result.id}'
+                    )
+                ">
                 ✓ Korrektur speichern
             </button>
             `
-            :
-            ""
+            :""
         }
 
     `;
 
-    document.getElementById("modal")
-        .classList.remove("hidden");
+    document.getElementById(
+        "modal"
+    ).classList.remove("hidden");
 }
 
 
-/* -----------------------------
+/* ============================================================
    MANUELLE KORREKTUR
------------------------------ */
+============================================================ */
 
 function saveManualCorrection(id){
 
-    const results=getResults();
+    const results=
+        getResults();
 
     const result=
-        results.find(r=>r.id===id);
+        results.find(
+            r=>r.id===id
+        );
 
-    if(!result) return;
+    if(!result){
+        return;
+    }
 
     let manualPoints=0;
 
-    result.questionResults.forEach((q,index)=>{
+    result.questionResults
+        .forEach(
+            (q,index)=>{
 
-        if(q.type!=="text"){
-            return;
-        }
+                if(
+                    q.type!=="text"
+                ){
+                    return;
+                }
 
-        const input=
-            document.getElementById(
-                `manual-${id}-${index}`
-            );
+                const input=
+                    document.getElementById(
+                        `manual-${id}-${index}`
+                    );
 
-        if(!input) return;
+                if(!input){
+                    return;
+                }
 
-        let points=
-            Number(input.value)||0;
+                let points=
+                    Number(input.value)||0;
 
-        points=Math.max(
-            0,
-            Math.min(points,q.points)
+                points=
+                    Math.max(
+                        0,
+                        Math.min(
+                            points,
+                            q.points
+                        )
+                    );
+
+                q.earned=points;
+
+                manualPoints+=points;
+
+            }
         );
 
-        q.earned=points;
 
-        manualPoints+=points;
+    result.manualPoints=
+        manualPoints;
 
-    });
-
-    result.manualPoints=manualPoints;
-
-    result.questionResults.forEach(q=>{
-
-        if(q.type==="mc" || q.type==="tf"){
-            // automatische Punkte bleiben bestehen
-        }
-
-    });
-
-    const totalEarned=
+    const total=
         result.automaticPoints+
         result.manualPoints;
 
     result.percent=
         result.maxPoints
-        ? Math.round(
-            totalEarned/result.maxPoints*100
+        ?
+        Math.round(
+            total/
+            result.maxPoints*
+            100
         )
-        : 0;
+        :0;
 
     result.passed=
-        result.percent>=result.passPercent;
+        result.percent>=
+        result.passPercent;
 
-    result.needsManualCorrection=false;
+    result.needsManualCorrection=
+        false;
 
     result.correctedAt=
         new Date().toISOString();
@@ -3928,23 +5958,45 @@ function saveManualCorrection(id){
     closeModal();
 
     toast(
-        "Manuelle Korrektur wurde gespeichert."
+        "Korrektur gespeichert."
     );
 
     renderResults();
-
     updateDashboard();
 }
 
 
 /* ============================================================
-   URL PRÜFUNGS-CODE
+   MODAL
+============================================================ */
+
+function closeModal(){
+
+    document.getElementById(
+        "modal"
+    ).classList.add("hidden");
+}
+
+function closeModalOutside(event){
+
+    if(
+        event.target.id==="modal"
+    ){
+        closeModal();
+    }
+}
+
+
+/* ============================================================
+   URL PRÜFUNGSCODE
 ============================================================ */
 
 function checkURLExamCode(){
 
     const params=
-        new URLSearchParams(location.search);
+        new URLSearchParams(
+            location.search
+        );
 
     const code=
         params.get("pruefung");
@@ -3953,86 +6005,61 @@ function checkURLExamCode(){
         return;
     }
 
-    document.getElementById("participantCode")
-        .value=code.toUpperCase();
+    document.getElementById(
+        "participantCode"
+    ).value=
+        code.toUpperCase();
 
     showPage("participant");
 
     toast(
-        "Prüfungs-Code wurde automatisch übernommen."
+        "Prüfungs-Code wurde übernommen."
     );
 }
 
 
 /* ============================================================
-   ENTER-TASTE LOGIN
+   ENTER LOGIN
 ============================================================ */
 
-document.getElementById("loginPassword")
-.addEventListener("keydown",function(event){
-
-    if(event.key==="Enter"){
-        loginAdmin();
-    }
-
-});
-
-
-/* ============================================================
-   INITIALISIERUNG
-============================================================ */
-
-window.addEventListener("load",()=>{
-
-    renderQuestionBuilder();
-
-    updateHomeStats();
-
-    checkURLExamCode();
-
-});
-
-
-/* ============================================================
-   VERHINDERN DES VERSEHENTLICHEN SCHLIESSENS
-   WÄHREND EINER PRÜFUNG
-============================================================ */
-
-window.addEventListener("beforeunload",function(event){
-
-    if(runningExam){
-
-        event.preventDefault();
-
-        event.returnValue="Die laufende Prüfung wird beendet.";
-
-    }
-
-});
-
-
-/* ============================================================
-   TASTATUR-HILFE
-============================================================ */
-
-document.addEventListener("keydown",function(event){
-
-    if(!runningExam) return;
-
-    if(event.key==="ArrowRight"){
+document.getElementById(
+    "loginPassword"
+).addEventListener(
+    "keydown",
+    event=>{
 
         if(
+            event.key==="Enter"
+        ){
+            loginAdmin();
+        }
+
+    }
+);
+
+
+/* ============================================================
+   TASTATUR
+============================================================ */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(!runningExam){
+            return;
+        }
+
+        if(
+            event.key==="ArrowRight" &&
             document.activeElement.tagName!=="TEXTAREA" &&
             document.activeElement.tagName!=="INPUT"
         ){
             nextQuestion();
         }
 
-    }
-
-    if(event.key==="ArrowLeft"){
-
         if(
+            event.key==="ArrowLeft" &&
             document.activeElement.tagName!=="TEXTAREA" &&
             document.activeElement.tagName!=="INPUT"
         ){
@@ -4040,8 +6067,46 @@ document.addEventListener("keydown",function(event){
         }
 
     }
+);
 
-});
+
+/* ============================================================
+   VERLASSEN WARNUNG
+============================================================ */
+
+window.addEventListener(
+    "beforeunload",
+    event=>{
+
+        if(runningExam){
+
+            event.preventDefault();
+
+            event.returnValue=
+                "Die laufende Prüfung wird beendet.";
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   START
+============================================================ */
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        renderQuestionBuilder();
+
+        updateHomeStats();
+
+        checkURLExamCode();
+
+    }
+);
 </script>
 
 </body>
